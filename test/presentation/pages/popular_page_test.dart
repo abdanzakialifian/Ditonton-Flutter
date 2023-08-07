@@ -7,8 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-
-import 'popular_movies_page_test.mocks.dart';
+import 'popular_page_test.mocks.dart';
 
 @GenerateMocks([PopularNotifier])
 void main() {

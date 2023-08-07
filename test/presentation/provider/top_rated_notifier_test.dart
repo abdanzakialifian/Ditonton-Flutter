@@ -7,8 +7,7 @@ import 'package:ditonton/presentation/provider/top_rated_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
-import 'top_rated_movies_notifier_test.mocks.dart';
+import 'top_rated_notifier_test.mocks.dart';
 
 @GenerateMocks([GetTopRatedMovies])
 void main() {
