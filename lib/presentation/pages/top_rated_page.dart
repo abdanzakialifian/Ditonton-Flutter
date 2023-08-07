@@ -1,34 +1,39 @@
+import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton/presentation/provider/top_rated_notifier.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TopRatedMoviesPage extends StatefulWidget {
+class TopRatedPage extends StatefulWidget {
   static const ROUTE_NAME = '/top-rated-movie';
+  final String? type;
+
+  const TopRatedPage({Key? key, required this.type}) : super(key: key);
 
   @override
-  _TopRatedMoviesPageState createState() => _TopRatedMoviesPageState();
+  _TopRatedPageState createState() => _TopRatedPageState();
 }
 
-class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
+class _TopRatedPageState extends State<TopRatedPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-            .fetchTopRatedMovies());
+    Future.microtask(() => Provider.of<TopRatedNotifier>(context, listen: false)
+        .fetchTopRatedMovies());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Top Rated Movies'),
+        title: Text(
+          widget.type == MOVIES ? 'Top Rated Movies' : 'Top Rated Tv Shows',
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<TopRatedMoviesNotifier>(
+        child: Consumer<TopRatedNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.Loading) {
               return Center(

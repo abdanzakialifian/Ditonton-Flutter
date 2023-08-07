@@ -9,7 +9,7 @@ import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class MovieDetailNotifier extends ChangeNotifier {
+class DetailNotifier extends ChangeNotifier {
   static const watchlistAddSuccessMessage = 'Added to Watchlist';
   static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
 
@@ -19,7 +19,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   final SaveWatchlist saveWatchlist;
   final RemoveWatchlist removeWatchlist;
 
-  MovieDetailNotifier({
+  DetailNotifier({
     required this.getMovieDetail,
     required this.getMovieRecommendations,
     required this.getWatchListStatus,

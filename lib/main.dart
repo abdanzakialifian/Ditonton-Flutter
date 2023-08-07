@@ -3,17 +3,18 @@ import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/detail_page.dart';
 import 'package:ditonton/presentation/pages/home_page.dart';
-import 'package:ditonton/presentation/pages/popular_movies_page.dart';
+import 'package:ditonton/presentation/pages/now_playing_page.dart';
+import 'package:ditonton/presentation/pages/popular_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
-import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
-import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
-import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
+import 'package:ditonton/presentation/pages/top_rated_page.dart';
+import 'package:ditonton/presentation/pages/watchlist_page.dart';
+import 'package:ditonton/presentation/provider/detail_notifier.dart';
+import 'package:ditonton/presentation/provider/movie_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
-import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ditonton/presentation/provider/now_playing_notifier.dart';
+import 'package:ditonton/presentation/provider/popular_notifier.dart';
+import 'package:ditonton/presentation/provider/top_rated_notifier.dart';
+import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
@@ -29,22 +30,25 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => di.locator<MovieListNotifier>(),
+          create: (_) => di.locator<MovieNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<MovieDetailNotifier>(),
+          create: (_) => di.locator<DetailNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<MovieSearchNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedMoviesNotifier>(),
+          create: (_) => di.locator<NowPlayingNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<PopularMoviesNotifier>(),
+          create: (_) => di.locator<PopularNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistMovieNotifier>(),
+          create: (_) => di.locator<TopRatedNotifier>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<WatchlistNotifier>(),
         ),
       ],
       child: MaterialApp(
@@ -62,10 +66,28 @@ class MyApp extends StatelessWidget {
           switch (settings.name) {
             case HomePage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => HomePage());
-            case PopularMoviesPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
-            case TopRatedMoviesPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => TopRatedMoviesPage());
+            case NowPlayingPage.ROUTE_NAME:
+              final type = settings.arguments as String;
+              return MaterialPageRoute(
+                builder: (_) => NowPlayingPage(
+                  type: type,
+                ),
+                settings: settings,
+              );
+            case PopularPage.ROUTE_NAME:
+              final type = settings.arguments as String;
+              return MaterialPageRoute(
+                builder: (_) => PopularPage(type: type),
+                settings: settings,
+              );
+            case TopRatedPage.ROUTE_NAME:
+              final type = settings.arguments as String;
+              return MaterialPageRoute(
+                builder: (_) => TopRatedPage(
+                  type: type,
+                ),
+                settings: settings,
+              );
             case DetailPage.ROUTE_NAME:
               final id = settings.arguments as int;
               return MaterialPageRoute(
@@ -73,9 +95,9 @@ class MyApp extends StatelessWidget {
                 settings: settings,
               );
             case SearchPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => SearchPage());
-            case WatchlistMoviesPage.ROUTE_NAME:
-              return MaterialPageRoute(builder: (_) => WatchlistMoviesPage());
+              return MaterialPageRoute(builder: (_) => SearchPage());
+            case WatchlistPage.ROUTE_NAME:
+              return MaterialPageRoute(builder: (_) => WatchlistPage());
             case AboutPage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => AboutPage());
             default:

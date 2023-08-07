@@ -1,34 +1,39 @@
+import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
+import 'package:ditonton/presentation/provider/popular_notifier.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PopularMoviesPage extends StatefulWidget {
+class PopularPage extends StatefulWidget {
   static const ROUTE_NAME = '/popular-movie';
+  final String? type;
+
+  const PopularPage({Key? key, required this.type}) : super(key: key);
 
   @override
-  _PopularMoviesPageState createState() => _PopularMoviesPageState();
+  _PopularPageState createState() => _PopularPageState();
 }
 
-class _PopularMoviesPageState extends State<PopularMoviesPage> {
+class _PopularPageState extends State<PopularPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<PopularMoviesNotifier>(context, listen: false)
-            .fetchPopularMovies());
+    Future.microtask(() => Provider.of<PopularNotifier>(context, listen: false)
+        .fetchPopularMovies());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Popular Movies'),
+        title: Text(
+          widget.type == MOVIES ? 'Popular Movies' : 'Popular Tv Shows',
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularMoviesNotifier>(
+        child: Consumer<PopularNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.Loading) {
               return Center(

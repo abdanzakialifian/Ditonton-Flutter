@@ -3,10 +3,8 @@ import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/movies_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/tv_shows_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
-import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
+import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   static const ROUTE_NAME = '/home';
@@ -19,16 +17,6 @@ class _HomePageState extends State<HomePage> {
   String _type = MOVIES;
 
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-        () => Provider.of<MovieListNotifier>(context, listen: false)
-          ..fetchNowPlayingMovies()
-          ..fetchPopularMovies()
-          ..fetchTopRatedMovies());
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
@@ -38,8 +26,8 @@ class _HomePageState extends State<HomePage> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/circle-g.png'),
               ),
-              accountName: Text('Ditonton'),
-              accountEmail: Text('ditonton@dicoding.com'),
+              accountName: Text('Abdan Zaki Alifian'),
+              accountEmail: Text('abdanzakialifian99@gmail.com'),
             ),
             ListTile(
               leading: Icon(Icons.movie),
@@ -65,7 +53,7 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.save_alt),
               title: Text('Watchlist'),
               onTap: () {
-                Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
+                Navigator.pushNamed(context, WatchlistPage.ROUTE_NAME);
               },
             ),
             ListTile(
@@ -89,7 +77,11 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: _type == MOVIES ? MoviesPage() : TvShowsPage(),
+      body: _type == MOVIES
+          ? MoviesPage(
+              type: _type,
+            )
+          : TvShowsPage(),
     );
   }
 }

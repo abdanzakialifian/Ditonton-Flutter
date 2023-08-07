@@ -3,13 +3,32 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/presentation/pages/detail_page.dart';
-import 'package:ditonton/presentation/pages/popular_movies_page.dart';
-import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
-import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
+import 'package:ditonton/presentation/pages/now_playing_page.dart';
+import 'package:ditonton/presentation/pages/popular_page.dart';
+import 'package:ditonton/presentation/pages/top_rated_page.dart';
+import 'package:ditonton/presentation/provider/movie_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MoviesPage extends StatelessWidget {
+class MoviesPage extends StatefulWidget {
+  final String? type;
+
+  const MoviesPage({Key? key, required this.type}) : super(key: key);
+
+  @override
+  State<MoviesPage> createState() => _MoviesPageState();
+}
+
+class _MoviesPageState extends State<MoviesPage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => Provider.of<MovieNotifier>(context, listen: false)
+      ..fetchNowPlayingMovies()
+      ..fetchPopularMovies()
+      ..fetchTopRatedMovies());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,11 +37,15 @@ class MoviesPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Now Playing',
-              style: kHeading6,
+            _buildSubHeading(
+              title: 'Now Playing',
+              onTap: () => Navigator.pushNamed(
+                context,
+                NowPlayingPage.ROUTE_NAME,
+                arguments: widget.type,
+              ),
             ),
-            Consumer<MovieListNotifier>(builder: (context, data, child) {
+            Consumer<MovieNotifier>(builder: (context, data, child) {
               final state = data.nowPlayingState;
               if (state == RequestState.Loading) {
                 return Center(
@@ -36,10 +59,13 @@ class MoviesPage extends StatelessWidget {
             }),
             _buildSubHeading(
               title: 'Popular',
-              onTap: () =>
-                  Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
+              onTap: () => Navigator.pushNamed(
+                context,
+                PopularPage.ROUTE_NAME,
+                arguments: widget.type,
+              ),
             ),
-            Consumer<MovieListNotifier>(builder: (context, data, child) {
+            Consumer<MovieNotifier>(builder: (context, data, child) {
               final state = data.popularMoviesState;
               if (state == RequestState.Loading) {
                 return Center(
@@ -53,10 +79,13 @@ class MoviesPage extends StatelessWidget {
             }),
             _buildSubHeading(
               title: 'Top Rated',
-              onTap: () =>
-                  Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
+              onTap: () => Navigator.pushNamed(
+                context,
+                TopRatedPage.ROUTE_NAME,
+                arguments: widget.type,
+              ),
             ),
-            Consumer<MovieListNotifier>(builder: (context, data, child) {
+            Consumer<MovieNotifier>(builder: (context, data, child) {
               final state = data.topRatedMoviesState;
               if (state == RequestState.Loading) {
                 return Center(

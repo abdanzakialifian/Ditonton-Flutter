@@ -3,13 +3,27 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/presentation/pages/detail_page.dart';
-import 'package:ditonton/presentation/pages/popular_movies_page.dart';
-import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
-import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
+import 'package:ditonton/presentation/pages/popular_page.dart';
+import 'package:ditonton/presentation/pages/top_rated_page.dart';
+import 'package:ditonton/presentation/provider/movie_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TvShowsPage extends StatelessWidget {
+class TvShowsPage extends StatefulWidget {
+  @override
+  State<TvShowsPage> createState() => _TvShowsPageState();
+}
+
+class _TvShowsPageState extends State<TvShowsPage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => Provider.of<MovieNotifier>(context, listen: false)
+      ..fetchNowPlayingMovies()
+      ..fetchPopularMovies()
+      ..fetchTopRatedMovies());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,7 +36,7 @@ class TvShowsPage extends StatelessWidget {
               'Now Playing',
               style: kHeading6,
             ),
-            Consumer<MovieListNotifier>(builder: (context, data, child) {
+            Consumer<MovieNotifier>(builder: (context, data, child) {
               final state = data.nowPlayingState;
               if (state == RequestState.Loading) {
                 return Center(
@@ -36,10 +50,9 @@ class TvShowsPage extends StatelessWidget {
             }),
             _buildSubHeading(
               title: 'Popular',
-              onTap: () =>
-                  Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
+              onTap: () => Navigator.pushNamed(context, PopularPage.ROUTE_NAME),
             ),
-            Consumer<MovieListNotifier>(builder: (context, data, child) {
+            Consumer<MovieNotifier>(builder: (context, data, child) {
               final state = data.popularMoviesState;
               if (state == RequestState.Loading) {
                 return Center(
@@ -54,9 +67,9 @@ class TvShowsPage extends StatelessWidget {
             _buildSubHeading(
               title: 'Top Rated',
               onTap: () =>
-                  Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
+                  Navigator.pushNamed(context, TopRatedPage.ROUTE_NAME),
             ),
-            Consumer<MovieListNotifier>(builder: (context, data, child) {
+            Consumer<MovieNotifier>(builder: (context, data, child) {
               final state = data.topRatedMoviesState;
               if (state == RequestState.Loading) {
                 return Center(

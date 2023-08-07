@@ -3,10 +3,10 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
 import 'package:flutter/foundation.dart';
 
-class TopRatedMoviesNotifier extends ChangeNotifier {
+class TopRatedNotifier extends ChangeNotifier {
   final GetTopRatedMovies getTopRatedMovies;
 
-  TopRatedMoviesNotifier({required this.getTopRatedMovies});
+  TopRatedNotifier({required this.getTopRatedMovies});
 
   RequestState _state = RequestState.Empty;
   RequestState get state => _state;
