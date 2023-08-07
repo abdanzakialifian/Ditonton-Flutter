@@ -9,17 +9,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
-class MovieDetailPage extends StatefulWidget {
+class DetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/detail';
 
   final int id;
-  MovieDetailPage({required this.id});
+  DetailPage({required this.id});
 
   @override
-  _MovieDetailPageState createState() => _MovieDetailPageState();
+  _DetailPageState createState() => _DetailPageState();
 }
 
-class _MovieDetailPageState extends State<MovieDetailPage> {
+class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
@@ -209,7 +209,7 @@ class DetailContent extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                MovieDetailPage.ROUTE_NAME,
+                                                DetailPage.ROUTE_NAME,
                                                 arguments: movie.id,
                                               );
                                             },
