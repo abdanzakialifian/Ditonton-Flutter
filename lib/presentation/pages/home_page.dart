@@ -81,7 +81,9 @@ class _HomePageState extends State<HomePage> {
           ? MoviesPage(
               type: _type,
             )
-          : TvShowsPage(),
+          : TvShowsPage(
+              type: _type,
+            ),
     );
   }
 }
