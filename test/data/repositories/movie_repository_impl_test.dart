@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/data/models/genre_model.dart';
-import 'package:ditonton/data/models/movie_detail_model.dart';
-import 'package:ditonton/data/models/movie_model.dart';
+import 'package:ditonton/data/models/genre_response.dart';
+import 'package:ditonton/data/models/movie_detail_response.dart';
+import 'package:ditonton/data/models/movie_result_response.dart';
 import 'package:ditonton/data/repositories/movie_repository_impl.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';
@@ -28,7 +28,7 @@ void main() {
     );
   });
 
-  final tMovieModel = MovieModel(
+  final tMovieModel = MovieResultResponse(
     adult: false,
     backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
     genreIds: [14, 28],
@@ -62,7 +62,7 @@ void main() {
     voteCount: 13507,
   );
 
-  final tMovieModelList = <MovieModel>[tMovieModel];
+  final tMovieModelList = <MovieResultResponse>[tMovieModel];
   final tMovieList = <Movie>[tMovie];
 
   group('Now Playing Movies', () {
@@ -194,7 +194,7 @@ void main() {
       adult: false,
       backdropPath: 'backdropPath',
       budget: 100,
-      genres: [GenreModel(id: 1, name: 'Action')],
+      genres: [GenreResponse(id: 1, name: 'Action')],
       homepage: "https://google.com",
       id: 1,
       imdbId: 'imdb1',
@@ -256,7 +256,7 @@ void main() {
   });
 
   group('Get Movie Recommendations', () {
-    final tMovieList = <MovieModel>[];
+    final tMovieList = <MovieResultResponse>[];
     final tId = 1;
 
     test('should return data (movie list) when the call is successful',

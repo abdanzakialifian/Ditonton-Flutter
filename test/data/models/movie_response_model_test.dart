@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:ditonton/data/models/movie_model.dart';
+import 'package:ditonton/data/models/movie_result_response.dart';
 import 'package:ditonton/data/models/movie_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../json_reader.dart';
 
 void main() {
-  final tMovieModel = MovieModel(
+  final tMovieModel = MovieResultResponse(
     adult: false,
     backdropPath: "/path.jpg",
     genreIds: [1, 2, 3, 4],
@@ -23,7 +23,7 @@ void main() {
     voteCount: 1,
   );
   final tMovieResponseModel =
-      MovieResponse(movieList: <MovieModel>[tMovieModel]);
+      MovieResponse(movieList: <MovieResultResponse>[tMovieModel]);
   group('fromJson', () {
     test('should return a valid model from JSON', () async {
       // arrange

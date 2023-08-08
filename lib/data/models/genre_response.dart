@@ -1,0 +1,30 @@
+import 'package:ditonton/domain/entities/genre.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'genre_response.g.dart';
+
+@JsonSerializable()
+class GenreResponse extends Equatable {
+  GenreResponse({
+    required this.id,
+    required this.name,
+  });
+
+  @JsonKey(name: "id")
+  final int id;
+  @JsonKey(name: "name")
+  final String name;
+
+  factory GenreResponse.fromJson(Map<String, dynamic> json) =>
+      _$GenreResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GenreResponseToJson(this);
+
+  Genre toEntity() {
+    return Genre(id: this.id, name: this.name);
+  }
+
+  @override
+  List<Object?> get props => [id, name];
+}

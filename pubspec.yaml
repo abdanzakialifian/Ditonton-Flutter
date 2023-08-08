@@ -37,8 +37,10 @@ dependencies:
   get_it: ^7.6.0
   sqflite: ^2.3.0
   path_provider: ^2.0.15
+  json_annotation: ^4.8.1
 
 dev_dependencies:
+  json_serializable: ^6.7.1
   mockito: ^5.4.2
   build_runner: ^2.4.6
   flutter_test:

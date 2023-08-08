@@ -13,8 +13,8 @@ import 'package:ditonton/data/datasources/db/database_helper.dart' as _i14;
 import 'package:ditonton/data/datasources/movie_local_data_source.dart' as _i12;
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart'
     as _i10;
-import 'package:ditonton/data/models/movie_detail_model.dart' as _i3;
-import 'package:ditonton/data/models/movie_model.dart' as _i11;
+import 'package:ditonton/data/models/movie_detail_response.dart' as _i3;
+import 'package:ditonton/data/models/movie_result_response.dart' as _i11;
 import 'package:ditonton/data/models/movie_table.dart' as _i13;
 import 'package:ditonton/domain/entities/movie.dart' as _i8;
 import 'package:ditonton/domain/entities/movie_detail.dart' as _i9;
@@ -253,33 +253,35 @@ class MockMovieRemoteDataSource extends _i1.Mock
   }
 
   @override
-  _i6.Future<List<_i11.MovieModel>> getNowPlayingMovies() =>
+  _i6.Future<List<_i11.MovieResultResponse>> getNowPlayingMovies() =>
       (super.noSuchMethod(
         Invocation.method(
           #getNowPlayingMovies,
           [],
         ),
-        returnValue:
-            _i6.Future<List<_i11.MovieModel>>.value(<_i11.MovieModel>[]),
-      ) as _i6.Future<List<_i11.MovieModel>>);
+        returnValue: _i6.Future<List<_i11.MovieResultResponse>>.value(
+            <_i11.MovieResultResponse>[]),
+      ) as _i6.Future<List<_i11.MovieResultResponse>>);
   @override
-  _i6.Future<List<_i11.MovieModel>> getPopularMovies() => (super.noSuchMethod(
+  _i6.Future<List<_i11.MovieResultResponse>> getPopularMovies() =>
+      (super.noSuchMethod(
         Invocation.method(
           #getPopularMovies,
           [],
         ),
-        returnValue:
-            _i6.Future<List<_i11.MovieModel>>.value(<_i11.MovieModel>[]),
-      ) as _i6.Future<List<_i11.MovieModel>>);
+        returnValue: _i6.Future<List<_i11.MovieResultResponse>>.value(
+            <_i11.MovieResultResponse>[]),
+      ) as _i6.Future<List<_i11.MovieResultResponse>>);
   @override
-  _i6.Future<List<_i11.MovieModel>> getTopRatedMovies() => (super.noSuchMethod(
+  _i6.Future<List<_i11.MovieResultResponse>> getTopRatedMovies() =>
+      (super.noSuchMethod(
         Invocation.method(
           #getTopRatedMovies,
           [],
         ),
-        returnValue:
-            _i6.Future<List<_i11.MovieModel>>.value(<_i11.MovieModel>[]),
-      ) as _i6.Future<List<_i11.MovieModel>>);
+        returnValue: _i6.Future<List<_i11.MovieResultResponse>>.value(
+            <_i11.MovieResultResponse>[]),
+      ) as _i6.Future<List<_i11.MovieResultResponse>>);
   @override
   _i6.Future<_i3.MovieDetailResponse> getMovieDetail(int? id) =>
       (super.noSuchMethod(
@@ -297,25 +299,25 @@ class MockMovieRemoteDataSource extends _i1.Mock
         )),
       ) as _i6.Future<_i3.MovieDetailResponse>);
   @override
-  _i6.Future<List<_i11.MovieModel>> getMovieRecommendations(int? id) =>
+  _i6.Future<List<_i11.MovieResultResponse>> getMovieRecommendations(int? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getMovieRecommendations,
           [id],
         ),
-        returnValue:
-            _i6.Future<List<_i11.MovieModel>>.value(<_i11.MovieModel>[]),
-      ) as _i6.Future<List<_i11.MovieModel>>);
+        returnValue: _i6.Future<List<_i11.MovieResultResponse>>.value(
+            <_i11.MovieResultResponse>[]),
+      ) as _i6.Future<List<_i11.MovieResultResponse>>);
   @override
-  _i6.Future<List<_i11.MovieModel>> searchMovies(String? query) =>
+  _i6.Future<List<_i11.MovieResultResponse>> searchMovies(String? query) =>
       (super.noSuchMethod(
         Invocation.method(
           #searchMovies,
           [query],
         ),
-        returnValue:
-            _i6.Future<List<_i11.MovieModel>>.value(<_i11.MovieModel>[]),
-      ) as _i6.Future<List<_i11.MovieModel>>);
+        returnValue: _i6.Future<List<_i11.MovieResultResponse>>.value(
+            <_i11.MovieResultResponse>[]),
+      ) as _i6.Future<List<_i11.MovieResultResponse>>);
 }
 
 /// A class which mocks [MovieLocalDataSource].

@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-import 'package:ditonton/data/models/movie_detail_model.dart';
-import 'package:ditonton/data/models/movie_model.dart';
+import 'package:ditonton/data/models/movie_detail_response.dart';
+import 'package:ditonton/data/models/movie_result_response.dart';
 import 'package:ditonton/data/models/movie_response.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:http/http.dart' as http;
 
 abstract class MovieRemoteDataSource {
-  Future<List<MovieModel>> getNowPlayingMovies();
-  Future<List<MovieModel>> getPopularMovies();
-  Future<List<MovieModel>> getTopRatedMovies();
+  Future<List<MovieResultResponse>> getNowPlayingMovies();
+  Future<List<MovieResultResponse>> getPopularMovies();
+  Future<List<MovieResultResponse>> getTopRatedMovies();
   Future<MovieDetailResponse> getMovieDetail(int id);
-  Future<List<MovieModel>> getMovieRecommendations(int id);
-  Future<List<MovieModel>> searchMovies(String query);
+  Future<List<MovieResultResponse>> getMovieRecommendations(int id);
+  Future<List<MovieResultResponse>> searchMovies(String query);
 }
 
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
@@ -24,7 +24,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   MovieRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<List<MovieModel>> getNowPlayingMovies() async {
+  Future<List<MovieResultResponse>> getNowPlayingMovies() async {
     final response =
         await client.get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY'));
 
@@ -48,7 +48,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getMovieRecommendations(int id) async {
+  Future<List<MovieResultResponse>> getMovieRecommendations(int id) async {
     final response = await client
         .get(Uri.parse('$BASE_URL/movie/$id/recommendations?$API_KEY'));
 
@@ -60,7 +60,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getPopularMovies() async {
+  Future<List<MovieResultResponse>> getPopularMovies() async {
     final response =
         await client.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY'));
 
@@ -72,7 +72,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getTopRatedMovies() async {
+  Future<List<MovieResultResponse>> getTopRatedMovies() async {
     final response =
         await client.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY'));
 
@@ -84,7 +84,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> searchMovies(String query) async {
+  Future<List<MovieResultResponse>> searchMovies(String query) async {
     final response = await client
         .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$query'));
 
