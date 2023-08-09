@@ -4,11 +4,11 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
 
 class GetPopularMovies {
-  final MovieRepository repository;
+  final MovieRepository _movieRepository;
 
-  GetPopularMovies(this.repository);
+  GetPopularMovies(this._movieRepository);
 
   Future<Either<Failure, List<Movie>>> execute() {
-    return repository.getPopularMovies();
+    return _movieRepository.getPopularMovies();
   }
 }

@@ -4,11 +4,11 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
 
 class SearchMovies {
-  final MovieRepository repository;
+  final MovieRepository _movieRepository;
 
-  SearchMovies(this.repository);
+  SearchMovies(this._movieRepository);
 
   Future<Either<Failure, List<Movie>>> execute(String query) {
-    return repository.searchMovies(query);
+    return _movieRepository.searchMovies(query);
   }
 }

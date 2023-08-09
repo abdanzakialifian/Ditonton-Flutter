@@ -4,11 +4,11 @@ import 'package:ditonton/domain/repositories/movie_repository.dart';
 import 'package:ditonton/common/failure.dart';
 
 class GetMovieDetail {
-  final MovieRepository repository;
+  final MovieRepository _movieRepository;
 
-  GetMovieDetail(this.repository);
+  GetMovieDetail(this._movieRepository);
 
   Future<Either<Failure, MovieDetail>> execute(int id) {
-    return repository.getMovieDetail(id);
+    return _movieRepository.getMovieDetail(id);
   }
 }

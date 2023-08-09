@@ -4,11 +4,11 @@ import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
 
 class RemoveWatchlist {
-  final MovieRepository repository;
+  final MovieRepository _movieRepository;
 
-  RemoveWatchlist(this.repository);
+  RemoveWatchlist(this._movieRepository);
 
   Future<Either<Failure, String>> execute(MovieDetail movie) {
-    return repository.removeWatchlist(movie);
+    return _movieRepository.removeWatchlist(movie);
   }
 }

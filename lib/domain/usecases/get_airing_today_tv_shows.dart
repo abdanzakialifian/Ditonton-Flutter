@@ -4,11 +4,11 @@ import 'package:ditonton/domain/entities/tv_show.dart';
 import 'package:ditonton/domain/repositories/tv_show_repository.dart';
 
 class GetAiringTodayTvShows {
-  final TvShowRepository tvShowRepository;
+  final TvShowRepository _tvShowRepository;
 
-  GetAiringTodayTvShows(this.tvShowRepository);
+  GetAiringTodayTvShows(this._tvShowRepository);
 
   Future<Either<Failure, List<TvShow>>> execute() {
-    return tvShowRepository.getAiringTodayTvShows();
+    return _tvShowRepository.getAiringTodayTvShows();
   }
 }
