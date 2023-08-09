@@ -43,8 +43,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<MovieDetailResponse> getMovieDetail(int id) async {
-    final response =
-        await client.get(Uri.parse('$BASE_URL/movie/$id?$API_KEY'));
+    final response = await client.get(Uri.parse('$BASE_URL/tv/$id?$API_KEY'));
 
     if (response.statusCode == 200) {
       return MovieDetailResponse.fromJson(json.decode(response.body));
@@ -104,7 +103,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<List<TvShowResultResponse>> getTopRatedTvShows() async {
     final response =
-        await client.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY'));
+        await client.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'));
 
     if (response.statusCode == 200) {
       return TvShowResponse.fromJson(json.decode(response.body)).tvShowList;

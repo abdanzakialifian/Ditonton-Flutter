@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/domain/entities/tv_show.dart';
 import 'package:ditonton/presentation/pages/detail_page.dart';
 import 'package:ditonton/presentation/pages/now_playing_page.dart';
 import 'package:ditonton/presentation/pages/popular_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_page.dart';
-import 'package:ditonton/presentation/provider/movie_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_show_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,10 +23,10 @@ class _TvShowsPageState extends State<TvShowsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<MovieNotifier>(context, listen: false)
-      ..fetchNowPlayingMovies()
-      ..fetchPopularMovies()
-      ..fetchTopRatedMovies());
+    Future.microtask(() => Provider.of<TvShowNotifier>(context, listen: false)
+      ..fetchAiringTodayTvShows()
+      ..fetchPopularTvShows()
+      ..fetchTopRatedTvShows());
   }
 
   @override
@@ -45,14 +45,14 @@ class _TvShowsPageState extends State<TvShowsPage> {
                 arguments: widget.type,
               ),
             ),
-            Consumer<MovieNotifier>(builder: (context, data, child) {
-              final state = data.nowPlayingState;
+            Consumer<TvShowNotifier>(builder: (context, data, child) {
+              final state = data.nowPlayingTvShowsState;
               if (state == RequestState.Loading) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (state == RequestState.Loaded) {
-                return _moviesList(data.nowPlayingMovies);
+                return _moviesList(data.nowPlayingTvShows);
               } else {
                 return Text('Failed');
               }
@@ -65,14 +65,14 @@ class _TvShowsPageState extends State<TvShowsPage> {
                 arguments: widget.type,
               ),
             ),
-            Consumer<MovieNotifier>(builder: (context, data, child) {
-              final state = data.popularMoviesState;
+            Consumer<TvShowNotifier>(builder: (context, data, child) {
+              final state = data.popularTvShowsState;
               if (state == RequestState.Loading) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (state == RequestState.Loaded) {
-                return _moviesList(data.popularMovies);
+                return _moviesList(data.popularTvShows);
               } else {
                 return Text('Failed');
               }
@@ -85,14 +85,14 @@ class _TvShowsPageState extends State<TvShowsPage> {
                 arguments: widget.type,
               ),
             ),
-            Consumer<MovieNotifier>(builder: (context, data, child) {
-              final state = data.topRatedMoviesState;
+            Consumer<TvShowNotifier>(builder: (context, data, child) {
+              final state = data.topRatedTvShowsState;
               if (state == RequestState.Loading) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (state == RequestState.Loaded) {
-                return _moviesList(data.topRatedMovies);
+                return _moviesList(data.topRatedTvShows);
               } else {
                 return Text('Failed');
               }
@@ -124,7 +124,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
     );
   }
 
-  Widget _moviesList(List<Movie> movies) {
+  Widget _moviesList(List<TvShow> movies) {
     return Container(
       height: 200,
       child: ListView.builder(

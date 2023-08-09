@@ -9,29 +9,29 @@ class TvShowResultResponse extends Equatable {
   @JsonKey(name: "backdrop_path")
   final String? backdropPath;
   @JsonKey(name: "first_air_date")
-  final DateTime firstAirDate;
+  final DateTime? firstAirDate;
   @JsonKey(name: "genre_ids")
-  final List<int> genreIds;
+  final List<int>? genreIds;
   @JsonKey(name: "id")
-  final int id;
+  final int? id;
   @JsonKey(name: "name")
-  final String name;
+  final String? name;
   @JsonKey(name: "origin_country")
-  final List<String> originCountry;
+  final List<String>? originCountry;
   @JsonKey(name: "original_language")
-  final String originalLanguage;
+  final String? originalLanguage;
   @JsonKey(name: "original_name")
-  final String originalName;
+  final String? originalName;
   @JsonKey(name: "overview")
-  final String overview;
+  final String? overview;
   @JsonKey(name: "popularity")
-  final double popularity;
+  final double? popularity;
   @JsonKey(name: "poster_path")
   final String? posterPath;
   @JsonKey(name: "vote_average")
-  final double voteAverage;
+  final double? voteAverage;
   @JsonKey(name: "vote_count")
-  final int voteCount;
+  final int? voteCount;
 
   TvShowResultResponse({
     required this.backdropPath,

@@ -2,18 +2,18 @@ import 'package:equatable/equatable.dart';
 
 class TvShow extends Equatable {
   final String? backdropPath;
-  final DateTime firstAirDate;
-  final List<int> genreIds;
-  final int id;
-  final String name;
-  final List<String> originCountry;
-  final String originalLanguage;
-  final String originalName;
-  final String overview;
-  final double popularity;
+  final DateTime? firstAirDate;
+  final List<int>? genreIds;
+  final int? id;
+  final String? name;
+  final List<String>? originCountry;
+  final String? originalLanguage;
+  final String? originalName;
+  final String? overview;
+  final double? popularity;
   final String? posterPath;
-  final double voteAverage;
-  final int voteCount;
+  final double? voteAverage;
+  final int? voteCount;
 
   TvShow({
     required this.backdropPath,
