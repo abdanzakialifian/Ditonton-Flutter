@@ -33,6 +33,7 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("CEK ${widget.id}");
     return Scaffold(
       body: Consumer<DetailNotifier>(
         builder: (context, provider, child) {
