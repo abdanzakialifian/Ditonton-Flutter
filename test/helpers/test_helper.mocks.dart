@@ -9,9 +9,11 @@ import 'dart:typed_data' as _i17;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:ditonton/common/failure.dart' as _i7;
-import 'package:ditonton/data/datasources/db/database_helper.dart' as _i14;
-import 'package:ditonton/data/datasources/movie_local_data_source.dart' as _i12;
-import 'package:ditonton/data/datasources/movie_remote_data_source.dart'
+import 'package:ditonton/data/datasources/local/db/database_helper.dart'
+    as _i14;
+import 'package:ditonton/data/datasources/local/movie_local_data_source.dart'
+    as _i12;
+import 'package:ditonton/data/datasources/remote/remote_data_source.dart'
     as _i10;
 import 'package:ditonton/data/models/movie_detail_response.dart' as _i3;
 import 'package:ditonton/data/models/movie_result_response.dart' as _i11;
@@ -247,7 +249,7 @@ class MockMovieRepository extends _i1.Mock implements _i5.MovieRepository {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMovieRemoteDataSource extends _i1.Mock
-    implements _i10.MovieRemoteDataSource {
+    implements _i10.RemoteDataSource {
   MockMovieRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }

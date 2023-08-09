@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ditonton/data/datasources/remote/remote_data_source.dart';
 import 'package:ditonton/data/models/movie_detail_response.dart';
 import 'package:ditonton/data/models/movie_result_response.dart';
 import 'package:ditonton/data/models/movie_response.dart';
@@ -8,23 +9,13 @@ import 'package:ditonton/data/models/tv_show_response.dart';
 import 'package:ditonton/data/models/tv_show_result_response.dart';
 import 'package:http/http.dart' as http;
 
-abstract class MovieRemoteDataSource {
-  Future<List<MovieResultResponse>> getNowPlayingMovies();
-  Future<List<TvShowResultResponse>> getAiringTodayTvShow();
-  Future<List<MovieResultResponse>> getPopularMovies();
-  Future<List<MovieResultResponse>> getTopRatedMovies();
-  Future<MovieDetailResponse> getMovieDetail(int id);
-  Future<List<MovieResultResponse>> getMovieRecommendations(int id);
-  Future<List<MovieResultResponse>> searchMovies(String query);
-}
-
-class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
+class RemoteDataSourceImpl implements RemoteDataSource {
   static const API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
   static const BASE_URL = 'https://api.themoviedb.org/3';
 
   final http.Client client;
 
-  MovieRemoteDataSourceImpl({required this.client});
+  RemoteDataSourceImpl({required this.client});
 
   @override
   Future<List<MovieResultResponse>> getNowPlayingMovies() async {

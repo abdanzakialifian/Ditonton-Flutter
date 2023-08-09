@@ -6,15 +6,15 @@ part 'genre_response.g.dart';
 
 @JsonSerializable()
 class GenreResponse extends Equatable {
-  GenreResponse({
-    required this.id,
-    required this.name,
-  });
-
   @JsonKey(name: "id")
   final int id;
   @JsonKey(name: "name")
   final String name;
+
+  GenreResponse({
+    required this.id,
+    required this.name,
+  });
 
   factory GenreResponse.fromJson(Map<String, dynamic> json) =>
       _$GenreResponseFromJson(json);

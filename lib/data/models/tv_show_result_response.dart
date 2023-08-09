@@ -1,3 +1,4 @@
+import 'package:ditonton/domain/entities/tv_show.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -6,31 +7,31 @@ part 'tv_show_result_response.g.dart';
 @JsonSerializable()
 class TvShowResultResponse extends Equatable {
   @JsonKey(name: "backdrop_path")
-  String? backdropPath;
+  final String? backdropPath;
   @JsonKey(name: "first_air_date")
-  DateTime firstAirDate;
+  final DateTime firstAirDate;
   @JsonKey(name: "genre_ids")
-  List<int> genreIds;
+  final List<int> genreIds;
   @JsonKey(name: "id")
-  int id;
+  final int id;
   @JsonKey(name: "name")
-  String name;
+  final String name;
   @JsonKey(name: "origin_country")
-  List<String> originCountry;
+  final List<String> originCountry;
   @JsonKey(name: "original_language")
-  String originalLanguage;
+  final String originalLanguage;
   @JsonKey(name: "original_name")
-  String originalName;
+  final String originalName;
   @JsonKey(name: "overview")
-  String overview;
+  final String overview;
   @JsonKey(name: "popularity")
-  double popularity;
+  final double popularity;
   @JsonKey(name: "poster_path")
-  String? posterPath;
+  final String? posterPath;
   @JsonKey(name: "vote_average")
-  double voteAverage;
+  final double voteAverage;
   @JsonKey(name: "vote_count")
-  int voteCount;
+  final int voteCount;
 
   TvShowResultResponse({
     required this.backdropPath,
@@ -52,6 +53,24 @@ class TvShowResultResponse extends Equatable {
       _$TvShowResultResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$TvShowResultResponseToJson(this);
+
+  TvShow toEntity() {
+    return TvShow(
+      backdropPath: backdropPath,
+      firstAirDate: firstAirDate,
+      genreIds: genreIds,
+      id: id,
+      name: name,
+      originCountry: originCountry,
+      originalLanguage: originalLanguage,
+      originalName: originalName,
+      overview: overview,
+      popularity: popularity,
+      posterPath: posterPath,
+      voteAverage: voteAverage,
+      voteCount: voteCount,
+    );
+  }
 
   @override
   List<Object?> get props => [

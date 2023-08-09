@@ -6,22 +6,6 @@ part 'movie_result_response.g.dart';
 
 @JsonSerializable()
 class MovieResultResponse extends Equatable {
-  MovieResultResponse({
-    required this.adult,
-    required this.backdropPath,
-    required this.genreIds,
-    required this.id,
-    required this.originalTitle,
-    required this.overview,
-    required this.popularity,
-    required this.posterPath,
-    required this.releaseDate,
-    required this.title,
-    required this.video,
-    required this.voteAverage,
-    required this.voteCount,
-  });
-
   @JsonKey(name: "adult")
   final bool adult;
   @JsonKey(name: "backdrop_path")
@@ -48,6 +32,22 @@ class MovieResultResponse extends Equatable {
   final double voteAverage;
   @JsonKey(name: "vote_count")
   final int voteCount;
+
+  MovieResultResponse({
+    required this.adult,
+    required this.backdropPath,
+    required this.genreIds,
+    required this.id,
+    required this.originalTitle,
+    required this.overview,
+    required this.popularity,
+    required this.posterPath,
+    required this.releaseDate,
+    required this.title,
+    required this.video,
+    required this.voteAverage,
+    required this.voteCount,
+  });
 
   factory MovieResultResponse.fromJson(Map<String, dynamic> json) =>
       _$MovieResultResponseFromJson(json);
