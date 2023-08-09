@@ -5,6 +5,7 @@ import 'package:ditonton/data/models/movie_detail_response.dart';
 import 'package:ditonton/data/models/movie_result_response.dart';
 import 'package:ditonton/data/models/movie_response.dart';
 import 'package:ditonton/common/exception.dart';
+import 'package:ditonton/data/models/tv_show_detail_response.dart';
 import 'package:ditonton/data/models/tv_show_response.dart';
 import 'package:ditonton/data/models/tv_show_result_response.dart';
 import 'package:http/http.dart' as http;
@@ -49,6 +50,17 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
     if (response.statusCode == 200) {
       return MovieDetailResponse.fromJson(json.decode(response.body));
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<TvShowDetailResponse> getTvShowDetail(int id) async {
+    final response = await client.get(Uri.parse('$BASE_URL/tv/$id?$API_KEY'));
+
+    if (response.statusCode == 200) {
+      return TvShowDetailResponse.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
     }
