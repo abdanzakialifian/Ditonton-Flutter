@@ -15,7 +15,31 @@ class TvShowRepositoryImpl extends TvShowRepository {
   @override
   Future<Either<Failure, List<TvShow>>> getAiringTodayTvShows() async {
     try {
-      final result = await remoteDataSource.getAiringTodayTvShow();
+      final result = await remoteDataSource.getAiringTodayTvShows();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(""));
+    } on SocketException {
+      return Left(ConnectionFailure("Failed to connect to the network"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TvShow>>> getPopularTvShows() async {
+    try {
+      final result = await remoteDataSource.getPopularTvShows();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(""));
+    } on SocketException {
+      return Left(ConnectionFailure("Failed to connect to the network"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TvShow>>> getTopRatedTvShows() async {
+    try {
+      final result = await remoteDataSource.getTopRatedTvShows();
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return Left(ServerFailure(""));
