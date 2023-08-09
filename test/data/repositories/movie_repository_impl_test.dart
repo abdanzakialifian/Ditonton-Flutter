@@ -16,11 +16,11 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MovieRepositoryImpl repository;
-  late MockMovieRemoteDataSource mockRemoteDataSource;
+  late MockRemoteDataSource mockRemoteDataSource;
   late MockMovieLocalDataSource mockLocalDataSource;
 
   setUp(() {
-    mockRemoteDataSource = MockMovieRemoteDataSource();
+    mockRemoteDataSource = MockRemoteDataSource();
     mockLocalDataSource = MockMovieLocalDataSource();
     repository = MovieRepositoryImpl(
       remoteDataSource: mockRemoteDataSource,

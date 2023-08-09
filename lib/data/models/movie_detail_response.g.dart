@@ -8,29 +8,29 @@ part of 'movie_detail_response.dart';
 
 MovieDetailResponse _$MovieDetailResponseFromJson(Map<String, dynamic> json) =>
     MovieDetailResponse(
-      adult: json['adult'] as bool,
+      adult: json['adult'] as bool?,
       backdropPath: json['backdrop_path'] as String?,
-      budget: json['budget'] as int,
-      genres: (json['genres'] as List<dynamic>)
-          .map((e) => GenreResponse.fromJson(e as Map<String, dynamic>))
+      budget: json['budget'] as int?,
+      genres: (json['genres'] as List<dynamic>?)
+          ?.map((e) => GenreResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      homepage: json['homepage'] as String,
-      id: json['id'] as int,
+      homepage: json['homepage'] as String?,
+      id: json['id'] as int?,
       imdbId: json['imdb_id'] as String?,
-      originalLanguage: json['original_language'] as String,
-      originalTitle: json['original_title'] as String,
-      overview: json['overview'] as String,
-      popularity: (json['popularity'] as num).toDouble(),
-      posterPath: json['poster_path'] as String,
-      releaseDate: json['release_date'] as String,
-      revenue: json['revenue'] as int,
-      runtime: json['runtime'] as int,
-      status: json['status'] as String,
-      tagline: json['tagline'] as String,
-      title: json['title'] as String,
-      video: json['video'] as bool,
-      voteAverage: (json['vote_average'] as num).toDouble(),
-      voteCount: json['vote_count'] as int,
+      originalLanguage: json['original_language'] as String?,
+      originalTitle: json['original_title'] as String?,
+      overview: json['overview'] as String?,
+      popularity: (json['popularity'] as num?)?.toDouble(),
+      posterPath: json['poster_path'] as String?,
+      releaseDate: json['release_date'] as String?,
+      revenue: json['revenue'] as int?,
+      runtime: json['runtime'] as int?,
+      status: json['status'] as String?,
+      tagline: json['tagline'] as String?,
+      title: json['title'] as String?,
+      video: json['video'] as bool?,
+      voteAverage: (json['vote_average'] as num?)?.toDouble(),
+      voteCount: json['vote_count'] as int?,
     );
 
 Map<String, dynamic> _$MovieDetailResponseToJson(

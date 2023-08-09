@@ -8,47 +8,47 @@ part 'movie_detail_response.g.dart';
 @JsonSerializable()
 class MovieDetailResponse extends Equatable {
   @JsonKey(name: "adult")
-  final bool adult;
+  final bool? adult;
   @JsonKey(name: "backdrop_path")
   final String? backdropPath;
   @JsonKey(name: "budget")
-  final int budget;
+  final int? budget;
   @JsonKey(name: "genres")
-  final List<GenreResponse> genres;
+  final List<GenreResponse>? genres;
   @JsonKey(name: "homepage")
-  final String homepage;
+  final String? homepage;
   @JsonKey(name: "id")
-  final int id;
+  final int? id;
   @JsonKey(name: "imdb_id")
   final String? imdbId;
   @JsonKey(name: "original_language")
-  final String originalLanguage;
+  final String? originalLanguage;
   @JsonKey(name: "original_title")
-  final String originalTitle;
+  final String? originalTitle;
   @JsonKey(name: "overview")
-  final String overview;
+  final String? overview;
   @JsonKey(name: "popularity")
-  final double popularity;
+  final double? popularity;
   @JsonKey(name: "poster_path")
-  final String posterPath;
+  final String? posterPath;
   @JsonKey(name: "release_date")
-  final String releaseDate;
+  final String? releaseDate;
   @JsonKey(name: "revenue")
-  final int revenue;
+  final int? revenue;
   @JsonKey(name: "runtime")
-  final int runtime;
+  final int? runtime;
   @JsonKey(name: "status")
-  final String status;
+  final String? status;
   @JsonKey(name: "tagline")
-  final String tagline;
+  final String? tagline;
   @JsonKey(name: "title")
-  final String title;
+  final String? title;
   @JsonKey(name: "video")
-  final bool video;
+  final bool? video;
   @JsonKey(name: "vote_average")
-  final double voteAverage;
+  final double? voteAverage;
   @JsonKey(name: "vote_count")
-  final int voteCount;
+  final int? voteCount;
 
   MovieDetailResponse({
     required this.adult,
@@ -83,7 +83,7 @@ class MovieDetailResponse extends Equatable {
     return MovieDetail(
       adult: this.adult,
       backdropPath: this.backdropPath,
-      genres: this.genres.map((genre) => genre.toEntity()).toList(),
+      genres: this.genres?.map((genre) => genre.toEntity()).toList(),
       id: this.id,
       originalTitle: this.originalTitle,
       overview: this.overview,

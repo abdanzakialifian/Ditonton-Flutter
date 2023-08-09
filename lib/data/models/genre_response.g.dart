@@ -8,8 +8,8 @@ part of 'genre_response.dart';
 
 GenreResponse _$GenreResponseFromJson(Map<String, dynamic> json) =>
     GenreResponse(
-      id: json['id'] as int,
-      name: json['name'] as String,
+      id: json['id'] as int?,
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$GenreResponseToJson(GenreResponse instance) =>

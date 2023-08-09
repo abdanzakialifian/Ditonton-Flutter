@@ -2,18 +2,18 @@ import 'package:ditonton/domain/entities/genre.dart';
 import 'package:equatable/equatable.dart';
 
 class MovieDetail extends Equatable {
-  final bool adult;
+  final bool? adult;
   final String? backdropPath;
-  final List<Genre> genres;
-  final int id;
-  final String originalTitle;
-  final String overview;
-  final String posterPath;
-  final String releaseDate;
-  final int runtime;
-  final String title;
-  final double voteAverage;
-  final int voteCount;
+  final List<Genre>? genres;
+  final int? id;
+  final String? originalTitle;
+  final String? overview;
+  final String? posterPath;
+  final String? releaseDate;
+  final int? runtime;
+  final String? title;
+  final double? voteAverage;
+  final int? voteCount;
 
   MovieDetail({
     required this.adult,

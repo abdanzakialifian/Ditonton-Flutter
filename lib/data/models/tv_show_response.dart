@@ -2,7 +2,7 @@ import 'package:ditonton/data/models/tv_show_result_response.dart';
 import 'package:equatable/equatable.dart';
 
 class TvShowResponse extends Equatable {
-  final List<TvShowResultResponse> tvShowList;
+  final List<TvShowResultResponse>? tvShowList;
 
   TvShowResponse({required this.tvShowList});
 
@@ -14,8 +14,9 @@ class TvShowResponse extends Equatable {
         ),
       );
 
-  Map<String, dynamic> toJson() =>
-      {"results": List<dynamic>.from(tvShowList.map((x) => x.toJson()))};
+  Map<String, dynamic> toJson() => {
+        "results": List<dynamic>.from(tvShowList?.map((x) => x.toJson()) ?? []),
+      };
 
   @override
   List<Object?> get props => [tvShowList];

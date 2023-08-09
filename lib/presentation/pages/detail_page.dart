@@ -102,7 +102,7 @@ class DetailContent extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              movie.title,
+                              movie.title ?? "",
                               style: kHeading5,
                             ),
                             ElevatedButton(
@@ -151,15 +151,15 @@ class DetailContent extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              _showGenres(movie.genres),
+                              _showGenres(movie.genres ?? []),
                             ),
                             Text(
-                              _showDuration(movie.runtime),
+                              _showDuration(movie.runtime ?? 0),
                             ),
                             Row(
                               children: [
                                 RatingBarIndicator(
-                                  rating: movie.voteAverage / 2,
+                                  rating: (movie.voteAverage ?? 0) / 2,
                                   itemCount: 5,
                                   itemBuilder: (context, index) => Icon(
                                     Icons.star,
@@ -176,7 +176,7 @@ class DetailContent extends StatelessWidget {
                               style: kHeading6,
                             ),
                             Text(
-                              movie.overview,
+                              movie.overview ?? "",
                             ),
                             SizedBox(height: 16),
                             Text(
@@ -280,7 +280,7 @@ class DetailContent extends StatelessWidget {
   String _showGenres(List<Genre> genres) {
     String result = '';
     for (var genre in genres) {
-      result += genre.name + ', ';
+      result += (genre.name ?? "") + ', ';
     }
 
     if (result.isEmpty) {

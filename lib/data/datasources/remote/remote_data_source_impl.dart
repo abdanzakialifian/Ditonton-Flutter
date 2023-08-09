@@ -23,7 +23,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         await client.get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return MovieResponse.fromJson(json.decode(response.body)).movieList;
+      return MovieResponse.fromJson(json.decode(response.body)).movieList ?? [];
     } else {
       throw ServerException();
     }
@@ -35,7 +35,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         await client.get(Uri.parse('$BASE_URL/tv/airing_today?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvShowResponse.fromJson(json.decode(response.body)).tvShowList;
+      return TvShowResponse.fromJson(json.decode(response.body)).tvShowList ??
+          [];
     } else {
       throw ServerException();
     }
@@ -58,7 +59,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         .get(Uri.parse('$BASE_URL/movie/$id/recommendations?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return MovieResponse.fromJson(json.decode(response.body)).movieList;
+      return MovieResponse.fromJson(json.decode(response.body)).movieList ?? [];
     } else {
       throw ServerException();
     }
@@ -70,7 +71,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         await client.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return MovieResponse.fromJson(json.decode(response.body)).movieList;
+      return MovieResponse.fromJson(json.decode(response.body)).movieList ?? [];
     } else {
       throw ServerException();
     }
@@ -82,7 +83,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         await client.get(Uri.parse('$BASE_URL/tv/popular?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvShowResponse.fromJson(json.decode(response.body)).tvShowList;
+      return TvShowResponse.fromJson(json.decode(response.body)).tvShowList ??
+          [];
     } else {
       throw ServerException();
     }
@@ -94,7 +96,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         await client.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return MovieResponse.fromJson(json.decode(response.body)).movieList;
+      return MovieResponse.fromJson(json.decode(response.body)).movieList ?? [];
     } else {
       throw ServerException();
     }
@@ -106,7 +108,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         await client.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvShowResponse.fromJson(json.decode(response.body)).tvShowList;
+      return TvShowResponse.fromJson(json.decode(response.body)).tvShowList ??
+          [];
     } else {
       throw ServerException();
     }
@@ -118,7 +121,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$query'));
 
     if (response.statusCode == 200) {
-      return MovieResponse.fromJson(json.decode(response.body)).movieList;
+      return MovieResponse.fromJson(json.decode(response.body)).movieList ?? [];
     } else {
       throw ServerException();
     }

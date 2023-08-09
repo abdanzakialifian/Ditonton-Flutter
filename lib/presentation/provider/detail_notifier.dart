@@ -91,7 +91,7 @@ class DetailNotifier extends ChangeNotifier {
       },
     );
 
-    await loadWatchlistStatus(movie.id);
+    await loadWatchlistStatus(movie.id ?? 0);
   }
 
   Future<void> removeFromWatchlist(MovieDetail movie) async {
@@ -106,7 +106,7 @@ class DetailNotifier extends ChangeNotifier {
       },
     );
 
-    await loadWatchlistStatus(movie.id);
+    await loadWatchlistStatus(movie.id ?? 0);
   }
 
   Future<void> loadWatchlistStatus(int id) async {

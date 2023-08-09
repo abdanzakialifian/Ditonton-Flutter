@@ -8,20 +8,20 @@ part of 'movie_result_response.dart';
 
 MovieResultResponse _$MovieResultResponseFromJson(Map<String, dynamic> json) =>
     MovieResultResponse(
-      adult: json['adult'] as bool,
+      adult: json['adult'] as bool?,
       backdropPath: json['backdrop_path'] as String?,
       genreIds:
-          (json['genre_ids'] as List<dynamic>).map((e) => e as int).toList(),
-      id: json['id'] as int,
-      originalTitle: json['original_title'] as String,
-      overview: json['overview'] as String,
-      popularity: (json['popularity'] as num).toDouble(),
+          (json['genre_ids'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      id: json['id'] as int?,
+      originalTitle: json['original_title'] as String?,
+      overview: json['overview'] as String?,
+      popularity: (json['popularity'] as num?)?.toDouble(),
       posterPath: json['poster_path'] as String?,
       releaseDate: json['release_date'] as String?,
-      title: json['title'] as String,
-      video: json['video'] as bool,
-      voteAverage: (json['vote_average'] as num).toDouble(),
-      voteCount: json['vote_count'] as int,
+      title: json['title'] as String?,
+      video: json['video'] as bool?,
+      voteAverage: (json['vote_average'] as num?)?.toDouble(),
+      voteCount: json['vote_count'] as int?,
     );
 
 Map<String, dynamic> _$MovieResultResponseToJson(
