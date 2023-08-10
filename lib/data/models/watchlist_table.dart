@@ -1,5 +1,6 @@
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_show.dart';
 import 'package:ditonton/domain/entities/tv_show_detail.dart';
 import 'package:equatable/equatable.dart';
 
@@ -45,11 +46,18 @@ class WatchlistTable extends Equatable {
         'overview': overview,
       };
 
-  Movie toEntity() => Movie.watchlist(
+  Movie toEntityMovie() => Movie.watchlist(
         id: id,
         overview: overview,
         posterPath: posterPath,
         title: title,
+      );
+
+  TvShow toEntityTvShow() => TvShow.watchlist(
+        id: id,
+        overview: overview,
+        posterPath: posterPath,
+        name: title,
       );
 
   @override
