@@ -1,10 +1,10 @@
-import 'package:ditonton/data/models/created_by_response.dart';
 import 'package:ditonton/data/models/genre_response.dart';
-import 'package:ditonton/data/models/last_episode_to_air_response.dart';
-import 'package:ditonton/data/models/network_response.dart';
-import 'package:ditonton/data/models/production_country_response.dart';
-import 'package:ditonton/data/models/season_response.dart';
-import 'package:ditonton/data/models/spoken_language_response.dart';
+import 'package:ditonton/data/models/tvshowdetail/created_by_response.dart';
+import 'package:ditonton/data/models/tvshowdetail/last_episode_to_air_response.dart';
+import 'package:ditonton/data/models/tvshowdetail/network_response.dart';
+import 'package:ditonton/data/models/tvshowdetail/production_country_response.dart';
+import 'package:ditonton/data/models/tvshowdetail/season_response.dart';
+import 'package:ditonton/data/models/tvshowdetail/spoken_language_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tv_show_detail_response.g.dart';

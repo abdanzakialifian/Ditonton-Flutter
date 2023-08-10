@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/data/models/genre_response.dart';
-import 'package:ditonton/data/models/movie_detail_response.dart';
-import 'package:ditonton/data/models/movie_result_response.dart';
+import 'package:ditonton/data/models/movie/movie_result_response.dart';
+import 'package:ditonton/data/models/moviedetail/movie_detail_response.dart';
 import 'package:ditonton/data/repositories/movie_repository_impl.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';

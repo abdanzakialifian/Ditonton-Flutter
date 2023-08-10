@@ -1,4 +1,4 @@
-import 'package:ditonton/data/models/tv_show_result_response.dart';
+import 'package:ditonton/data/models/tvshow/tv_show_result_response.dart';
 import 'package:equatable/equatable.dart';
 
 class TvShowResponse extends Equatable {
