@@ -1,28 +1,37 @@
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_show_detail.dart';
 import 'package:equatable/equatable.dart';
 
-class MovieTable extends Equatable {
+class WatchlistTable extends Equatable {
   final int? id;
   final String? title;
   final String? posterPath;
   final String? overview;
 
-  MovieTable({
+  WatchlistTable({
     required this.id,
     required this.title,
     required this.posterPath,
     required this.overview,
   });
 
-  factory MovieTable.fromEntity(MovieDetail movie) => MovieTable(
+  factory WatchlistTable.fromEntityMovie(MovieDetail movie) => WatchlistTable(
         id: movie.id,
         title: movie.title,
         posterPath: movie.posterPath,
         overview: movie.overview,
       );
 
-  factory MovieTable.fromMap(Map<String, dynamic> map) => MovieTable(
+  factory WatchlistTable.fromEntityTvShow(TvShowDetail tvShow) =>
+      WatchlistTable(
+        id: tvShow.id,
+        title: tvShow.name,
+        posterPath: tvShow.posterPath,
+        overview: tvShow.overview,
+      );
+
+  factory WatchlistTable.fromMap(Map<String, dynamic> map) => WatchlistTable(
         id: map['id'],
         title: map['title'],
         posterPath: map['posterPath'],

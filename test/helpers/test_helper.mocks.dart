@@ -16,7 +16,7 @@ import 'package:ditonton/data/datasources/local/movie_local_data_source.dart'
 import 'package:ditonton/data/datasources/remote/remote_data_source.dart'
     as _i11;
 import 'package:ditonton/data/models/movie/movie_result_response.dart' as _i12;
-import 'package:ditonton/data/models/movie_table.dart' as _i15;
+import 'package:ditonton/data/models/watchlist_table.dart' as _i15;
 import 'package:ditonton/data/models/moviedetail/movie_detail_response.dart'
     as _i3;
 import 'package:ditonton/data/models/tvshow/tv_show_result_response.dart'
