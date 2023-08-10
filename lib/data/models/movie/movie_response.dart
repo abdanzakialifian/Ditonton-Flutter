@@ -7,9 +7,15 @@ class MovieResponse extends Equatable {
   MovieResponse({required this.movieList});
 
   factory MovieResponse.fromJson(Map<String, dynamic> json) => MovieResponse(
-        movieList: List<MovieResultResponse>.from((json["results"] as List)
-            .map((x) => MovieResultResponse.fromJson(x))
-            .where((element) => element.posterPath != null)),
+        movieList: List<MovieResultResponse>.from(
+          (json["results"] as List)
+              .map((x) => MovieResultResponse.fromJson(x))
+              .where(
+                (element) =>
+                    element.posterPath != null &&
+                    element.overview?.isNotEmpty == true,
+              ),
+        ),
       );
 
   Map<String, dynamic> toJson() => {

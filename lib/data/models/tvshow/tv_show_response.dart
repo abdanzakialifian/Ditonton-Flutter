@@ -10,7 +10,11 @@ class TvShowResponse extends Equatable {
         tvShowList: List<TvShowResultResponse>.from(
           (json["results"] as List)
               .map((x) => TvShowResultResponse.fromJson(x))
-              .where((element) => element.posterPath != null),
+              .where(
+                (element) =>
+                    element.posterPath != null &&
+                    element.overview?.isNotEmpty == true,
+              ),
         ),
       );
 
