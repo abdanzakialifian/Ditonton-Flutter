@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/presentation/pages/detail_page.dart';
+import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/now_playing_page.dart';
 import 'package:ditonton/presentation/pages/popular_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_page.dart';
