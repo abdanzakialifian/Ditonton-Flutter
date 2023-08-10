@@ -6,4 +6,5 @@ abstract class TvShowRepository {
   Future<Either<Failure, List<TvShow>>> getAiringTodayTvShows();
   Future<Either<Failure, List<TvShow>>> getPopularTvShows();
   Future<Either<Failure, List<TvShow>>> getTopRatedTvShows();
+  Future<Either<Failure, List<TvShow>>> getTvShowRecommendations(int id);
 }
