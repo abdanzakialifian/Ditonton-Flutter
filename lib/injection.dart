@@ -69,6 +69,7 @@ void init() {
   locator.registerFactory(
     () => PopularNotifier(
       locator(),
+      locator(),
     ),
   );
   locator.registerFactory(
