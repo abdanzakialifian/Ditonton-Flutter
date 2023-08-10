@@ -63,6 +63,7 @@ void init() {
   locator.registerFactory(
     () => NowPlayingNotifier(
       locator(),
+      locator(),
     ),
   );
   locator.registerFactory(
