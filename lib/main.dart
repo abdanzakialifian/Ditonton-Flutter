@@ -17,6 +17,7 @@ import 'package:ditonton/presentation/provider/popular_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_show_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_show_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_show_search_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +60,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<TvShowDetailNotifier>(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<TvShowSearchNotifier>(),
+        )
       ],
       child: MaterialApp(
         title: 'Ditonton',
@@ -110,7 +114,12 @@ class MyApp extends StatelessWidget {
                 settings: settings,
               );
             case SearchPage.ROUTE_NAME:
-              return MaterialPageRoute(builder: (_) => SearchPage());
+              final type = settings.arguments as String;
+              return MaterialPageRoute(
+                builder: (_) => SearchPage(
+                  type: type,
+                ),
+              );
             case WatchlistPage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => WatchlistPage());
             case AboutPage.ROUTE_NAME:

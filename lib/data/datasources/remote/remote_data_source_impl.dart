@@ -152,4 +152,17 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       throw ServerException();
     }
   }
+
+  @override
+  Future<List<TvShowResultResponse>> searchTvShows(String query) async {
+    final response = await client
+        .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$query'));
+
+    if (response.statusCode == 200) {
+      return TvShowResponse.fromJson(json.decode(response.body)).tvShowList ??
+          [];
+    } else {
+      throw ServerException();
+    }
+  }
 }
