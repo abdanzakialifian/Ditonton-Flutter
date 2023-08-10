@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'spoken_language_response.g.dart';
 
 @JsonSerializable()
-class SpokenLanguageResponse {
+class SpokenLanguageResponse extends Equatable {
   final String? englishName;
   final String? iso6391;
   final String? name;
@@ -18,4 +19,11 @@ class SpokenLanguageResponse {
       _$SpokenLanguageResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$SpokenLanguageResponseToJson(this);
+
+  @override
+  List<Object?> get props => [
+        englishName,
+        iso6391,
+        name,
+      ];
 }

@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'last_episode_to_air_response.g.dart';
 
 @JsonSerializable()
-class LastEpisodeToAirResponse {
+class LastEpisodeToAirResponse extends Equatable {
   final int? id;
   final String? name;
   final String? overview;
@@ -38,4 +39,21 @@ class LastEpisodeToAirResponse {
       _$LastEpisodeToAirResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$LastEpisodeToAirResponseToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        overview,
+        voteAverage,
+        voteCount,
+        airDate,
+        episodeNumber,
+        episodeType,
+        productionCode,
+        runtime,
+        seasonNumber,
+        showId,
+        stillPath,
+      ];
 }

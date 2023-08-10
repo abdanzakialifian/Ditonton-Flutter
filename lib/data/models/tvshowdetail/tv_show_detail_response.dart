@@ -5,12 +5,13 @@ import 'package:ditonton/data/models/tvshowdetail/network_response.dart';
 import 'package:ditonton/data/models/tvshowdetail/production_country_response.dart';
 import 'package:ditonton/data/models/tvshowdetail/season_response.dart';
 import 'package:ditonton/data/models/tvshowdetail/spoken_language_response.dart';
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tv_show_detail_response.g.dart';
 
 @JsonSerializable()
-class TvShowDetailResponse {
+class TvShowDetailResponse extends Equatable {
   final bool? adult;
   final String? backdropPath;
   final List<CreatedByResponse>? createdBy;
@@ -83,4 +84,40 @@ class TvShowDetailResponse {
       _$TvShowDetailResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$TvShowDetailResponseToJson(this);
+
+  @override
+  List<Object?> get props => [
+        adult,
+        backdropPath,
+        createdBy,
+        episodeRunTime,
+        firstAirDate,
+        genres,
+        homepage,
+        id,
+        inProduction,
+        languages,
+        lastAirDate,
+        lastEpisodeToAir,
+        name,
+        nextEpisodeToAir,
+        networks,
+        numberOfEpisodes,
+        numberOfSeasons,
+        originCountry,
+        originalLanguage,
+        originalName,
+        overview,
+        popularity,
+        posterPath,
+        productionCompanies,
+        productionCountries,
+        seasons,
+        spokenLanguages,
+        status,
+        tagline,
+        type,
+        voteAverage,
+        voteCount,
+      ];
 }

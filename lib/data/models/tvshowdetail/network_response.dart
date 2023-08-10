@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'network_response.g.dart';
 
 @JsonSerializable()
-class NetworkResponse {
+class NetworkResponse extends Equatable {
   final int? id;
   final String? logoPath;
   final String? name;
@@ -20,4 +21,12 @@ class NetworkResponse {
       _$NetworkResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$NetworkResponseToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        logoPath,
+        name,
+        originCountry,
+      ];
 }

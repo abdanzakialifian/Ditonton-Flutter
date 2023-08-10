@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'created_by_response.g.dart';
 
 @JsonSerializable()
-class CreatedByResponse {
+class CreatedByResponse extends Equatable {
   final int? id;
   final String? creditId;
   final String? name;
@@ -22,4 +23,13 @@ class CreatedByResponse {
       _$CreatedByResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreatedByResponseToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        creditId,
+        name,
+        gender,
+        profilePath,
+      ];
 }

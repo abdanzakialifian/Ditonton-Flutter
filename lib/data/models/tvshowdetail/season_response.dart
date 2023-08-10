@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'season_response.g.dart';
 
 @JsonSerializable()
-class SeasonResponse {
+class SeasonResponse extends Equatable {
   final DateTime? airDate;
   final int? episodeCount;
   final int? id;
@@ -28,4 +29,16 @@ class SeasonResponse {
       _$SeasonResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$SeasonResponseToJson(this);
+
+  @override
+  List<Object?> get props => [
+        airDate,
+        episodeCount,
+        id,
+        name,
+        overview,
+        posterPath,
+        seasonNumber,
+        voteAverage,
+      ];
 }

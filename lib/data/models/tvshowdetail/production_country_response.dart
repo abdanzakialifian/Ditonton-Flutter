@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'production_country_response.g.dart';
 
 @JsonSerializable()
-class ProductionCountryResponse {
+class ProductionCountryResponse extends Equatable {
   final String? iso31661;
   final String? name;
 
@@ -16,4 +17,10 @@ class ProductionCountryResponse {
       _$ProductionCountryResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductionCountryResponseToJson(this);
+
+  @override
+  List<Object?> get props => [
+        iso31661,
+        name,
+      ];
 }
