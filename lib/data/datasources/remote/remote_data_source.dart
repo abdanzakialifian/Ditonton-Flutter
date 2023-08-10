@@ -13,5 +13,6 @@ abstract class RemoteDataSource {
   Future<MovieDetailResponse> getMovieDetail(int id);
   Future<TvShowDetailResponse> getTvShowDetail(int id);
   Future<List<MovieResultResponse>> getMovieRecommendations(int id);
+  Future<List<TvShowResultResponse>> getTvShowRecommendations(int id);
   Future<List<MovieResultResponse>> searchMovies(String query);
 }
