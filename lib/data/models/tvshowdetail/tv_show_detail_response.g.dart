@@ -17,9 +17,7 @@ TvShowDetailResponse _$TvShowDetailResponseFromJson(
       episodeRunTime: (json['episod_runtime'] as List<dynamic>?)
           ?.map((e) => e as int)
           .toList(),
-      firstAirDate: json['first_air_date'] == null
-          ? null
-          : DateTime.parse(json['first_air_date'] as String),
+      firstAirDate: json['first_air_date'] as String?,
       genres: (json['genres'] as List<dynamic>?)
           ?.map((e) => GenreResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -29,9 +27,7 @@ TvShowDetailResponse _$TvShowDetailResponseFromJson(
       languages: (json['languages'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      lastAirDate: json['last_air_date'] == null
-          ? null
-          : DateTime.parse(json['last_air_date'] as String),
+      lastAirDate: json['last_air_date'] as String?,
       lastEpisodeToAir: json['last_episode_to_air'] == null
           ? null
           : LastEpisodeToAirResponse.fromJson(
@@ -79,13 +75,13 @@ Map<String, dynamic> _$TvShowDetailResponseToJson(
       'backdrop_path': instance.backdropPath,
       'created_by': instance.createdBy,
       'episod_runtime': instance.episodeRunTime,
-      'first_air_date': instance.firstAirDate?.toIso8601String(),
+      'first_air_date': instance.firstAirDate,
       'genres': instance.genres,
       'homepage': instance.homepage,
       'id': instance.id,
       'in_production': instance.inProduction,
       'languages': instance.languages,
-      'last_air_date': instance.lastAirDate?.toIso8601String(),
+      'last_air_date': instance.lastAirDate,
       'last_episode_to_air': instance.lastEpisodeToAir,
       'name': instance.name,
       'next_episode_to_air': instance.nextEpisodeToAir,

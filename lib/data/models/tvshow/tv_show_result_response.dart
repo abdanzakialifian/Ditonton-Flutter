@@ -9,7 +9,7 @@ class TvShowResultResponse extends Equatable {
   @JsonKey(name: "backdrop_path")
   final String? backdropPath;
   @JsonKey(name: "first_air_date")
-  final DateTime? firstAirDate;
+  final String? firstAirDate;
   @JsonKey(name: "genre_ids")
   final List<int>? genreIds;
   @JsonKey(name: "id")

@@ -22,7 +22,7 @@ class TvShowDetailResponse extends Equatable {
   @JsonKey(name: "episod_runtime")
   final List<int>? episodeRunTime;
   @JsonKey(name: "first_air_date")
-  final DateTime? firstAirDate;
+  final String? firstAirDate;
   @JsonKey(name: "genres")
   final List<GenreResponse>? genres;
   @JsonKey(name: "homepage")
@@ -34,7 +34,7 @@ class TvShowDetailResponse extends Equatable {
   @JsonKey(name: "languages")
   final List<String>? languages;
   @JsonKey(name: "last_air_date")
-  final DateTime? lastAirDate;
+  final String? lastAirDate;
   @JsonKey(name: "last_episode_to_air")
   final LastEpisodeToAirResponse? lastEpisodeToAir;
   @JsonKey(name: "name")

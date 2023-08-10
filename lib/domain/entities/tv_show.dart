@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class TvShow extends Equatable {
   final String? backdropPath;
-  final DateTime? firstAirDate;
+  final String? firstAirDate;
   final List<int>? genreIds;
   final int? id;
   final String? name;

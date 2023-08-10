@@ -10,9 +10,7 @@ TvShowResultResponse _$TvShowResultResponseFromJson(
         Map<String, dynamic> json) =>
     TvShowResultResponse(
       backdropPath: json['backdrop_path'] as String?,
-      firstAirDate: json['first_air_date'] == null
-          ? null
-          : DateTime.parse(json['first_air_date'] as String),
+      firstAirDate: json['first_air_date'] as String?,
       genreIds:
           (json['genre_ids'] as List<dynamic>?)?.map((e) => e as int).toList(),
       id: json['id'] as int?,
@@ -33,7 +31,7 @@ Map<String, dynamic> _$TvShowResultResponseToJson(
         TvShowResultResponse instance) =>
     <String, dynamic>{
       'backdrop_path': instance.backdropPath,
-      'first_air_date': instance.firstAirDate?.toIso8601String(),
+      'first_air_date': instance.firstAirDate,
       'genre_ids': instance.genreIds,
       'id': instance.id,
       'name': instance.name,
