@@ -14,7 +14,7 @@ TvShowDetailResponse _$TvShowDetailResponseFromJson(
       createdBy: (json['created_by'] as List<dynamic>?)
           ?.map((e) => CreatedByResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      episodeRunTime: (json['episod_runtime'] as List<dynamic>?)
+      episodeRunTime: (json['episode_run_time'] as List<dynamic>?)
           ?.map((e) => e as int)
           .toList(),
       firstAirDate: json['first_air_date'] as String?,
@@ -74,7 +74,7 @@ Map<String, dynamic> _$TvShowDetailResponseToJson(
       'adult': instance.adult,
       'backdrop_path': instance.backdropPath,
       'created_by': instance.createdBy,
-      'episod_runtime': instance.episodeRunTime,
+      'episode_run_time': instance.episodeRunTime,
       'first_air_date': instance.firstAirDate,
       'genres': instance.genres,
       'homepage': instance.homepage,

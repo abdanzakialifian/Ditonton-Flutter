@@ -19,7 +19,7 @@ class TvShowDetailResponse extends Equatable {
   final String? backdropPath;
   @JsonKey(name: "created_by")
   final List<CreatedByResponse>? createdBy;
-  @JsonKey(name: "episod_runtime")
+  @JsonKey(name: "episode_run_time")
   final List<int>? episodeRunTime;
   @JsonKey(name: "first_air_date")
   final String? firstAirDate;
@@ -127,7 +127,7 @@ class TvShowDetailResponse extends Equatable {
       originalName: originalName,
       overview: overview,
       posterPath: posterPath,
-      runtime: episodeRunTime?.first,
+      runtime: episodeRunTime?.isNotEmpty == true ? episodeRunTime?.first : 0,
       name: name,
       voteAverage: voteAverage,
       voteCount: voteCount,
