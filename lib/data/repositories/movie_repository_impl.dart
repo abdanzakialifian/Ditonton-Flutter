@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/data/datasources/local/movie_local_data_source.dart';
+import 'package:ditonton/data/datasources/local/local_data_source.dart';
 import 'package:ditonton/data/datasources/remote/remote_data_source.dart';
 import 'package:ditonton/data/models/watchlist_table.dart';
 import 'package:ditonton/domain/entities/movie.dart';
@@ -12,7 +12,7 @@ import 'package:ditonton/common/failure.dart';
 
 class MovieRepositoryImpl implements MovieRepository {
   final RemoteDataSource remoteDataSource;
-  final MovieLocalDataSource localDataSource;
+  final LocalDataSource localDataSource;
 
   MovieRepositoryImpl({
     required this.remoteDataSource,

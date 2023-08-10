@@ -11,8 +11,7 @@ import 'package:dartz/dartz.dart' as _i2;
 import 'package:ditonton/common/failure.dart' as _i8;
 import 'package:ditonton/data/datasources/local/db/database_helper.dart'
     as _i16;
-import 'package:ditonton/data/datasources/local/movie_local_data_source.dart'
-    as _i14;
+import 'package:ditonton/data/datasources/local/local_data_source.dart' as _i14;
 import 'package:ditonton/data/datasources/remote/remote_data_source.dart'
     as _i11;
 import 'package:ditonton/data/models/movie/movie_result_response.dart' as _i12;

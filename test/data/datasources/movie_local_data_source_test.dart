@@ -1,5 +1,5 @@
 import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/data/datasources/local/movie_local_data_source.dart';
+import 'package:ditonton/data/datasources/local/local_data_source_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -7,12 +7,12 @@ import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late MovieLocalDataSourceImpl dataSource;
+  late LocalDataSourceImpl dataSource;
   late MockDatabaseHelper mockDatabaseHelper;
 
   setUp(() {
     mockDatabaseHelper = MockDatabaseHelper();
-    dataSource = MovieLocalDataSourceImpl(databaseHelper: mockDatabaseHelper);
+    dataSource = LocalDataSourceImpl(databaseHelper: mockDatabaseHelper);
   });
 
   group('save watchlist', () {
