@@ -14,8 +14,8 @@ class TvShowDetailNotifier extends ChangeNotifier {
     required this.getTvShowRecommendations,
   });
 
-  late TvShowDetail _tvShowDetail;
-  TvShowDetail get tvShowDetail => _tvShowDetail;
+  late TvShowDetail _tvShow;
+  TvShowDetail get tvShow => _tvShow;
 
   RequestState _tvShowState = RequestState.Empty;
   RequestState get tvShowState => _tvShowState;
@@ -42,7 +42,7 @@ class TvShowDetailNotifier extends ChangeNotifier {
       },
       (tvShow) {
         _recommendationState = RequestState.Loading;
-        _tvShowDetail = tvShow;
+        _tvShow = tvShow;
         notifyListeners();
         recommendationResult.fold(
           (failure) {

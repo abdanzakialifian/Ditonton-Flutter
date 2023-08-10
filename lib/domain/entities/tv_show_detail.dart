@@ -9,6 +9,7 @@ class TvShowDetail extends Equatable {
   final String? originalName;
   final String? overview;
   final String? posterPath;
+  final int? runtime;
   final String? name;
   final double? voteAverage;
   final int? voteCount;
@@ -21,6 +22,7 @@ class TvShowDetail extends Equatable {
     required this.originalName,
     required this.overview,
     required this.posterPath,
+    required this.runtime,
     required this.name,
     required this.voteAverage,
     required this.voteCount,
@@ -35,6 +37,7 @@ class TvShowDetail extends Equatable {
         originalName,
         overview,
         posterPath,
+        runtime,
         name,
         voteAverage,
         voteCount,

@@ -95,6 +95,7 @@ class TvShowDetailResponse extends Equatable {
       originalName: originalName,
       overview: overview,
       posterPath: posterPath,
+      runtime: episodeRunTime?.first,
       name: name,
       voteAverage: voteAverage,
       voteCount: voteCount,
