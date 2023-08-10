@@ -10,16 +10,16 @@ import 'package:provider/provider.dart';
 import '../../dummy_data/dummy_objects.dart';
 import 'detail_page_test.mocks.dart';
 
-@GenerateMocks([DetailNotifier])
+@GenerateMocks([MovieDetailNotifier])
 void main() {
-  late MockDetailNotifier mockNotifier;
+  late MockMovieDetailNotifier mockNotifier;
 
   setUp(() {
-    mockNotifier = MockDetailNotifier();
+    mockNotifier = MockMovieDetailNotifier();
   });
 
   Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<DetailNotifier>.value(
+    return ChangeNotifierProvider<MovieDetailNotifier>.value(
       value: mockNotifier,
       child: MaterialApp(
         home: body,
@@ -38,7 +38,7 @@ void main() {
 
     final watchlistButtonIcon = find.byIcon(Icons.add);
 
-    await tester.pumpWidget(_makeTestableWidget(DetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
 
     expect(watchlistButtonIcon, findsOneWidget);
   });
@@ -54,7 +54,7 @@ void main() {
 
     final watchlistButtonIcon = find.byIcon(Icons.check);
 
-    await tester.pumpWidget(_makeTestableWidget(DetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
 
     expect(watchlistButtonIcon, findsOneWidget);
   });
@@ -71,7 +71,7 @@ void main() {
 
     final watchlistButton = find.byType(ElevatedButton);
 
-    await tester.pumpWidget(_makeTestableWidget(DetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
 
     expect(find.byIcon(Icons.add), findsOneWidget);
 
@@ -94,7 +94,7 @@ void main() {
 
     final watchlistButton = find.byType(ElevatedButton);
 
-    await tester.pumpWidget(_makeTestableWidget(DetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
 
     expect(find.byIcon(Icons.add), findsOneWidget);
 

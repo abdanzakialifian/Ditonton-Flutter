@@ -5,9 +5,13 @@ part 'network_response.g.dart';
 
 @JsonSerializable()
 class NetworkResponse extends Equatable {
+  @JsonKey(name: "id")
   final int? id;
+  @JsonKey(name: "logo_path")
   final String? logoPath;
+  @JsonKey(name: "name")
   final String? name;
+  @JsonKey(name: "origin_country")
   final String? originCountry;
 
   NetworkResponse({

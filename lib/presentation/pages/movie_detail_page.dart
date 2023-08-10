@@ -9,33 +9,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
-class DetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail';
+class MovieDetailPage extends StatefulWidget {
+  static const ROUTE_NAME = '/movie-detail';
 
   final int id;
-  DetailPage({required this.id});
+  MovieDetailPage({required this.id});
 
   @override
-  _DetailPageState createState() => _DetailPageState();
+  _MovieDetailPageState createState() => _MovieDetailPageState();
 }
 
-class _DetailPageState extends State<DetailPage> {
+class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<DetailNotifier>(context, listen: false)
+      Provider.of<MovieDetailNotifier>(context, listen: false)
           .fetchMovieDetail(widget.id);
-      Provider.of<DetailNotifier>(context, listen: false)
+      Provider.of<MovieDetailNotifier>(context, listen: false)
           .loadWatchlistStatus(widget.id);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print("CEK ${widget.id}");
     return Scaffold(
-      body: Consumer<DetailNotifier>(
+      body: Consumer<MovieDetailNotifier>(
         builder: (context, provider, child) {
           if (provider.movieState == RequestState.Loading) {
             return Center(
@@ -44,7 +43,7 @@ class _DetailPageState extends State<DetailPage> {
           } else if (provider.movieState == RequestState.Loaded) {
             final movie = provider.movie;
             return SafeArea(
-              child: DetailContent(
+              child: MovieDetailContent(
                 movie,
                 provider.movieRecommendations,
                 provider.isAddedToWatchlist,
@@ -59,12 +58,12 @@ class _DetailPageState extends State<DetailPage> {
   }
 }
 
-class DetailContent extends StatelessWidget {
+class MovieDetailContent extends StatelessWidget {
   final MovieDetail movie;
   final List<Movie> recommendations;
   final bool isAddedWatchlist;
 
-  DetailContent(this.movie, this.recommendations, this.isAddedWatchlist);
+  MovieDetailContent(this.movie, this.recommendations, this.isAddedWatchlist);
 
   @override
   Widget build(BuildContext context) {
@@ -109,25 +108,27 @@ class DetailContent extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  await Provider.of<DetailNotifier>(context,
+                                  await Provider.of<MovieDetailNotifier>(
+                                          context,
                                           listen: false)
                                       .addWatchlist(movie);
                                 } else {
-                                  await Provider.of<DetailNotifier>(context,
+                                  await Provider.of<MovieDetailNotifier>(
+                                          context,
                                           listen: false)
                                       .removeFromWatchlist(movie);
                                 }
 
-                                final message = Provider.of<DetailNotifier>(
-                                        context,
-                                        listen: false)
-                                    .watchlistMessage;
+                                final message =
+                                    Provider.of<MovieDetailNotifier>(context,
+                                            listen: false)
+                                        .watchlistMessage;
 
                                 if (message ==
-                                        DetailNotifier
+                                        MovieDetailNotifier
                                             .watchlistAddSuccessMessage ||
                                     message ==
-                                        DetailNotifier
+                                        MovieDetailNotifier
                                             .watchlistRemoveSuccessMessage) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text(message)));
@@ -184,7 +185,7 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            Consumer<DetailNotifier>(
+                            Consumer<MovieDetailNotifier>(
                               builder: (context, data, child) {
                                 if (data.recommendationState ==
                                     RequestState.Loading) {
@@ -208,7 +209,7 @@ class DetailContent extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                DetailPage.ROUTE_NAME,
+                                                MovieDetailPage.ROUTE_NAME,
                                                 arguments: movie.id,
                                               );
                                             },

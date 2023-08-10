@@ -8,26 +8,26 @@ part of 'season_response.dart';
 
 SeasonResponse _$SeasonResponseFromJson(Map<String, dynamic> json) =>
     SeasonResponse(
-      airDate: json['airDate'] == null
+      airDate: json['air_date'] == null
           ? null
-          : DateTime.parse(json['airDate'] as String),
-      episodeCount: json['episodeCount'] as int?,
+          : DateTime.parse(json['air_date'] as String),
+      episodeCount: json['episode_count'] as int?,
       id: json['id'] as int?,
       name: json['name'] as String?,
       overview: json['overview'] as String?,
-      posterPath: json['posterPath'] as String?,
-      seasonNumber: json['seasonNumber'] as int?,
-      voteAverage: (json['voteAverage'] as num?)?.toDouble(),
+      posterPath: json['poster_path'] as String?,
+      seasonNumber: json['season_number'] as int?,
+      voteAverage: (json['vote_average'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$SeasonResponseToJson(SeasonResponse instance) =>
     <String, dynamic>{
-      'airDate': instance.airDate?.toIso8601String(),
-      'episodeCount': instance.episodeCount,
+      'air_date': instance.airDate?.toIso8601String(),
+      'episode_count': instance.episodeCount,
       'id': instance.id,
       'name': instance.name,
       'overview': instance.overview,
-      'posterPath': instance.posterPath,
-      'seasonNumber': instance.seasonNumber,
-      'voteAverage': instance.voteAverage,
+      'poster_path': instance.posterPath,
+      'season_number': instance.seasonNumber,
+      'vote_average': instance.voteAverage,
     };

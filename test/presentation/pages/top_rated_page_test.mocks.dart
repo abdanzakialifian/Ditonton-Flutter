@@ -3,13 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
-import 'dart:ui' as _i7;
+import 'dart:async' as _i8;
+import 'dart:ui' as _i9;
 
-import 'package:ditonton/common/state_enum.dart' as _i4;
-import 'package:ditonton/domain/entities/movie.dart' as _i5;
+import 'package:ditonton/common/state_enum.dart' as _i5;
+import 'package:ditonton/domain/entities/movie.dart' as _i6;
+import 'package:ditonton/domain/entities/tv_show.dart' as _i7;
 import 'package:ditonton/domain/usecases/get_top_rated_movies.dart' as _i2;
-import 'package:ditonton/presentation/provider/top_rated_notifier.dart' as _i3;
+import 'package:ditonton/domain/usecases/get_top_rated_tv_shows.dart' as _i3;
+import 'package:ditonton/presentation/provider/top_rated_notifier.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -34,10 +36,21 @@ class _FakeGetTopRatedMovies_0 extends _i1.SmartFake
         );
 }
 
+class _FakeGetTopRatedTvShows_1 extends _i1.SmartFake
+    implements _i3.GetTopRatedTvShows {
+  _FakeGetTopRatedTvShows_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [TopRatedNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTopRatedNotifier extends _i1.Mock implements _i3.TopRatedNotifier {
+class MockTopRatedNotifier extends _i1.Mock implements _i4.TopRatedNotifier {
   MockTopRatedNotifier() {
     _i1.throwOnMissingStub(this);
   }
@@ -51,15 +64,28 @@ class MockTopRatedNotifier extends _i1.Mock implements _i3.TopRatedNotifier {
         ),
       ) as _i2.GetTopRatedMovies);
   @override
-  _i4.RequestState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _i4.RequestState.Empty,
-      ) as _i4.RequestState);
+  _i3.GetTopRatedTvShows get getTopRatedTvShows => (super.noSuchMethod(
+        Invocation.getter(#getTopRatedTvShows),
+        returnValue: _FakeGetTopRatedTvShows_1(
+          this,
+          Invocation.getter(#getTopRatedTvShows),
+        ),
+      ) as _i3.GetTopRatedTvShows);
   @override
-  List<_i5.Movie> get movies => (super.noSuchMethod(
+  _i5.RequestState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i5.RequestState.Empty,
+      ) as _i5.RequestState);
+  @override
+  List<_i6.Movie> get movies => (super.noSuchMethod(
         Invocation.getter(#movies),
-        returnValue: <_i5.Movie>[],
-      ) as List<_i5.Movie>);
+        returnValue: <_i6.Movie>[],
+      ) as List<_i6.Movie>);
+  @override
+  List<_i7.TvShow> get tvShows => (super.noSuchMethod(
+        Invocation.getter(#tvShows),
+        returnValue: <_i7.TvShow>[],
+      ) as List<_i7.TvShow>);
   @override
   String get message => (super.noSuchMethod(
         Invocation.getter(#message),
@@ -71,16 +97,25 @@ class MockTopRatedNotifier extends _i1.Mock implements _i3.TopRatedNotifier {
         returnValue: false,
       ) as bool);
   @override
-  _i6.Future<void> fetchTopRatedMovies() => (super.noSuchMethod(
+  _i8.Future<void> fetchTopRatedMovies() => (super.noSuchMethod(
         Invocation.method(
           #fetchTopRatedMovies,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
   @override
-  void addListener(_i7.VoidCallback? listener) => super.noSuchMethod(
+  _i8.Future<void> fetchTopRatedTvShows() => (super.noSuchMethod(
+        Invocation.method(
+          #fetchTopRatedTvShows,
+          [],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+  @override
+  void addListener(_i9.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -88,7 +123,7 @@ class MockTopRatedNotifier extends _i1.Mock implements _i3.TopRatedNotifier {
         returnValueForMissingStub: null,
       );
   @override
-  void removeListener(_i7.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i9.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],

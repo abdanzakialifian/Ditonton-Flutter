@@ -10,101 +10,101 @@ TvShowDetailResponse _$TvShowDetailResponseFromJson(
         Map<String, dynamic> json) =>
     TvShowDetailResponse(
       adult: json['adult'] as bool?,
-      backdropPath: json['backdropPath'] as String?,
-      createdBy: (json['createdBy'] as List<dynamic>?)
+      backdropPath: json['backdrop_path'] as String?,
+      createdBy: (json['created_by'] as List<dynamic>?)
           ?.map((e) => CreatedByResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      episodeRunTime: (json['episodeRunTime'] as List<dynamic>?)
+      episodeRunTime: (json['episod_runtime'] as List<dynamic>?)
           ?.map((e) => e as int)
           .toList(),
-      firstAirDate: json['firstAirDate'] == null
+      firstAirDate: json['first_air_date'] == null
           ? null
-          : DateTime.parse(json['firstAirDate'] as String),
+          : DateTime.parse(json['first_air_date'] as String),
       genres: (json['genres'] as List<dynamic>?)
           ?.map((e) => GenreResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       homepage: json['homepage'] as String?,
       id: json['id'] as int?,
-      inProduction: json['inProduction'] as bool?,
+      inProduction: json['in_production'] as bool?,
       languages: (json['languages'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      lastAirDate: json['lastAirDate'] == null
+      lastAirDate: json['last_air_date'] == null
           ? null
-          : DateTime.parse(json['lastAirDate'] as String),
-      lastEpisodeToAir: json['lastEpisodeToAir'] == null
+          : DateTime.parse(json['last_air_date'] as String),
+      lastEpisodeToAir: json['last_episode_to_air'] == null
           ? null
           : LastEpisodeToAirResponse.fromJson(
-              json['lastEpisodeToAir'] as Map<String, dynamic>),
+              json['last_episode_to_air'] as Map<String, dynamic>),
       name: json['name'] as String?,
-      nextEpisodeToAir: json['nextEpisodeToAir'],
+      nextEpisodeToAir: json['next_episode_to_air'],
       networks: (json['networks'] as List<dynamic>?)
           ?.map((e) => NetworkResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      numberOfEpisodes: json['numberOfEpisodes'] as int?,
-      numberOfSeasons: json['numberOfSeasons'] as int?,
-      originCountry: (json['originCountry'] as List<dynamic>?)
+      numberOfEpisodes: json['number_of_episodes'] as int?,
+      numberOfSeasons: json['number_of_seasons'] as int?,
+      originCountry: (json['origin_country'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      originalLanguage: json['originalLanguage'] as String?,
-      originalName: json['originalName'] as String?,
+      originalLanguage: json['original_language'] as String?,
+      originalName: json['original_name'] as String?,
       overview: json['overview'] as String?,
       popularity: (json['popularity'] as num?)?.toDouble(),
-      posterPath: json['posterPath'] as String?,
-      productionCompanies: (json['productionCompanies'] as List<dynamic>?)
+      posterPath: json['poster_path'] as String?,
+      productionCompanies: (json['production_companies'] as List<dynamic>?)
           ?.map((e) => NetworkResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      productionCountries: (json['productionCountries'] as List<dynamic>?)
+      productionCountries: (json['production_countries'] as List<dynamic>?)
           ?.map((e) =>
               ProductionCountryResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       seasons: (json['seasons'] as List<dynamic>?)
           ?.map((e) => SeasonResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      spokenLanguages: (json['spokenLanguages'] as List<dynamic>?)
+      spokenLanguages: (json['spoken_languages'] as List<dynamic>?)
           ?.map(
               (e) => SpokenLanguageResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       status: json['status'] as String?,
       tagline: json['tagline'] as String?,
       type: json['type'] as String?,
-      voteAverage: (json['voteAverage'] as num?)?.toDouble(),
-      voteCount: json['voteCount'] as int?,
+      voteAverage: (json['vote_average'] as num?)?.toDouble(),
+      voteCount: json['vote_count'] as int?,
     );
 
 Map<String, dynamic> _$TvShowDetailResponseToJson(
         TvShowDetailResponse instance) =>
     <String, dynamic>{
       'adult': instance.adult,
-      'backdropPath': instance.backdropPath,
-      'createdBy': instance.createdBy,
-      'episodeRunTime': instance.episodeRunTime,
-      'firstAirDate': instance.firstAirDate?.toIso8601String(),
+      'backdrop_path': instance.backdropPath,
+      'created_by': instance.createdBy,
+      'episod_runtime': instance.episodeRunTime,
+      'first_air_date': instance.firstAirDate?.toIso8601String(),
       'genres': instance.genres,
       'homepage': instance.homepage,
       'id': instance.id,
-      'inProduction': instance.inProduction,
+      'in_production': instance.inProduction,
       'languages': instance.languages,
-      'lastAirDate': instance.lastAirDate?.toIso8601String(),
-      'lastEpisodeToAir': instance.lastEpisodeToAir,
+      'last_air_date': instance.lastAirDate?.toIso8601String(),
+      'last_episode_to_air': instance.lastEpisodeToAir,
       'name': instance.name,
-      'nextEpisodeToAir': instance.nextEpisodeToAir,
+      'next_episode_to_air': instance.nextEpisodeToAir,
       'networks': instance.networks,
-      'numberOfEpisodes': instance.numberOfEpisodes,
-      'numberOfSeasons': instance.numberOfSeasons,
-      'originCountry': instance.originCountry,
-      'originalLanguage': instance.originalLanguage,
-      'originalName': instance.originalName,
+      'number_of_episodes': instance.numberOfEpisodes,
+      'number_of_seasons': instance.numberOfSeasons,
+      'origin_country': instance.originCountry,
+      'original_language': instance.originalLanguage,
+      'original_name': instance.originalName,
       'overview': instance.overview,
       'popularity': instance.popularity,
-      'posterPath': instance.posterPath,
-      'productionCompanies': instance.productionCompanies,
-      'productionCountries': instance.productionCountries,
+      'poster_path': instance.posterPath,
+      'production_companies': instance.productionCompanies,
+      'production_countries': instance.productionCountries,
       'seasons': instance.seasons,
-      'spokenLanguages': instance.spokenLanguages,
+      'spoken_languages': instance.spokenLanguages,
       'status': instance.status,
       'tagline': instance.tagline,
       'type': instance.type,
-      'voteAverage': instance.voteAverage,
-      'voteCount': instance.voteCount,
+      'vote_average': instance.voteAverage,
+      'vote_count': instance.voteCount,
     };

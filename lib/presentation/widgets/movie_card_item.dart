@@ -17,7 +17,7 @@ class MovieCardItem extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(
             context,
-            DetailPage.ROUTE_NAME,
+            MovieDetailPage.ROUTE_NAME,
             arguments: movie.id,
           );
         },

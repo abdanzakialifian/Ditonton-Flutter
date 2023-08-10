@@ -9,15 +9,15 @@ part of 'spoken_language_response.dart';
 SpokenLanguageResponse _$SpokenLanguageResponseFromJson(
         Map<String, dynamic> json) =>
     SpokenLanguageResponse(
-      englishName: json['englishName'] as String?,
-      iso6391: json['iso6391'] as String?,
+      englishName: json['english_name'] as String?,
+      iso6391: json['iso_639_1'] as String?,
       name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$SpokenLanguageResponseToJson(
         SpokenLanguageResponse instance) =>
     <String, dynamic>{
-      'englishName': instance.englishName,
-      'iso6391': instance.iso6391,
+      'english_name': instance.englishName,
+      'iso_639_1': instance.iso6391,
       'name': instance.name,
     };

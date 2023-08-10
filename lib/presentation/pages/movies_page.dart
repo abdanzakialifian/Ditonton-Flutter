@@ -137,7 +137,7 @@ class _MoviesPageState extends State<MoviesPage> {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  DetailPage.ROUTE_NAME,
+                  MovieDetailPage.ROUTE_NAME,
                   arguments: movie.id,
                 );
               },

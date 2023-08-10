@@ -23,7 +23,7 @@ import 'detail_notifier_test.mocks.dart';
   RemoveWatchlist,
 ])
 void main() {
-  late DetailNotifier provider;
+  late MovieDetailNotifier provider;
   late MockGetMovieDetail mockGetMovieDetail;
   late MockGetMovieRecommendations mockGetMovieRecommendations;
   late MockGetWatchListStatus mockGetWatchlistStatus;
@@ -38,7 +38,7 @@ void main() {
     mockGetWatchlistStatus = MockGetWatchListStatus();
     mockSaveWatchlist = MockSaveWatchlist();
     mockRemoveWatchlist = MockRemoveWatchlist();
-    provider = DetailNotifier(
+    provider = MovieDetailNotifier(
       getMovieDetail: mockGetMovieDetail,
       getMovieRecommendations: mockGetMovieRecommendations,
       getWatchListStatus: mockGetWatchlistStatus,

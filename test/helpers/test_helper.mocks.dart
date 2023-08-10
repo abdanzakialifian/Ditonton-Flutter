@@ -373,6 +373,17 @@ class MockRemoteDataSource extends _i1.Mock implements _i11.RemoteDataSource {
             <_i12.MovieResultResponse>[]),
       ) as _i7.Future<List<_i12.MovieResultResponse>>);
   @override
+  _i7.Future<List<_i13.TvShowResultResponse>> getTvShowRecommendations(
+          int? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getTvShowRecommendations,
+          [id],
+        ),
+        returnValue: _i7.Future<List<_i13.TvShowResultResponse>>.value(
+            <_i13.TvShowResultResponse>[]),
+      ) as _i7.Future<List<_i13.TvShowResultResponse>>);
+  @override
   _i7.Future<List<_i12.MovieResultResponse>> searchMovies(String? query) =>
       (super.noSuchMethod(
         Invocation.method(

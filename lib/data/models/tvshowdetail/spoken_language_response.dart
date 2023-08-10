@@ -5,8 +5,11 @@ part 'spoken_language_response.g.dart';
 
 @JsonSerializable()
 class SpokenLanguageResponse extends Equatable {
+  @JsonKey(name: "english_name")
   final String? englishName;
+  @JsonKey(name: "iso_639_1")
   final String? iso6391;
+  @JsonKey(name: "name")
   final String? name;
 
   SpokenLanguageResponse({

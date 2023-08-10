@@ -4,7 +4,6 @@ import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/tv_show.dart';
 import 'package:ditonton/domain/entities/tv_show_detail.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/provider/tv_show_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -206,7 +205,7 @@ class TvShowDetailContent extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                DetailPage.ROUTE_NAME,
+                                                TvShowDetailPage.ROUTE_NAME,
                                                 arguments: tvShow.id,
                                               );
                                             },
