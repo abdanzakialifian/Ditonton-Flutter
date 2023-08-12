@@ -5,6 +5,7 @@ import 'package:ditonton/domain/entities/tv_show.dart';
 import 'package:ditonton/domain/entities/tv_show_detail.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/tv_show_detail_notifier.dart';
+import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,8 @@ class _TvShowDetailPageState extends State<TvShowDetailPage> {
     Future.microtask(() {
       Provider.of<TvShowDetailNotifier>(context, listen: false)
           .fetchTvShowDetail(widget.id);
+      Provider.of<WatchlistNotifier>(context, listen: false)
+          .loadWatchlistStatus(widget.id);
     });
   }
 
@@ -44,7 +47,7 @@ class _TvShowDetailPageState extends State<TvShowDetailPage> {
               child: TvShowDetailContent(
                 tvShow,
                 provider.tvShowRecommendations,
-                provider.isAddedToWatchlist,
+                Provider.of<WatchlistNotifier>(context).isAddedToWatchlist,
               ),
             );
           } else {
@@ -106,27 +109,26 @@ class TvShowDetailContent extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  await Provider.of<TvShowDetailNotifier>(
-                                          context,
+                                  await Provider.of<WatchlistNotifier>(context,
                                           listen: false)
-                                      .addWatchlist(tvShow);
+                                      .addWatchlist(tvShow.toWatchlist());
                                 } else {
-                                  await Provider.of<TvShowDetailNotifier>(
-                                          context,
+                                  await Provider.of<WatchlistNotifier>(context,
                                           listen: false)
-                                      .removeFromWatchlist(tvShow);
+                                      .removeFromWatchlist(
+                                          tvShow.toWatchlist());
                                 }
 
-                                final message =
-                                    Provider.of<TvShowDetailNotifier>(context,
-                                            listen: false)
-                                        .watchlistMessage;
+                                final message = Provider.of<WatchlistNotifier>(
+                                        context,
+                                        listen: false)
+                                    .watchlistMessage;
 
                                 if (message ==
-                                        TvShowDetailNotifier
+                                        WatchlistNotifier
                                             .watchlistAddSuccessMessage ||
                                     message ==
-                                        TvShowDetailNotifier
+                                        WatchlistNotifier
                                             .watchlistRemoveSuccessMessage) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text(message)));

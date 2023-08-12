@@ -1,4 +1,6 @@
+import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:equatable/equatable.dart';
 
 class MovieDetail extends Equatable {
@@ -14,6 +16,7 @@ class MovieDetail extends Equatable {
   final String? title;
   final double? voteAverage;
   final int? voteCount;
+  final String? type;
 
   MovieDetail({
     required this.adult,
@@ -28,7 +31,16 @@ class MovieDetail extends Equatable {
     required this.title,
     required this.voteAverage,
     required this.voteCount,
+    this.type,
   });
+
+  Watchlist toWatchlist() => Watchlist.watchlist(
+        id: id,
+        type: MOVIES,
+        overview: overview,
+        posterPath: posterPath,
+        title: title,
+      );
 
   @override
   List<Object?> get props => [

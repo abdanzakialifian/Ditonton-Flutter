@@ -1,7 +1,9 @@
+import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
 import 'package:ditonton/presentation/widgets/movie_card_item.dart';
+import 'package:ditonton/presentation/widgets/tv_show_card_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +20,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
     super.initState();
     Future.microtask(() =>
         Provider.of<WatchlistNotifier>(context, listen: false)
-            .fetchWatchlistMovies());
+            .fetchWatchlist());
   }
 
   @override
@@ -28,8 +30,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   }
 
   void didPopNext() {
-    Provider.of<WatchlistNotifier>(context, listen: false)
-        .fetchWatchlistMovies();
+    Provider.of<WatchlistNotifier>(context, listen: false).fetchWatchlist();
   }
 
   @override
@@ -49,10 +50,13 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
             } else if (data.watchlistState == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final movie = data.watchlistMovies[index];
-                  return MovieCardItem(movie);
+                  final watchlist = data.watchlist[index];
+                  print("CEK TYPE ${watchlist.type}");
+                  return watchlist.type == MOVIES
+                      ? MovieCardItem(watchlist.toEntityMovie())
+                      : TvShowCardItem(watchlist.toEntityTvShow());
                 },
-                itemCount: data.watchlistMovies.length,
+                itemCount: data.watchlist.length,
               );
             } else {
               return Center(

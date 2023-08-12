@@ -5,6 +5,7 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     Future.microtask(() {
       Provider.of<MovieDetailNotifier>(context, listen: false)
           .fetchMovieDetail(widget.id);
-      Provider.of<MovieDetailNotifier>(context, listen: false)
+      Provider.of<WatchlistNotifier>(context, listen: false)
           .loadWatchlistStatus(widget.id);
     });
   }
@@ -46,7 +47,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               child: MovieDetailContent(
                 movie,
                 provider.movieRecommendations,
-                provider.isAddedToWatchlist,
+                Provider.of<WatchlistNotifier>(context).isAddedToWatchlist,
               ),
             );
           } else {
@@ -108,27 +109,25 @@ class MovieDetailContent extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  await Provider.of<MovieDetailNotifier>(
-                                          context,
+                                  await Provider.of<WatchlistNotifier>(context,
                                           listen: false)
-                                      .addWatchlist(movie);
+                                      .addWatchlist(movie.toWatchlist());
                                 } else {
-                                  await Provider.of<MovieDetailNotifier>(
-                                          context,
+                                  await Provider.of<WatchlistNotifier>(context,
                                           listen: false)
-                                      .removeFromWatchlist(movie);
+                                      .removeFromWatchlist(movie.toWatchlist());
                                 }
 
-                                final message =
-                                    Provider.of<MovieDetailNotifier>(context,
-                                            listen: false)
-                                        .watchlistMessage;
+                                final message = Provider.of<WatchlistNotifier>(
+                                        context,
+                                        listen: false)
+                                    .watchlistMessage;
 
                                 if (message ==
-                                        MovieDetailNotifier
+                                        WatchlistNotifier
                                             .watchlistAddSuccessMessage ||
                                     message ==
-                                        MovieDetailNotifier
+                                        WatchlistNotifier
                                             .watchlistRemoveSuccessMessage) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text(message)));
