@@ -1,16 +1,26 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_show_search_notifier.dart';
+import 'package:ditonton/presentation/provider/search_notifier.dart';
 import 'package:ditonton/presentation/widgets/category_card_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   static const ROUTE_NAME = '/search';
   final String? type;
 
   SearchPage({required this.type});
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<SearchNotifier>(context, listen: false).clearSearchResult();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +35,11 @@ class SearchPage extends StatelessWidget {
           children: [
             TextField(
               onSubmitted: (query) {
-                if (type == MOVIES) {
-                  Provider.of<MovieSearchNotifier>(context, listen: false)
+                if (widget.type == MOVIES) {
+                  Provider.of<SearchNotifier>(context, listen: false)
                       .fetchMovieSearch(query);
                 } else {
-                  Provider.of<TvShowSearchNotifier>(context, listen: false)
+                  Provider.of<SearchNotifier>(context, listen: false)
                       .fetchTvShowSearch(query);
                 }
               },
@@ -45,7 +55,7 @@ class SearchPage extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            _setUpList(type)
+            _setUpList(widget.type)
           ],
         ),
       ),
@@ -53,58 +63,33 @@ class SearchPage extends StatelessWidget {
   }
 
   Widget _setUpList(String? type) {
-    if (type == MOVIES) {
-      return Consumer<MovieSearchNotifier>(
-        builder: (context, data, child) {
-          if (data.state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (data.state == RequestState.Loaded) {
-            final result = data.searchResult;
-            return Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(8),
-                itemBuilder: (context, index) {
-                  final movie = data.searchResult[index];
-                  return CategoryCardItem(category: movie);
-                },
-                itemCount: result.length,
-              ),
-            );
-          } else {
-            return Expanded(
-              child: Container(),
-            );
-          }
-        },
-      );
-    } else {
-      return Consumer<TvShowSearchNotifier>(
-        builder: (context, data, child) {
-          if (data.state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (data.state == RequestState.Loaded) {
-            final result = data.searchResult;
-            return Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(8),
-                itemBuilder: (context, index) {
-                  final tvShow = data.searchResult[index];
-                  return CategoryCardItem(category: tvShow);
-                },
-                itemCount: result.length,
-              ),
-            );
-          } else {
-            return Expanded(
-              child: Container(),
-            );
-          }
-        },
-      );
-    }
+    return Consumer<SearchNotifier>(
+      builder: (context, data, child) {
+        if (data.state == RequestState.Loading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (data.state == RequestState.Loaded) {
+          final result = data.searchResult;
+          return Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemBuilder: (context, index) {
+                final searchResult = data.searchResult[index];
+                return CategoryCardItem(
+                  category: searchResult,
+                  type: type ?? "",
+                );
+              },
+              itemCount: result.length,
+            ),
+          );
+        } else {
+          return Expanded(
+            child: Container(),
+          );
+        }
+      },
+    );
   }
 }

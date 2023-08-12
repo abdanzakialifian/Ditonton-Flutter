@@ -50,52 +50,30 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
   }
 
   Widget _setUpList(String? type) {
-    if (type == MOVIES) {
-      return Consumer<NowPlayingNotifier>(
-        builder: (context, data, child) {
-          if (data.state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (data.state == RequestState.Loaded) {
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                final movie = data.movies[index];
-                return CategoryCardItem(category: movie);
-              },
-              itemCount: data.movies.length,
-            );
-          } else {
-            return Center(
-              key: Key('error_message'),
-              child: Text(data.message),
-            );
-          }
-        },
-      );
-    } else {
-      return Consumer<NowPlayingNotifier>(
-        builder: (context, data, child) {
-          if (data.state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (data.state == RequestState.Loaded) {
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                final tvShow = data.tvShows[index];
-                return CategoryCardItem(category: tvShow);
-              },
-              itemCount: data.tvShows.length,
-            );
-          } else {
-            return Center(
-              key: Key('error_message'),
-              child: Text(data.message),
-            );
-          }
-        },
-      );
-    }
+    return Consumer<NowPlayingNotifier>(
+      builder: (context, data, child) {
+        if (data.state == RequestState.Loading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (data.state == RequestState.Loaded) {
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              final result = data.data[index];
+              return CategoryCardItem(
+                category: result,
+                type: widget.type ?? "",
+              );
+            },
+            itemCount: data.data.length,
+          );
+        } else {
+          return Center(
+            key: Key('error_message'),
+            child: Text(data.message),
+          );
+        }
+      },
+    );
   }
 }

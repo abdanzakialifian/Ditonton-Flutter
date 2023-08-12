@@ -6,26 +6,29 @@ class WatchlistTable extends Equatable {
   final String? title;
   final String? posterPath;
   final String? overview;
+  final String? category;
 
   WatchlistTable({
     required this.id,
     required this.title,
     required this.posterPath,
     required this.overview,
+    required this.category,
   });
 
   factory WatchlistTable.fromWatchlist(Watchlist watchlist) => WatchlistTable(
-        id: watchlist.id,
-        title: watchlist.title,
-        posterPath: watchlist.posterPath,
-        overview: watchlist.overview,
-      );
+      id: watchlist.id,
+      title: watchlist.title,
+      posterPath: watchlist.posterPath,
+      overview: watchlist.overview,
+      category: watchlist.category);
 
   factory WatchlistTable.fromMap(Map<String, dynamic> map) => WatchlistTable(
         id: map['id'],
         title: map['title'],
         posterPath: map['posterPath'],
         overview: map['overview'],
+        category: map['category'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,6 +36,7 @@ class WatchlistTable extends Equatable {
         'title': title,
         'posterPath': posterPath,
         'overview': overview,
+        'category': category
       };
 
   Watchlist toWatchlist() => Watchlist.fromWatchlistTableToWatchlist(this);

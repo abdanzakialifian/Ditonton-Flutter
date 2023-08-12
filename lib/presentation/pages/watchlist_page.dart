@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class WatchlistPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist-movie';
+  static const ROUTE_NAME = '/watchlist';
 
   @override
   _WatchlistPageState createState() => _WatchlistPageState();
@@ -49,7 +49,10 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final watchlist = data.watchlist[index];
-                  return CategoryCardItem(category: watchlist.toCategory());
+                  return CategoryCardItem(
+                    category: watchlist.toCategory(),
+                    type: watchlist.category ?? "",
+                  );
                 },
                 itemCount: data.watchlist.length,
               );

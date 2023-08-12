@@ -138,7 +138,7 @@ class _MoviesPageState extends State<MoviesPage> {
                 Navigator.pushNamed(
                   context,
                   DetailPage.ROUTE_NAME,
-                  arguments: movie.id,
+                  arguments: [movie.id, widget.type],
                 );
               },
               child: ClipRRect(

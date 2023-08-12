@@ -8,16 +8,16 @@ class NowPlayingNotifier extends ChangeNotifier {
   final GetNowPlayingMovies getNowPlayingMovies;
   final GetAiringTodayTvShows getAiringTodayTvShows;
 
-  NowPlayingNotifier(this.getNowPlayingMovies, this.getAiringTodayTvShows);
+  NowPlayingNotifier(
+    this.getNowPlayingMovies,
+    this.getAiringTodayTvShows,
+  );
 
   RequestState _state = RequestState.Empty;
   RequestState get state => _state;
 
-  List<category.Category> _movies = [];
-  List<category.Category> get movies => _movies;
-
-  List<category.Category> _tvShows = [];
-  List<category.Category> get tvShows => _tvShows;
+  List<category.Category> _data = [];
+  List<category.Category> get data => _data;
 
   String _message = '';
   String get message => _message;
@@ -35,7 +35,7 @@ class NowPlayingNotifier extends ChangeNotifier {
         notifyListeners();
       },
       (moviesData) {
-        _movies = moviesData;
+        _data = moviesData;
         _state = RequestState.Loaded;
         notifyListeners();
       },
@@ -53,7 +53,7 @@ class NowPlayingNotifier extends ChangeNotifier {
       _state = RequestState.Error;
       notifyListeners();
     }, (tvShowsData) {
-      _tvShows = tvShowsData;
+      _data = tvShowsData;
       _state = RequestState.Loaded;
       notifyListeners();
     });

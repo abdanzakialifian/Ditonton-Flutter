@@ -23,7 +23,10 @@ class Detail extends Equatable {
     required this.voteAverage,
   });
 
-  Watchlist toWatchlist() => Watchlist.fromDetailToWatchlist(this);
+  Watchlist toWatchlist(String category) => Watchlist.fromDetailToWatchlist(
+        this,
+        category,
+      );
 
   @override
   List<Object?> get props => [

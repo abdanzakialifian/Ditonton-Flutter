@@ -8,19 +8,23 @@ class Watchlist extends Equatable {
   final String? overview;
   final String? posterPath;
   final String? title;
+  final String? category;
 
   Watchlist({
     required this.id,
     required this.overview,
     required this.posterPath,
     required this.title,
+    required this.category,
   });
 
-  factory Watchlist.fromDetailToWatchlist(Detail detail) => Watchlist(
+  factory Watchlist.fromDetailToWatchlist(Detail detail, String category) =>
+      Watchlist(
         id: detail.id,
         overview: detail.overview,
         posterPath: detail.posterPath,
         title: detail.title,
+        category: category,
       );
 
   factory Watchlist.fromWatchlistTableToWatchlist(
@@ -30,6 +34,7 @@ class Watchlist extends Equatable {
         overview: watchlistTable.overview,
         posterPath: watchlistTable.posterPath,
         title: watchlistTable.title,
+        category: watchlistTable.category,
       );
 
   Category toCategory() => Category(
@@ -45,5 +50,6 @@ class Watchlist extends Equatable {
         overview,
         posterPath,
         title,
+        category,
       ];
 }

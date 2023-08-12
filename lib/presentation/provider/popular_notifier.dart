@@ -13,11 +13,8 @@ class PopularNotifier extends ChangeNotifier {
   RequestState _state = RequestState.Empty;
   RequestState get state => _state;
 
-  List<category.Category> _movies = [];
-  List<category.Category> get movies => _movies;
-
-  List<category.Category> _tvShows = [];
-  List<category.Category> get tvShows => _tvShows;
+  List<category.Category> _data = [];
+  List<category.Category> get data => _data;
 
   String _message = '';
   String get message => _message;
@@ -35,7 +32,7 @@ class PopularNotifier extends ChangeNotifier {
         notifyListeners();
       },
       (moviesData) {
-        _movies = moviesData;
+        _data = moviesData;
         _state = RequestState.Loaded;
         notifyListeners();
       },
@@ -53,7 +50,7 @@ class PopularNotifier extends ChangeNotifier {
       _state = RequestState.Error;
       notifyListeners();
     }, (tvShowsData) {
-      _tvShows = tvShowsData;
+      _data = tvShowsData;
       _state = RequestState.Loaded;
       notifyListeners();
     });

@@ -7,17 +7,15 @@ import 'package:ditonton/presentation/pages/now_playing_page.dart';
 import 'package:ditonton/presentation/pages/popular_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_page.dart';
-import 'package:ditonton/presentation/pages/tv_show_detail_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:ditonton/presentation/provider/detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_notifier.dart';
-import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
+import 'package:ditonton/presentation/provider/search_notifier.dart';
 import 'package:ditonton/presentation/provider/now_playing_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_show_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_show_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_show_search_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +38,7 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<DetailNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<MovieSearchNotifier>(),
+          create: (_) => di.locator<SearchNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<NowPlayingNotifier>(),
@@ -60,9 +58,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<TvShowDetailNotifier>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvShowSearchNotifier>(),
-        )
       ],
       child: MaterialApp(
         title: 'Ditonton',
@@ -102,15 +97,12 @@ class MyApp extends StatelessWidget {
                 settings: settings,
               );
             case DetailPage.ROUTE_NAME:
-              final id = settings.arguments as int;
+              final data = settings.arguments as List<dynamic>;
               return MaterialPageRoute(
-                builder: (_) => DetailPage(id: id),
-                settings: settings,
-              );
-            case TvShowDetailPage.ROUTE_NAME:
-              final id = settings.arguments as int;
-              return MaterialPageRoute(
-                builder: (_) => TvShowDetailPage(id: id),
+                builder: (_) => DetailPage(
+                  id: data[0],
+                  type: data[1],
+                ),
                 settings: settings,
               );
             case SearchPage.ROUTE_NAME:

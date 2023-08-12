@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 
 class CategoryCardItem extends StatelessWidget {
   final Category category;
+  final String type;
 
-  CategoryCardItem({required this.category});
+  CategoryCardItem({
+    required this.category,
+    required this.type,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class CategoryCardItem extends StatelessWidget {
           Navigator.pushNamed(
             context,
             DetailPage.ROUTE_NAME,
-            arguments: category.id,
+            arguments: [category.id, type],
           );
         },
         child: Stack(

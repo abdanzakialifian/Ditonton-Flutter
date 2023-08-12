@@ -14,8 +14,12 @@ class DetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/category-detail';
 
   final int id;
+  final String type;
 
-  DetailPage({required this.id});
+  DetailPage({
+    required this.id,
+    required this.type,
+  });
 
   @override
   _DetailPageState createState() => _DetailPageState();
@@ -25,12 +29,21 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      Provider.of<DetailNotifier>(context, listen: false)
-          .fetchMovieDetail(widget.id);
-      Provider.of<WatchlistNotifier>(context, listen: false)
-          .loadWatchlistStatus(widget.id);
-    });
+    if (widget.type == MOVIES) {
+      Future.microtask(() {
+        Provider.of<DetailNotifier>(context, listen: false)
+            .fetchMovieDetail(widget.id);
+        Provider.of<WatchlistNotifier>(context, listen: false)
+            .loadWatchlistStatus(widget.id);
+      });
+    } else {
+      Future.microtask(() {
+        Provider.of<DetailNotifier>(context, listen: false)
+            .fetchTvShowDetail(widget.id);
+        Provider.of<WatchlistNotifier>(context, listen: false)
+            .loadWatchlistStatus(widget.id);
+      });
+    }
   }
 
   @override
@@ -49,6 +62,7 @@ class _DetailPageState extends State<DetailPage> {
                 detail,
                 provider.recommendations,
                 Provider.of<WatchlistNotifier>(context).isAddedToWatchlist,
+                widget.type,
               ),
             );
           } else {
@@ -64,8 +78,14 @@ class DetailContent extends StatelessWidget {
   final Detail detail;
   final List<Category> recommendations;
   final bool isAddedWatchlist;
+  final String type;
 
-  DetailContent(this.detail, this.recommendations, this.isAddedWatchlist);
+  DetailContent(
+    this.detail,
+    this.recommendations,
+    this.isAddedWatchlist,
+    this.type,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -112,12 +132,12 @@ class DetailContent extends StatelessWidget {
                                 if (!isAddedWatchlist) {
                                   await Provider.of<WatchlistNotifier>(context,
                                           listen: false)
-                                      .addWatchlist(detail.toWatchlist());
+                                      .addWatchlist(detail.toWatchlist(type));
                                 } else {
                                   await Provider.of<WatchlistNotifier>(context,
                                           listen: false)
                                       .removeFromWatchlist(
-                                          detail.toWatchlist());
+                                          detail.toWatchlist(type));
                                 }
 
                                 final message = Provider.of<WatchlistNotifier>(
@@ -203,7 +223,8 @@ class DetailContent extends StatelessWidget {
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
-                                        final movie = recommendations[index];
+                                        final recommendation =
+                                            recommendations[index];
                                         return Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(
@@ -211,7 +232,7 @@ class DetailContent extends StatelessWidget {
                                               Navigator.pushReplacementNamed(
                                                 context,
                                                 DetailPage.ROUTE_NAME,
-                                                arguments: movie.id,
+                                                arguments: recommendation.id,
                                               );
                                             },
                                             child: ClipRRect(
@@ -220,7 +241,7 @@ class DetailContent extends StatelessWidget {
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                                    'https://image.tmdb.org/t/p/w500${recommendation.posterPath}',
                                                 placeholder: (context, url) =>
                                                     Center(
                                                   child:
