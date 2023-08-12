@@ -1,4 +1,4 @@
-import 'package:ditonton/data/models/genre_response.dart';
+import 'package:ditonton/data/models/genre/genre_response.dart';
 import 'package:ditonton/data/models/tvshowdetail/created_by_response.dart';
 import 'package:ditonton/data/models/tvshowdetail/last_episode_to_air_response.dart';
 import 'package:ditonton/data/models/tvshowdetail/network_response.dart';
