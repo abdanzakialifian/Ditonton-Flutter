@@ -99,6 +99,9 @@ void init() {
     () => TvShowDetailNotifier(
       getTvShowDetail: locator(),
       getTvShowRecommendations: locator(),
+      getWatchlistStatusTvShow: locator(),
+      saveWatchlistTvShow: locator(),
+      removeWatchlistTvShow: locator(),
     ),
   );
   locator.registerFactory(
