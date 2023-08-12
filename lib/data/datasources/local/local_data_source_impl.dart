@@ -30,7 +30,7 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<WatchlistTable?> getWatchlistById(int id) async {
-    final result = await databaseHelper.getMovieById(id);
+    final result = await databaseHelper.getWatchlistById(id);
     if (result != null) {
       return WatchlistTable.fromMap(result);
     } else {
@@ -40,7 +40,7 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<List<WatchlistTable>> getWatchlists() async {
-    final result = await databaseHelper.getWatchlistMovies();
+    final result = await databaseHelper.getWatchlist();
     return result.map((data) => WatchlistTable.fromMap(data)).toList();
   }
 }
