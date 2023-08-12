@@ -44,7 +44,7 @@ class _TvShowDetailPageState extends State<TvShowDetailPage> {
               child: TvShowDetailContent(
                 tvShow,
                 provider.tvShowRecommendations,
-                false,
+                provider.isAddedToWatchlist,
               ),
             );
           } else {
@@ -105,38 +105,40 @@ class TvShowDetailContent extends StatelessWidget {
                             ),
                             ElevatedButton(
                               onPressed: () async {
-                                // if (!isAddedWatchlist) {
-                                //   await Provider.of<TvShowDetailNotifier>(context,
-                                //           listen: false)
-                                //       .addWatchlist(tvShow);
-                                // } else {
-                                //   await Provider.of<TvShowDetailNotifier>(context,
-                                //           listen: false)
-                                //       .removeFromWatchlist(movie);
-                                // }
+                                if (!isAddedWatchlist) {
+                                  await Provider.of<TvShowDetailNotifier>(
+                                          context,
+                                          listen: false)
+                                      .addWatchlist(tvShow);
+                                } else {
+                                  await Provider.of<TvShowDetailNotifier>(
+                                          context,
+                                          listen: false)
+                                      .removeFromWatchlist(tvShow);
+                                }
 
-                                // final message = Provider.of<TvShowDetailNotifier>(
-                                //         context,
-                                //         listen: false)
-                                //     .watchlistMessage;
+                                final message =
+                                    Provider.of<TvShowDetailNotifier>(context,
+                                            listen: false)
+                                        .watchlistMessage;
 
-                                // if (message ==
-                                //         DetailNotifier
-                                //             .watchlistAddSuccessMessage ||
-                                //     message ==
-                                //         DetailNotifier
-                                //             .watchlistRemoveSuccessMessage) {
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //       SnackBar(content: Text(message)));
-                                // } else {
-                                //   showDialog(
-                                //       context: context,
-                                //       builder: (context) {
-                                //         return AlertDialog(
-                                //           content: Text(message),
-                                //         );
-                                //       });
-                                // }
+                                if (message ==
+                                        TvShowDetailNotifier
+                                            .watchlistAddSuccessMessage ||
+                                    message ==
+                                        TvShowDetailNotifier
+                                            .watchlistRemoveSuccessMessage) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(message)));
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: Text(message),
+                                        );
+                                      });
+                                }
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
