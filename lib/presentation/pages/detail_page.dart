@@ -1,31 +1,32 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/entities/movie_detail.dart';
-import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
+import 'package:ditonton/domain/entities/category.dart';
+import 'package:ditonton/domain/entities/detail.dart';
+import 'package:ditonton/presentation/provider/detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
-class MovieDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/movie-detail';
+class DetailPage extends StatefulWidget {
+  static const ROUTE_NAME = '/category-detail';
 
   final int id;
-  MovieDetailPage({required this.id});
+
+  DetailPage({required this.id});
 
   @override
-  _MovieDetailPageState createState() => _MovieDetailPageState();
+  _DetailPageState createState() => _DetailPageState();
 }
 
-class _MovieDetailPageState extends State<MovieDetailPage> {
+class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<MovieDetailNotifier>(context, listen: false)
+      Provider.of<DetailNotifier>(context, listen: false)
           .fetchMovieDetail(widget.id);
       Provider.of<WatchlistNotifier>(context, listen: false)
           .loadWatchlistStatus(widget.id);
@@ -35,18 +36,18 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<MovieDetailNotifier>(
+      body: Consumer<DetailNotifier>(
         builder: (context, provider, child) {
-          if (provider.movieState == RequestState.Loading) {
+          if (provider.detailState == RequestState.Loading) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.movieState == RequestState.Loaded) {
-            final movie = provider.movie;
+          } else if (provider.detailState == RequestState.Loaded) {
+            final detail = provider.detail;
             return SafeArea(
-              child: MovieDetailContent(
-                movie,
-                provider.movieRecommendations,
+              child: DetailContent(
+                detail,
+                provider.recommendations,
                 Provider.of<WatchlistNotifier>(context).isAddedToWatchlist,
               ),
             );
@@ -59,12 +60,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   }
 }
 
-class MovieDetailContent extends StatelessWidget {
-  final MovieDetail movie;
-  final List<Movie> recommendations;
+class DetailContent extends StatelessWidget {
+  final Detail detail;
+  final List<Category> recommendations;
   final bool isAddedWatchlist;
 
-  MovieDetailContent(this.movie, this.recommendations, this.isAddedWatchlist);
+  DetailContent(this.detail, this.recommendations, this.isAddedWatchlist);
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,7 @@ class MovieDetailContent extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+          imageUrl: 'https://image.tmdb.org/t/p/w500${detail.posterPath}',
           width: screenWidth,
           placeholder: (context, url) => Center(
             child: CircularProgressIndicator(),
@@ -103,7 +104,7 @@ class MovieDetailContent extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              movie.title ?? "",
+                              detail.title ?? "",
                               style: kHeading5,
                             ),
                             ElevatedButton(
@@ -111,11 +112,12 @@ class MovieDetailContent extends StatelessWidget {
                                 if (!isAddedWatchlist) {
                                   await Provider.of<WatchlistNotifier>(context,
                                           listen: false)
-                                      .addWatchlist(movie.toWatchlist());
+                                      .addWatchlist(detail.toWatchlist());
                                 } else {
                                   await Provider.of<WatchlistNotifier>(context,
                                           listen: false)
-                                      .removeFromWatchlist(movie.toWatchlist());
+                                      .removeFromWatchlist(
+                                          detail.toWatchlist());
                                 }
 
                                 final message = Provider.of<WatchlistNotifier>(
@@ -152,15 +154,15 @@ class MovieDetailContent extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              _showGenres(movie.genres ?? []),
+                              _showGenres(detail.genres ?? []),
                             ),
                             Text(
-                              _showDuration(movie.runtime ?? 0),
+                              _showDuration(detail.runtime ?? 0),
                             ),
                             Row(
                               children: [
                                 RatingBarIndicator(
-                                  rating: (movie.voteAverage ?? 0) / 2,
+                                  rating: (detail.voteAverage ?? 0) / 2,
                                   itemCount: 5,
                                   itemBuilder: (context, index) => Icon(
                                     Icons.star,
@@ -168,7 +170,7 @@ class MovieDetailContent extends StatelessWidget {
                                   ),
                                   itemSize: 24,
                                 ),
-                                Text('${movie.voteAverage}')
+                                Text('${detail.voteAverage}')
                               ],
                             ),
                             SizedBox(height: 16),
@@ -177,14 +179,14 @@ class MovieDetailContent extends StatelessWidget {
                               style: kHeading6,
                             ),
                             Text(
-                              movie.overview ?? "",
+                              detail.overview ?? "",
                             ),
                             SizedBox(height: 16),
                             Text(
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            Consumer<MovieDetailNotifier>(
+                            Consumer<DetailNotifier>(
                               builder: (context, data, child) {
                                 if (data.recommendationState ==
                                     RequestState.Loading) {
@@ -208,7 +210,7 @@ class MovieDetailContent extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                MovieDetailPage.ROUTE_NAME,
+                                                DetailPage.ROUTE_NAME,
                                                 arguments: movie.id,
                                               );
                                             },

@@ -8,7 +8,6 @@ class RemoveWatchlist {
 
   RemoveWatchlist(this._watchlistRepository);
 
-  Future<Either<Failure, String>> execute(Watchlist watchlist) {
-    return _watchlistRepository.removeWatchlist(watchlist);
-  }
+  Future<Either<Failure, String>> execute(Watchlist watchlist) =>
+      _watchlistRepository.removeWatchlist(watchlist);
 }

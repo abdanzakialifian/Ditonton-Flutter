@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/domain/entities/category.dart';
+import 'package:ditonton/domain/entities/detail.dart';
 import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/tv_show.dart';
-import 'package:ditonton/domain/entities/tv_show_detail.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/tv_show_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
@@ -60,8 +60,8 @@ class _TvShowDetailPageState extends State<TvShowDetailPage> {
 }
 
 class TvShowDetailContent extends StatelessWidget {
-  final TvShowDetail tvShow;
-  final List<TvShow> recommendations;
+  final Detail tvShow;
+  final List<Category> recommendations;
   final bool isAddedWatchlist;
 
   TvShowDetailContent(this.tvShow, this.recommendations, this.isAddedWatchlist);
@@ -103,7 +103,7 @@ class TvShowDetailContent extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              tvShow.name ?? "",
+                              tvShow.title ?? "",
                               style: kHeading5,
                             ),
                             ElevatedButton(

@@ -5,10 +5,9 @@ import 'package:ditonton/data/models/tvshowdetail/network_response.dart';
 import 'package:ditonton/data/models/tvshowdetail/production_country_response.dart';
 import 'package:ditonton/data/models/tvshowdetail/season_response.dart';
 import 'package:ditonton/data/models/tvshowdetail/spoken_language_response.dart';
-import 'package:ditonton/domain/entities/tv_show_detail.dart';
+import 'package:ditonton/domain/entities/detail.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 part 'tv_show_detail_response.g.dart';
 
 @JsonSerializable()
@@ -118,19 +117,16 @@ class TvShowDetailResponse extends Equatable {
 
   Map<String, dynamic> toJson() => _$TvShowDetailResponseToJson(this);
 
-  TvShowDetail toEntity() {
-    return TvShowDetail(
-      adult: adult,
-      backdropPath: backdropPath,
-      genres: genres?.map((genre) => genre.toEntity()).toList(),
+  Detail toEntity() {
+    return Detail(
+      genres: genres?.map((genre) => genre.toGenre()).toList(),
       id: id,
-      originalName: originalName,
       overview: overview,
       posterPath: posterPath,
       runtime: episodeRunTime?.isNotEmpty == true ? episodeRunTime?.first : 0,
-      name: name,
-      voteAverage: voteAverage,
+      title: name,
       voteCount: voteCount,
+      voteAverage: voteAverage,
     );
   }
 

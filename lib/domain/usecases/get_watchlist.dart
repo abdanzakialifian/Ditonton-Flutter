@@ -8,7 +8,6 @@ class GetWatchlist {
 
   GetWatchlist(this._watchlistRepository);
 
-  Future<Either<Failure, List<Watchlist>>> execute() {
-    return _watchlistRepository.getWatchlist();
-  }
+  Future<Either<Failure, List<Watchlist>>> execute() =>
+      _watchlistRepository.getWatchlist();
 }

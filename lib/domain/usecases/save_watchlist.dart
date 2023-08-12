@@ -8,7 +8,6 @@ class SaveWatchlist {
 
   SaveWatchlist(this._watchlistRepository);
 
-  Future<Either<Failure, String>> execute(Watchlist watchlist) {
-    return _watchlistRepository.saveWatchlist(watchlist);
-  }
+  Future<Either<Failure, String>> execute(Watchlist watchlist) =>
+      _watchlistRepository.saveWatchlist(watchlist);
 }

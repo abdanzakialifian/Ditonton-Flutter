@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/domain/entities/category.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
 
 class SearchMovies {
@@ -8,7 +8,6 @@ class SearchMovies {
 
   SearchMovies(this._movieRepository);
 
-  Future<Either<Failure, List<Movie>>> execute(String query) {
-    return _movieRepository.searchMovies(query);
-  }
+  Future<Either<Failure, List<Category>>> execute(String query) =>
+      _movieRepository.searchMovies(query);
 }

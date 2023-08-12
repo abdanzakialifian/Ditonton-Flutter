@@ -7,15 +7,15 @@ import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:ditonton/domain/repositories/watchlist_repository.dart';
 
 class WatchlistRepositoryImpl extends WatchlistRepository {
-  final LocalDataSource localDataSource;
+  final LocalDataSource _localDataSource;
 
-  WatchlistRepositoryImpl(this.localDataSource);
+  WatchlistRepositoryImpl(this._localDataSource);
 
   @override
   Future<Either<Failure, String>> saveWatchlist(Watchlist watchlist) async {
     try {
-      final result = await localDataSource
-          .insertWatchlist(WatchlistTable.fromEntity(watchlist));
+      final result = await _localDataSource
+          .insertWatchlist(WatchlistTable.fromWatchlist(watchlist));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
@@ -27,8 +27,8 @@ class WatchlistRepositoryImpl extends WatchlistRepository {
   @override
   Future<Either<Failure, String>> removeWatchlist(Watchlist watchlist) async {
     try {
-      final result = await localDataSource
-          .removeWatchlist(WatchlistTable.fromEntity(watchlist));
+      final result = await _localDataSource
+          .removeWatchlist(WatchlistTable.fromWatchlist(watchlist));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
@@ -37,13 +37,13 @@ class WatchlistRepositoryImpl extends WatchlistRepository {
 
   @override
   Future<bool> isAddedToWatchlist(int id) async {
-    final result = await localDataSource.getWatchlistById(id);
+    final result = await _localDataSource.getWatchlistById(id);
     return result != null;
   }
 
   @override
   Future<Either<Failure, List<Watchlist>>> getWatchlist() async {
-    final result = await localDataSource.getWatchlists();
-    return Right(result.map((data) => data.toEntity()).toList());
+    final result = await _localDataSource.getWatchlists();
+    return Right(result.map((data) => data.toWatchlist()).toList());
   }
 }

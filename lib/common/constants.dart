@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// constants varibale
 const String BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
 const String MOVIES = "Movies";
 const String TV_SHOWS = "Tv Shows";

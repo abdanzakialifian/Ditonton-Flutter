@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/tv_show.dart';
+import 'package:ditonton/domain/entities/category.dart';
 import 'package:ditonton/presentation/pages/now_playing_page.dart';
 import 'package:ditonton/presentation/pages/popular_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_page.dart';
@@ -52,7 +52,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
                   child: CircularProgressIndicator(),
                 );
               } else if (state == RequestState.Loaded) {
-                return _moviesList(data.nowPlayingTvShows);
+                return _tvShowsList(data.nowPlayingTvShows);
               } else {
                 return Text('Failed');
               }
@@ -72,7 +72,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
                   child: CircularProgressIndicator(),
                 );
               } else if (state == RequestState.Loaded) {
-                return _moviesList(data.popularTvShows);
+                return _tvShowsList(data.popularTvShows);
               } else {
                 return Text('Failed');
               }
@@ -92,7 +92,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
                   child: CircularProgressIndicator(),
                 );
               } else if (state == RequestState.Loaded) {
-                return _moviesList(data.topRatedTvShows);
+                return _tvShowsList(data.topRatedTvShows);
               } else {
                 return Text('Failed');
               }
@@ -124,13 +124,13 @@ class _TvShowsPageState extends State<TvShowsPage> {
     );
   }
 
-  Widget _moviesList(List<TvShow> movies) {
+  Widget _tvShowsList(List<Category> tvShows) {
     return Container(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          final movie = movies[index];
+          final tvShow = tvShows[index];
           return Container(
             padding: const EdgeInsets.all(8),
             child: InkWell(
@@ -138,13 +138,13 @@ class _TvShowsPageState extends State<TvShowsPage> {
                 Navigator.pushNamed(
                   context,
                   TvShowDetailPage.ROUTE_NAME,
-                  arguments: movie.id,
+                  arguments: tvShow.id,
                 );
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
+                  imageUrl: '$BASE_IMAGE_URL${tvShow.posterPath}',
                   placeholder: (context, url) => Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -154,7 +154,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
             ),
           );
         },
-        itemCount: movies.length,
+        itemCount: tvShows.length,
       ),
     );
   }

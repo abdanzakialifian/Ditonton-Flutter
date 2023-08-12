@@ -1,4 +1,4 @@
-import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/domain/entities/category.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -54,19 +54,12 @@ class MovieResultResponse extends Equatable {
 
   Map<String, dynamic> toJson() => _$MovieResultResponseToJson(this);
 
-  Movie toEntity() {
-    return Movie(
-      adult: this.adult,
-      backdropPath: this.backdropPath,
-      id: this.id,
-      originalTitle: this.originalTitle,
-      overview: this.overview,
-      posterPath: this.posterPath,
-      title: this.title,
-      voteAverage: this.voteAverage,
-      voteCount: this.voteCount,
-    );
-  }
+  Category toCategory() => Category(
+        id: this.id,
+        overview: this.overview,
+        posterPath: this.posterPath,
+        title: this.title,
+      );
 
   @override
   List<Object?> get props => [

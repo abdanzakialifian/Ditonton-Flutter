@@ -1,25 +1,25 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/tv_show.dart';
 import 'package:ditonton/domain/usecases/get_airing_today_tv_shows.dart';
 import 'package:ditonton/domain/usecases/get_popular_tv_shows.dart';
 import 'package:ditonton/domain/usecases/get_top_rated_tv_shows.dart';
 import 'package:flutter/foundation.dart';
+import 'package:ditonton/domain/entities/category.dart' as category;
 
 class TvShowNotifier extends ChangeNotifier {
-  List<TvShow> _nowPlayingTvShows = <TvShow>[];
-  List<TvShow> get nowPlayingTvShows => _nowPlayingTvShows;
+  List<category.Category> _nowPlayingTvShows = <category.Category>[];
+  List<category.Category> get nowPlayingTvShows => _nowPlayingTvShows;
 
   RequestState _nowPlayingTvShowsState = RequestState.Empty;
   RequestState get nowPlayingTvShowsState => _nowPlayingTvShowsState;
 
-  List<TvShow> _popularTvShows = <TvShow>[];
-  List<TvShow> get popularTvShows => _popularTvShows;
+  List<category.Category> _popularTvShows = <category.Category>[];
+  List<category.Category> get popularTvShows => _popularTvShows;
 
   RequestState _popularTvShowsState = RequestState.Empty;
   RequestState get popularTvShowsState => _popularTvShowsState;
 
-  List<TvShow> _topRatedTvShows = <TvShow>[];
-  List<TvShow> get topRatedTvShows => _topRatedTvShows;
+  List<category.Category> _topRatedTvShows = <category.Category>[];
+  List<category.Category> get topRatedTvShows => _topRatedTvShows;
 
   RequestState _topRatedTvShowsState = RequestState.Empty;
   RequestState get topRatedTvShowsState => _topRatedTvShowsState;

@@ -1,7 +1,7 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/tv_show.dart';
 import 'package:ditonton/domain/usecases/search_tv_shows.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ditonton/domain/entities/category.dart' as category;
 
 class TvShowSearchNotifier extends ChangeNotifier {
   final SearchTvShows searchTvShows;
@@ -11,8 +11,8 @@ class TvShowSearchNotifier extends ChangeNotifier {
   RequestState _state = RequestState.Empty;
   RequestState get state => _state;
 
-  List<TvShow> _searchResult = [];
-  List<TvShow> get searchResult => _searchResult;
+  List<category.Category> _searchResult = [];
+  List<category.Category> get searchResult => _searchResult;
 
   String _message = '';
   String get message => _message;

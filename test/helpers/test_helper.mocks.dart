@@ -22,8 +22,8 @@ import 'package:ditonton/data/models/tvshow/tv_show_result_response.dart'
     as _i13;
 import 'package:ditonton/data/models/tvshowdetail/tv_show_detail_response.dart'
     as _i4;
-import 'package:ditonton/domain/entities/movie.dart' as _i9;
-import 'package:ditonton/domain/entities/movie_detail.dart' as _i10;
+import 'package:ditonton/domain/entities/category.dart' as _i9;
+import 'package:ditonton/domain/entities/detail.dart' as _i10;
 import 'package:ditonton/domain/repositories/movie_repository.dart' as _i6;
 import 'package:http/http.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;

@@ -21,9 +21,7 @@ class GenreResponse extends Equatable {
 
   Map<String, dynamic> toJson() => _$GenreResponseToJson(this);
 
-  Genre toEntity() {
-    return Genre(id: this.id, name: this.name);
-  }
+  Genre toGenre() => Genre(id: this.id, name: this.name);
 
   @override
   List<Object?> get props => [id, name];

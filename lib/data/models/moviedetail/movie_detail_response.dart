@@ -1,8 +1,7 @@
 import 'package:ditonton/data/models/genre_response.dart';
-import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/detail.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 part 'movie_detail_response.g.dart';
 
 @JsonSerializable()
@@ -79,22 +78,16 @@ class MovieDetailResponse extends Equatable {
 
   Map<String, dynamic> toJson() => _$MovieDetailResponseToJson(this);
 
-  MovieDetail toEntity() {
-    return MovieDetail(
-      adult: this.adult,
-      backdropPath: this.backdropPath,
-      genres: this.genres?.map((genre) => genre.toEntity()).toList(),
-      id: this.id,
-      originalTitle: this.originalTitle,
-      overview: this.overview,
-      posterPath: this.posterPath,
-      releaseDate: this.releaseDate,
-      runtime: this.runtime,
-      title: this.title,
-      voteAverage: this.voteAverage,
-      voteCount: this.voteCount,
-    );
-  }
+  Detail toDetail() => Detail(
+        genres: this.genres?.map((genre) => genre.toGenre()).toList(),
+        id: this.id,
+        overview: this.overview,
+        posterPath: this.posterPath,
+        runtime: this.runtime,
+        title: this.title,
+        voteCount: this.voteCount,
+        voteAverage: voteAverage,
+      );
 
   @override
   List<Object?> get props => [

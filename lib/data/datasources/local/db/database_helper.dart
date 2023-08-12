@@ -34,7 +34,6 @@ class DatabaseHelper {
     await db.execute('''
       CREATE TABLE  $_tblWatchlist (
         id INTEGER PRIMARY KEY,
-        type TEXT,
         title TEXT,
         overview TEXT,
         posterPath TEXT
@@ -42,17 +41,17 @@ class DatabaseHelper {
     ''');
   }
 
-  Future<int> insertWatchlist(WatchlistTable watchlist) async {
+  Future<int> insertWatchlist(WatchlistTable watchlistTable) async {
     final db = await database;
-    return await db!.insert(_tblWatchlist, watchlist.toJson());
+    return await db!.insert(_tblWatchlist, watchlistTable.toJson());
   }
 
-  Future<int> removeWatchlist(WatchlistTable watchlist) async {
+  Future<int> removeWatchlist(WatchlistTable watchlistTable) async {
     final db = await database;
     return await db!.delete(
       _tblWatchlist,
       where: 'id = ?',
-      whereArgs: [watchlist.id],
+      whereArgs: [watchlistTable.id],
     );
   }
 

@@ -1,4 +1,4 @@
-import 'package:ditonton/domain/entities/tv_show.dart';
+import 'package:ditonton/domain/entities/category.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -54,16 +54,12 @@ class TvShowResultResponse extends Equatable {
 
   Map<String, dynamic> toJson() => _$TvShowResultResponseToJson(this);
 
-  TvShow toEntity() {
-    return TvShow(
-      backdropPath: backdropPath,
+  Category toCategory() {
+    return Category(
       id: id,
-      name: name,
-      originalName: originalName,
+      title: name,
       overview: overview,
       posterPath: posterPath,
-      voteAverage: voteAverage,
-      voteCount: voteCount,
     );
   }
 

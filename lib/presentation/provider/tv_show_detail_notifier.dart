@@ -1,9 +1,9 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/tv_show.dart';
-import 'package:ditonton/domain/entities/tv_show_detail.dart';
+import 'package:ditonton/domain/entities/detail.dart';
 import 'package:ditonton/domain/usecases/get_tv_show_detail.dart';
 import 'package:ditonton/domain/usecases/get_tv_show_recommendations.dart';
 import 'package:flutter/foundation.dart';
+import 'package:ditonton/domain/entities/category.dart' as category;
 
 class TvShowDetailNotifier extends ChangeNotifier {
   final GetTvShowDetail getTvShowDetail;
@@ -14,14 +14,14 @@ class TvShowDetailNotifier extends ChangeNotifier {
     required this.getTvShowRecommendations,
   });
 
-  late TvShowDetail _tvShow;
-  TvShowDetail get tvShow => _tvShow;
+  late Detail _tvShow;
+  Detail get tvShow => _tvShow;
 
   RequestState _tvShowState = RequestState.Empty;
   RequestState get tvShowState => _tvShowState;
 
-  List<TvShow> _tvShowRecommendations = [];
-  List<TvShow> get tvShowRecommendations => _tvShowRecommendations;
+  List<category.Category> _tvShowRecommendations = [];
+  List<category.Category> get tvShowRecommendations => _tvShowRecommendations;
 
   RequestState _recommendationState = RequestState.Empty;
   RequestState get recommendationState => _recommendationState;

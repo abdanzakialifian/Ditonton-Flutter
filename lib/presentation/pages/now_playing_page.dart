@@ -1,8 +1,7 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/now_playing_notifier.dart';
-import 'package:ditonton/presentation/widgets/movie_card_item.dart';
-import 'package:ditonton/presentation/widgets/tv_show_card_item.dart';
+import 'package:ditonton/presentation/widgets/category_card_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -62,7 +61,7 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
             return ListView.builder(
               itemBuilder: (context, index) {
                 final movie = data.movies[index];
-                return MovieCardItem(movie);
+                return CategoryCardItem(category: movie);
               },
               itemCount: data.movies.length,
             );
@@ -85,7 +84,7 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
             return ListView.builder(
               itemBuilder: (context, index) {
                 final tvShow = data.tvShows[index];
-                return TvShowCardItem(tvShow);
+                return CategoryCardItem(category: tvShow);
               },
               itemCount: data.tvShows.length,
             );

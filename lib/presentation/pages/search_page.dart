@@ -2,8 +2,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_show_search_notifier.dart';
-import 'package:ditonton/presentation/widgets/movie_card_item.dart';
-import 'package:ditonton/presentation/widgets/tv_show_card_item.dart';
+import 'package:ditonton/presentation/widgets/category_card_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -68,7 +67,7 @@ class SearchPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 itemBuilder: (context, index) {
                   final movie = data.searchResult[index];
-                  return MovieCardItem(movie);
+                  return CategoryCardItem(category: movie);
                 },
                 itemCount: result.length,
               ),
@@ -94,7 +93,7 @@ class SearchPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 itemBuilder: (context, index) {
                   final tvShow = data.searchResult[index];
-                  return TvShowCardItem(tvShow);
+                  return CategoryCardItem(category: tvShow);
                 },
                 itemCount: result.length,
               ),

@@ -9,9 +9,9 @@ class LocalDataSourceImpl implements LocalDataSource {
   LocalDataSourceImpl({required this.databaseHelper});
 
   @override
-  Future<String> insertWatchlist(WatchlistTable watchlist) async {
+  Future<String> insertWatchlist(WatchlistTable watchlistTable) async {
     try {
-      await databaseHelper.insertWatchlist(watchlist);
+      await databaseHelper.insertWatchlist(watchlistTable);
       return 'Added to Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -19,9 +19,9 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  Future<String> removeWatchlist(WatchlistTable watchlist) async {
+  Future<String> removeWatchlist(WatchlistTable watchlistTable) async {
     try {
-      await databaseHelper.removeWatchlist(watchlist);
+      await databaseHelper.removeWatchlist(watchlistTable);
       return 'Removed from Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());

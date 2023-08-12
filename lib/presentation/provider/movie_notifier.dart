@@ -1,25 +1,25 @@
-import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/usecases/get_now_playing_movies.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/usecases/get_popular_movies.dart';
 import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
 import 'package:flutter/material.dart';
+import 'package:ditonton/domain/entities/category.dart' as category;
 
 class MovieNotifier extends ChangeNotifier {
-  var _nowPlayingMovies = <Movie>[];
-  List<Movie> get nowPlayingMovies => _nowPlayingMovies;
+  var _nowPlayingMovies = <category.Category>[];
+  List<category.Category> get nowPlayingMovies => _nowPlayingMovies;
 
   RequestState _nowPlayingState = RequestState.Empty;
   RequestState get nowPlayingState => _nowPlayingState;
 
-  var _popularMovies = <Movie>[];
-  List<Movie> get popularMovies => _popularMovies;
+  var _popularMovies = <category.Category>[];
+  List<category.Category> get popularMovies => _popularMovies;
 
   RequestState _popularMoviesState = RequestState.Empty;
   RequestState get popularMoviesState => _popularMoviesState;
 
-  var _topRatedMovies = <Movie>[];
-  List<Movie> get topRatedMovies => _topRatedMovies;
+  var _topRatedMovies = <category.Category>[];
+  List<category.Category> get topRatedMovies => _topRatedMovies;
 
   RequestState _topRatedMoviesState = RequestState.Empty;
   RequestState get topRatedMoviesState => _topRatedMoviesState;

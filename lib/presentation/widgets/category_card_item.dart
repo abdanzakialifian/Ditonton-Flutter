@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/domain/entities/tv_show.dart';
-import 'package:ditonton/presentation/pages/tv_show_detail_page.dart';
+import 'package:ditonton/domain/entities/category.dart';
+import 'package:ditonton/presentation/pages/detail_page.dart';
 import 'package:flutter/material.dart';
 
-class TvShowCardItem extends StatelessWidget {
-  final TvShow tvShow;
+class CategoryCardItem extends StatelessWidget {
+  final Category category;
 
-  TvShowCardItem(this.tvShow);
+  CategoryCardItem({required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +17,8 @@ class TvShowCardItem extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(
             context,
-            TvShowDetailPage.ROUTE_NAME,
-            arguments: tvShow.id,
+            DetailPage.ROUTE_NAME,
+            arguments: category.id,
           );
         },
         child: Stack(
@@ -35,14 +35,14 @@ class TvShowCardItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      tvShow.name ?? '-',
+                      category.title ?? '-',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: kHeading6,
                     ),
                     SizedBox(height: 16),
                     Text(
-                      tvShow.overview ?? '-',
+                      category.overview ?? '-',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -57,7 +57,7 @@ class TvShowCardItem extends StatelessWidget {
               ),
               child: ClipRRect(
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${tvShow.posterPath}',
+                  imageUrl: '$BASE_IMAGE_URL${category.posterPath}',
                   width: 80,
                   placeholder: (context, url) => Center(
                     child: CircularProgressIndicator(),

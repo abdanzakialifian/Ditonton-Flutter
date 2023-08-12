@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/presentation/pages/movie_detail_page.dart';
+import 'package:ditonton/domain/entities/category.dart';
+import 'package:ditonton/presentation/pages/detail_page.dart';
 import 'package:ditonton/presentation/pages/now_playing_page.dart';
 import 'package:ditonton/presentation/pages/popular_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_page.dart';
@@ -124,7 +124,7 @@ class _MoviesPageState extends State<MoviesPage> {
     );
   }
 
-  Widget _moviesList(List<Movie> movies) {
+  Widget _moviesList(List<Category> movies) {
     return Container(
       height: 200,
       child: ListView.builder(
@@ -137,7 +137,7 @@ class _MoviesPageState extends State<MoviesPage> {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  MovieDetailPage.ROUTE_NAME,
+                  DetailPage.ROUTE_NAME,
                   arguments: movie.id,
                 );
               },

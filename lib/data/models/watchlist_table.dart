@@ -3,22 +3,19 @@ import 'package:equatable/equatable.dart';
 
 class WatchlistTable extends Equatable {
   final int? id;
-  final String? type;
   final String? title;
   final String? posterPath;
   final String? overview;
 
   WatchlistTable({
     required this.id,
-    required this.type,
     required this.title,
     required this.posterPath,
     required this.overview,
   });
 
-  factory WatchlistTable.fromEntity(Watchlist watchlist) => WatchlistTable(
+  factory WatchlistTable.fromWatchlist(Watchlist watchlist) => WatchlistTable(
         id: watchlist.id,
-        type: watchlist.type,
         title: watchlist.title,
         posterPath: watchlist.posterPath,
         overview: watchlist.overview,
@@ -26,7 +23,6 @@ class WatchlistTable extends Equatable {
 
   factory WatchlistTable.fromMap(Map<String, dynamic> map) => WatchlistTable(
         id: map['id'],
-        type: map['type'],
         title: map['title'],
         posterPath: map['posterPath'],
         overview: map['overview'],
@@ -34,19 +30,12 @@ class WatchlistTable extends Equatable {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'type': type,
         'title': title,
         'posterPath': posterPath,
         'overview': overview,
       };
 
-  Watchlist toEntity() => Watchlist.watchlist(
-        id: id,
-        type: type,
-        overview: overview,
-        posterPath: posterPath,
-        title: title,
-      );
+  Watchlist toWatchlist() => Watchlist.fromWatchlistTableToWatchlist(this);
 
   @override
   List<Object?> get props => [id, title, posterPath, overview];

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/domain/entities/category.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
 
 class GetTopRatedMovies {
@@ -8,7 +8,6 @@ class GetTopRatedMovies {
 
   GetTopRatedMovies(this._movieRepository);
 
-  Future<Either<Failure, List<Movie>>> execute() {
-    return _movieRepository.getTopRatedMovies();
-  }
+  Future<Either<Failure, List<Category>>> execute() =>
+      _movieRepository.getTopRatedMovies();
 }

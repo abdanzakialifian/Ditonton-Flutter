@@ -1,9 +1,7 @@
-import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
-import 'package:ditonton/presentation/widgets/movie_card_item.dart';
-import 'package:ditonton/presentation/widgets/tv_show_card_item.dart';
+import 'package:ditonton/presentation/widgets/category_card_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -51,10 +49,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final watchlist = data.watchlist[index];
-                  print("CEK TYPE ${watchlist.type}");
-                  return watchlist.type == MOVIES
-                      ? MovieCardItem(watchlist.toEntityMovie())
-                      : TvShowCardItem(watchlist.toEntityTvShow());
+                  return CategoryCardItem(category: watchlist.toCategory());
                 },
                 itemCount: data.watchlist.length,
               );
