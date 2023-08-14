@@ -87,6 +87,8 @@ class MovieDetailResponse extends Equatable {
         title: this.title,
         voteCount: this.voteCount,
         voteAverage: voteAverage,
+        seasons: [],
+        status: status,
       );
 
   @override

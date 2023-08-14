@@ -1,4 +1,5 @@
 import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/season.dart';
 import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:equatable/equatable.dart';
 
@@ -11,6 +12,8 @@ class Detail extends Equatable {
   final String? title;
   final int? voteCount;
   final double? voteAverage;
+  final List<Season>? seasons;
+  final String? status;
 
   Detail({
     required this.genres,
@@ -21,6 +24,8 @@ class Detail extends Equatable {
     required this.title,
     required this.voteCount,
     required this.voteAverage,
+    required this.seasons,
+    required this.status,
   });
 
   Watchlist toWatchlist(String category) => Watchlist.fromDetailToWatchlist(
@@ -38,5 +43,7 @@ class Detail extends Equatable {
         title,
         voteCount,
         voteAverage,
+        seasons,
+        status,
       ];
 }

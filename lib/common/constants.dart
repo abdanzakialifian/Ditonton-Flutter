@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 const String BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
 const String MOVIES = "Movies";
 const String TV_SHOWS = "Tv Shows";
+const String STATUS_ENDED = "Ended";
 
 // colors
 const Color kRichBlack = Color(0xFF000814);

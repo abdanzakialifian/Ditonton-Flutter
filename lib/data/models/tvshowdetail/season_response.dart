@@ -1,3 +1,4 @@
+import 'package:ditonton/domain/entities/season.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -37,6 +38,17 @@ class SeasonResponse extends Equatable {
       _$SeasonResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$SeasonResponseToJson(this);
+
+  Season toSeason() => Season(
+        airDate: airDate,
+        episodeCount: episodeCount,
+        id: id,
+        name: name,
+        overview: overview,
+        posterPath: posterPath,
+        seasonNumber: seasonNumber,
+        voteAverage: voteAverage,
+      );
 
   @override
   List<Object?> get props => [

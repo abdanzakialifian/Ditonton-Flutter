@@ -56,8 +56,13 @@ class DetailNotifier extends ChangeNotifier {
             _message = failure.message;
           },
           (movies) {
-            _recommendationState = RequestState.Loaded;
-            _recommendations = movies;
+            if (movies.isNotEmpty) {
+              _recommendationState = RequestState.Loaded;
+              _recommendations = movies;
+            } else {
+              _recommendationState = RequestState.Empty;
+              _recommendations = movies;
+            }
           },
         );
         _detailState = RequestState.Loaded;
@@ -87,8 +92,13 @@ class DetailNotifier extends ChangeNotifier {
             _message = failure.message;
           },
           (tvShows) {
-            _recommendationState = RequestState.Loaded;
-            _recommendations = tvShows;
+            if (tvShows.isNotEmpty) {
+              _recommendationState = RequestState.Loaded;
+              _recommendations = tvShows;
+            } else {
+              _recommendationState = RequestState.Empty;
+              _recommendations = tvShows;
+            }
           },
         );
         _detailState = RequestState.Loaded;

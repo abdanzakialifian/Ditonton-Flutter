@@ -9,10 +9,11 @@ import 'package:dartz/dartz.dart' as _i2;
 import 'package:ditonton/common/failure.dart' as _i5;
 import 'package:ditonton/domain/entities/category.dart' as _i8;
 import 'package:ditonton/domain/entities/detail.dart' as _i6;
+import 'package:ditonton/domain/entities/watchlist.dart' as _i11;
 import 'package:ditonton/domain/usecases/get_movie_detail.dart' as _i3;
 import 'package:ditonton/domain/usecases/get_movie_recommendations.dart' as _i7;
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart' as _i9;
-import 'package:ditonton/domain/usecases/remove_watchlist.dart' as _i11;
+import 'package:ditonton/domain/usecases/remove_watchlist.dart' as _i12;
 import 'package:ditonton/domain/usecases/save_watchlist.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -46,21 +47,21 @@ class MockGetMovieDetail extends _i1.Mock implements _i3.GetMovieDetail {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.MovieDetail>> execute(int? id) =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Detail>> execute(int? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [id],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.MovieDetail>>.value(
-            _FakeEither_0<_i5.Failure, _i6.MovieDetail>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Detail>>.value(
+            _FakeEither_0<_i5.Failure, _i6.Detail>(
           this,
           Invocation.method(
             #execute,
             [id],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.MovieDetail>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Detail>>);
 }
 
 /// A class which mocks [GetMovieRecommendations].
@@ -73,21 +74,22 @@ class MockGetMovieRecommendations extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i8.Movie>>> execute(dynamic id) =>
+  _i4.Future<_i2.Either<_i5.Failure, List<_i8.Category>>> execute(dynamic id) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [id],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, List<_i8.Movie>>>.value(
-            _FakeEither_0<_i5.Failure, List<_i8.Movie>>(
+        returnValue:
+            _i4.Future<_i2.Either<_i5.Failure, List<_i8.Category>>>.value(
+                _FakeEither_0<_i5.Failure, List<_i8.Category>>(
           this,
           Invocation.method(
             #execute,
             [id],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i8.Movie>>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i8.Category>>>);
 }
 
 /// A class which mocks [GetWatchListStatus].
@@ -118,18 +120,19 @@ class MockSaveWatchlist extends _i1.Mock implements _i10.SaveWatchlist {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, String>> execute(_i6.MovieDetail? movie) =>
+  _i4.Future<_i2.Either<_i5.Failure, String>> execute(
+          _i11.Watchlist? watchlist) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
-          [movie],
+          [watchlist],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, String>>.value(
             _FakeEither_0<_i5.Failure, String>(
           this,
           Invocation.method(
             #execute,
-            [movie],
+            [watchlist],
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, String>>);
@@ -138,24 +141,25 @@ class MockSaveWatchlist extends _i1.Mock implements _i10.SaveWatchlist {
 /// A class which mocks [RemoveWatchlist].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRemoveWatchlist extends _i1.Mock implements _i11.RemoveWatchlist {
+class MockRemoveWatchlist extends _i1.Mock implements _i12.RemoveWatchlist {
   MockRemoveWatchlist() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, String>> execute(_i6.MovieDetail? movie) =>
+  _i4.Future<_i2.Either<_i5.Failure, String>> execute(
+          _i11.Watchlist? watchlist) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
-          [movie],
+          [watchlist],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, String>>.value(
             _FakeEither_0<_i5.Failure, String>(
           this,
           Invocation.method(
             #execute,
-            [movie],
+            [watchlist],
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, String>>);

@@ -3,9 +3,11 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/category.dart';
 import 'package:ditonton/domain/entities/detail.dart';
+import 'package:ditonton/domain/entities/season.dart';
 import 'package:ditonton/presentation/provider/detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
+import 'package:ditonton/presentation/widgets/season_card_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -201,68 +203,21 @@ class DetailContent extends StatelessWidget {
                             Text(
                               detail.overview ?? "",
                             ),
-                            SizedBox(height: 16),
+                            _setUpListRecommenadations(context),
+                            SizedBox(
+                              height: 16,
+                            ),
                             Text(
-                              'Recommendations',
+                              detail.status == STATUS_ENDED
+                                  ? "Last Season"
+                                  : "Current Season",
                               style: kHeading6,
                             ),
-                            Consumer<DetailNotifier>(
-                              builder: (context, data, child) {
-                                if (data.recommendationState ==
-                                    RequestState.Loading) {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (data.recommendationState ==
-                                    RequestState.Error) {
-                                  return Text(data.message);
-                                } else if (data.recommendationState ==
-                                    RequestState.Loaded) {
-                                  return Container(
-                                    height: 150,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        final recommendation =
-                                            recommendations[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.pushReplacementNamed(
-                                                context,
-                                                DetailPage.ROUTE_NAME,
-                                                arguments: recommendation.id,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${recommendation.posterPath}',
-                                                placeholder: (context, url) =>
-                                                    Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      itemCount: recommendations.length,
-                                    ),
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ),
+                            SizedBox(height: 10),
+                            type == MOVIES
+                                ? SizedBox.shrink()
+                                : _setUpSeason(detail.seasons),
+                            SizedBox(height: 30),
                           ],
                         ),
                       ),
@@ -299,6 +254,86 @@ class DetailContent extends StatelessWidget {
         )
       ],
     );
+  }
+
+  Widget _setUpListRecommenadations(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Provider.of<DetailNotifier>(context).recommendations.isNotEmpty
+            ? Column(
+                children: [
+                  SizedBox(height: 16),
+                  Text(
+                    'Recommendations',
+                    style: kHeading6,
+                  ),
+                  SizedBox(height: 10),
+                ],
+              )
+            : SizedBox.shrink(),
+        Consumer<DetailNotifier>(
+          builder: (context, data, child) {
+            if (data.recommendationState == RequestState.Loading) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (data.recommendationState == RequestState.Error) {
+              return Text(data.message);
+            } else if (data.recommendationState == RequestState.Loaded) {
+              return Container(
+                height: 150,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    final recommendation = recommendations[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            DetailPage.ROUTE_NAME,
+                            arguments: recommendation.id,
+                          );
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://image.tmdb.org/t/p/w500${recommendation.posterPath}',
+                            placeholder: (context, url) => Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: recommendations.length,
+                ),
+              );
+            } else {
+              return Container();
+            }
+          },
+        )
+      ],
+    );
+  }
+
+  Widget _setUpSeason(List<Season>? seasons) {
+    if (seasons != null && seasons.isNotEmpty) {
+      return SeasonCardItem(
+        season: detail.seasons == null ? null : detail.seasons?.last,
+      );
+    } else {
+      return SizedBox.shrink();
+    }
   }
 
   String _showGenres(List<Genre> genres) {

@@ -44,21 +44,22 @@ class MockGetNowPlayingMovies extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Movie>>> execute() =>
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>> execute() =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, List<_i6.Movie>>>.value(
-            _FakeEither_0<_i5.Failure, List<_i6.Movie>>(
+        returnValue:
+            _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>>.value(
+                _FakeEither_0<_i5.Failure, List<_i6.Category>>(
           this,
           Invocation.method(
             #execute,
             [],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Movie>>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>>);
 }
 
 /// A class which mocks [GetPopularMovies].
@@ -70,21 +71,22 @@ class MockGetPopularMovies extends _i1.Mock implements _i7.GetPopularMovies {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Movie>>> execute() =>
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>> execute() =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, List<_i6.Movie>>>.value(
-            _FakeEither_0<_i5.Failure, List<_i6.Movie>>(
+        returnValue:
+            _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>>.value(
+                _FakeEither_0<_i5.Failure, List<_i6.Category>>(
           this,
           Invocation.method(
             #execute,
             [],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Movie>>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>>);
 }
 
 /// A class which mocks [GetTopRatedMovies].
@@ -96,19 +98,20 @@ class MockGetTopRatedMovies extends _i1.Mock implements _i8.GetTopRatedMovies {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Movie>>> execute() =>
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>> execute() =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, List<_i6.Movie>>>.value(
-            _FakeEither_0<_i5.Failure, List<_i6.Movie>>(
+        returnValue:
+            _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>>.value(
+                _FakeEither_0<_i5.Failure, List<_i6.Category>>(
           this,
           Invocation.method(
             #execute,
             [],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Movie>>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>>);
 }

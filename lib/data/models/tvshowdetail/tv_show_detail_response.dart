@@ -127,6 +127,8 @@ class TvShowDetailResponse extends Equatable {
       title: name,
       voteCount: voteCount,
       voteAverage: voteAverage,
+      seasons: seasons?.map((season) => season.toSeason()).toList(),
+      status: status,
     );
   }
 
