@@ -32,21 +32,19 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.type == MOVIES) {
-      Future.microtask(() {
+    Future.microtask(() {
+      if (widget.type == MOVIES) {
         Provider.of<DetailNotifier>(context, listen: false)
             .fetchMovieDetail(widget.id);
         Provider.of<WatchlistNotifier>(context, listen: false)
             .loadWatchlistStatus(widget.id);
-      });
-    } else {
-      Future.microtask(() {
+      } else {
         Provider.of<DetailNotifier>(context, listen: false)
             .fetchTvShowDetail(widget.id);
         Provider.of<WatchlistNotifier>(context, listen: false)
             .loadWatchlistStatus(widget.id);
-      });
-    }
+      }
+    });
   }
 
   @override
