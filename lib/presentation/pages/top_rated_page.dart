@@ -19,17 +19,13 @@ class _TopRatedPageState extends State<TopRatedPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.type == MOVIES) {
-      Future.microtask(
-        () => Provider.of<TopRatedNotifier>(context, listen: false)
-            .fetchTopRatedMovies(),
-      );
-    } else {
-      Future.microtask(
-        () => Provider.of<TopRatedNotifier>(context, listen: false)
-            .fetchTopRatedTvShows(),
-      );
-    }
+    Future.microtask(
+      () => widget.type == MOVIES
+          ? Provider.of<TopRatedNotifier>(context, listen: false)
+              .fetchTopRatedMovies()
+          : Provider.of<TopRatedNotifier>(context, listen: false)
+              .fetchTopRatedTvShows(),
+    );
   }
 
   @override
