@@ -45,18 +45,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
                 arguments: widget.type,
               ),
             ),
-            Consumer<TvShowNotifier>(builder: (context, data, child) {
-              final state = data.nowPlayingTvShowsState;
-              if (state == RequestState.Loading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state == RequestState.Loaded) {
-                return _tvShowsList(data.nowPlayingTvShows);
-              } else {
-                return Text('Failed');
-              }
-            }),
+            _getAiringTodayTvShows(),
             _buildSubHeading(
               title: 'Popular',
               onTap: () => Navigator.pushNamed(
@@ -65,18 +54,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
                 arguments: widget.type,
               ),
             ),
-            Consumer<TvShowNotifier>(builder: (context, data, child) {
-              final state = data.popularTvShowsState;
-              if (state == RequestState.Loading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state == RequestState.Loaded) {
-                return _tvShowsList(data.popularTvShows);
-              } else {
-                return Text('Failed');
-              }
-            }),
+            _getPopularTvShows(),
             _buildSubHeading(
               title: 'Top Rated',
               onTap: () => Navigator.pushNamed(
@@ -85,21 +63,61 @@ class _TvShowsPageState extends State<TvShowsPage> {
                 arguments: widget.type,
               ),
             ),
-            Consumer<TvShowNotifier>(builder: (context, data, child) {
-              final state = data.topRatedTvShowsState;
-              if (state == RequestState.Loading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state == RequestState.Loaded) {
-                return _tvShowsList(data.topRatedTvShows);
-              } else {
-                return Text('Failed');
-              }
-            }),
+            _getTopRatedTvShows(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _getAiringTodayTvShows() {
+    return Consumer<TvShowNotifier>(
+      builder: (context, data, child) {
+        final state = data.nowPlayingTvShowsState;
+        if (state == RequestState.Loading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state == RequestState.Loaded) {
+          return _tvShowsList(data.nowPlayingTvShows);
+        } else {
+          return Text('Failed');
+        }
+      },
+    );
+  }
+
+  Widget _getPopularTvShows() {
+    return Consumer<TvShowNotifier>(
+      builder: (context, data, child) {
+        final state = data.popularTvShowsState;
+        if (state == RequestState.Loading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state == RequestState.Loaded) {
+          return _tvShowsList(data.popularTvShows);
+        } else {
+          return Text('Failed');
+        }
+      },
+    );
+  }
+
+  Widget _getTopRatedTvShows() {
+    return Consumer<TvShowNotifier>(
+      builder: (context, data, child) {
+        final state = data.topRatedTvShowsState;
+        if (state == RequestState.Loading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state == RequestState.Loaded) {
+          return _tvShowsList(data.topRatedTvShows);
+        } else {
+          return Text('Failed');
+        }
+      },
     );
   }
 
