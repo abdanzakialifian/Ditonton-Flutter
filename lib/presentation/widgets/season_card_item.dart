@@ -32,6 +32,8 @@ class SeasonCardItem extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -66,7 +68,7 @@ class SeasonCardItem extends StatelessWidget {
                       ),
                       SizedBox(width: 6),
                       Text(
-                        season?.airDate?.toString().split("-")[0] ?? "",
+                        season?.airDate?.toString().split("-")[0] ?? "-",
                         style: GoogleFonts.poppins(
                           fontSize: 12,
                         ),
@@ -92,7 +94,7 @@ class SeasonCardItem extends StatelessWidget {
                         ? "${season?.name} premiered on ${_dateFormatter()}"
                         : season?.overview ?? "",
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
+                    maxLines: 2,
                   )
                 ],
               ),
@@ -104,10 +106,15 @@ class SeasonCardItem extends StatelessWidget {
   }
 
   String _dateFormatter() {
-    DateFormat inputFormat = DateFormat("yyyy-MM-dd");
-    DateTime date = inputFormat.parse(season?.airDate.toString() ?? "");
-    DateFormat outputFormat = DateFormat("MMMM dd, yyyy");
-    return outputFormat.format(date);
+    if (season?.airDate != null) {
+      DateFormat inputFormat = DateFormat("yyyy-MM-dd");
+      DateTime date =
+          inputFormat.parse(season?.airDate.toString() ?? "1999-09-20");
+      DateFormat outputFormat = DateFormat("MMMM dd, yyyy");
+      return outputFormat.format(date);
+    } else {
+      return "November 25, 2020";
+    }
   }
 
   Widget _setUpImageSeason() {

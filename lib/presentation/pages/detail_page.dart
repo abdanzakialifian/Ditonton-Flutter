@@ -4,6 +4,7 @@ import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/category.dart';
 import 'package:ditonton/domain/entities/detail.dart';
 import 'package:ditonton/domain/entities/season.dart';
+import 'package:ditonton/presentation/pages/season_page.dart';
 import 'package:ditonton/presentation/provider/detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
@@ -204,19 +205,9 @@ class DetailContent extends StatelessWidget {
                               detail.overview ?? "",
                             ),
                             _setUpListRecommenadations(context),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Text(
-                              detail.status == STATUS_ENDED
-                                  ? "Last Season"
-                                  : "Current Season",
-                              style: kHeading6,
-                            ),
-                            SizedBox(height: 10),
                             type == MOVIES
                                 ? SizedBox.shrink()
-                                : _setUpSeason(detail.seasons),
+                                : _setUpSeason(context, detail.seasons),
                             SizedBox(height: 30),
                           ],
                         ),
@@ -326,10 +317,51 @@ class DetailContent extends StatelessWidget {
     );
   }
 
-  Widget _setUpSeason(List<Season>? seasons) {
+  Widget _setUpSeason(BuildContext context, List<Season>? seasons) {
     if (seasons != null && seasons.isNotEmpty) {
-      return SeasonCardItem(
-        season: detail.seasons == null ? null : detail.seasons?.last,
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 16,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                detail.status == STATUS_ENDED
+                    ? "Last Season"
+                    : "Current Season",
+                style: kHeading6,
+              ),
+              (seasons.length > 1)
+                  ? InkWell(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        SeasonPage.ROUTE_NAME,
+                        arguments: seasons,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text('See More'),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 18,
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  : SizedBox.shrink(),
+            ],
+          ),
+          SizedBox(height: 5),
+          SeasonCardItem(
+            season: detail.seasons == null ? null : detail.seasons?.last,
+          ),
+        ],
       );
     } else {
       return SizedBox.shrink();

@@ -1,11 +1,13 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/utils.dart';
+import 'package:ditonton/domain/entities/season.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/detail_page.dart';
 import 'package:ditonton/presentation/pages/home_page.dart';
 import 'package:ditonton/presentation/pages/now_playing_page.dart';
 import 'package:ditonton/presentation/pages/popular_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/presentation/pages/season_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:ditonton/presentation/provider/detail_notifier.dart';
@@ -105,6 +107,12 @@ class MyApp extends StatelessWidget {
                 ),
                 settings: settings,
               );
+            case SeasonPage.ROUTE_NAME:
+              final data = settings.arguments as List<Season>;
+              return MaterialPageRoute(
+                builder: (context) => SeasonPage(seasons: data),
+                settings: settings,
+              );
             case SearchPage.ROUTE_NAME:
               final type = settings.arguments as String;
               return MaterialPageRoute(
@@ -117,13 +125,15 @@ class MyApp extends StatelessWidget {
             case AboutPage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => AboutPage());
             default:
-              return MaterialPageRoute(builder: (_) {
-                return Scaffold(
-                  body: Center(
-                    child: Text('Page not found :('),
-                  ),
-                );
-              });
+              return MaterialPageRoute(
+                builder: (_) {
+                  return Scaffold(
+                    body: Center(
+                      child: Text('Page not found :('),
+                    ),
+                  );
+                },
+              );
           }
         },
       ),
