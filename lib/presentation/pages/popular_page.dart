@@ -19,17 +19,13 @@ class _PopularPageState extends State<PopularPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.type == MOVIES) {
-      Future.microtask(
-        () => Provider.of<PopularNotifier>(context, listen: false)
-            .fetchPopularMovies(),
-      );
-    } else {
-      Future.microtask(
-        () => Provider.of<PopularNotifier>(context, listen: false)
-            .fetchPopularTvShows(),
-      );
-    }
+    Future.microtask(
+      () => widget.type == MOVIES
+          ? Provider.of<PopularNotifier>(context, listen: false)
+              .fetchPopularMovies()
+          : Provider.of<PopularNotifier>(context, listen: false)
+              .fetchPopularTvShows(),
+    );
   }
 
   @override
