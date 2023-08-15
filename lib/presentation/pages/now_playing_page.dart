@@ -19,17 +19,13 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.type == MOVIES) {
-      Future.microtask(
-        () => Provider.of<NowPlayingNotifier>(context, listen: false)
-            .fetchNowPlayingMovies(),
-      );
-    } else {
-      Future.microtask(
-        () => Provider.of<NowPlayingNotifier>(context, listen: false)
-            .fetchAiringTodayTvShows(),
-      );
-    }
+    Future.microtask(
+      () => widget.type == MOVIES
+          ? Provider.of<NowPlayingNotifier>(context, listen: false)
+              .fetchNowPlayingMovies()
+          : Provider.of<NowPlayingNotifier>(context, listen: false)
+              .fetchAiringTodayTvShows(),
+    );
   }
 
   @override
