@@ -59,14 +59,11 @@ class _DetailPageState extends State<DetailPage> {
               child: CircularProgressIndicator(),
             );
           } else if (provider.detailState == RequestState.Loaded) {
-            final detail = provider.detail;
-            return SafeArea(
-              child: DetailContent(
-                detail,
-                provider.recommendations,
-                Provider.of<WatchlistNotifier>(context).isAddedToWatchlist,
-                widget.type,
-              ),
+            return DetailContent(
+              provider.detail,
+              provider.recommendations,
+              Provider.of<WatchlistNotifier>(context).isAddedToWatchlist,
+              widget.type,
             );
           } else {
             return Text(provider.message);
@@ -93,161 +90,157 @@ class DetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    return Stack(
-      children: [
-        CachedNetworkImage(
-          imageUrl: 'https://image.tmdb.org/t/p/w500${detail.posterPath}',
-          width: screenWidth,
-          placeholder: (context, url) => Center(
-            child: CircularProgressIndicator(),
+    return SafeArea(
+      child: Stack(
+        children: [
+          CachedNetworkImage(
+            imageUrl: 'https://image.tmdb.org/t/p/w500${detail.posterPath}',
+            width: screenWidth,
+            placeholder: (context, url) => Center(
+              child: CircularProgressIndicator(),
+            ),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        ),
-        Container(
-          margin: const EdgeInsets.only(top: 48 + 8),
-          child: DraggableScrollableSheet(
-            builder: (context, scrollController) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: kRichBlack,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                ),
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  top: 16,
-                  right: 16,
-                ),
-                child: Stack(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      child: SingleChildScrollView(
-                        controller: scrollController,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              detail.title ?? "",
-                              style: kHeading5,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                if (!isAddedWatchlist) {
-                                  await Provider.of<WatchlistNotifier>(context,
-                                          listen: false)
-                                      .addWatchlist(detail.toWatchlist(type));
-                                } else {
-                                  await Provider.of<WatchlistNotifier>(context,
-                                          listen: false)
-                                      .removeFromWatchlist(
-                                          detail.toWatchlist(type));
-                                }
-
-                                final message = Provider.of<WatchlistNotifier>(
-                                        context,
-                                        listen: false)
-                                    .watchlistMessage;
-
-                                if (message ==
-                                        WatchlistNotifier
-                                            .watchlistAddSuccessMessage ||
-                                    message ==
-                                        WatchlistNotifier
-                                            .watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(message)));
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(message),
-                                        );
-                                      });
-                                }
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
+          Container(
+            margin: const EdgeInsets.only(top: 48 + 8),
+            child: DraggableScrollableSheet(
+              builder: (context, scrollController) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: kRichBlack,
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(16)),
+                  ),
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                    top: 16,
+                    right: 16,
+                  ),
+                  child: Stack(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(top: 16),
+                        child: SingleChildScrollView(
+                          controller: scrollController,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                detail.title ?? "",
+                                style: kHeading5,
+                              ),
+                              ElevatedButton(
+                                onPressed: () async => _addWatchlist(context),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    isAddedWatchlist
+                                        ? Icon(Icons.check)
+                                        : Icon(Icons.add),
+                                    Text('Watchlist'),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                _showGenres(detail.genres ?? []),
+                              ),
+                              Text(
+                                _showDuration(detail.runtime ?? 0),
+                              ),
+                              Row(
                                 children: [
-                                  isAddedWatchlist
-                                      ? Icon(Icons.check)
-                                      : Icon(Icons.add),
-                                  Text('Watchlist'),
+                                  RatingBarIndicator(
+                                    rating: (detail.voteAverage ?? 0) / 2,
+                                    itemCount: 5,
+                                    itemBuilder: (context, index) => Icon(
+                                      Icons.star,
+                                      color: kMikadoYellow,
+                                    ),
+                                    itemSize: 24,
+                                  ),
+                                  Text('${detail.voteAverage}')
                                 ],
                               ),
-                            ),
-                            Text(
-                              _showGenres(detail.genres ?? []),
-                            ),
-                            Text(
-                              _showDuration(detail.runtime ?? 0),
-                            ),
-                            Row(
-                              children: [
-                                RatingBarIndicator(
-                                  rating: (detail.voteAverage ?? 0) / 2,
-                                  itemCount: 5,
-                                  itemBuilder: (context, index) => Icon(
-                                    Icons.star,
-                                    color: kMikadoYellow,
-                                  ),
-                                  itemSize: 24,
-                                ),
-                                Text('${detail.voteAverage}')
-                              ],
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              'Overview',
-                              style: kHeading6,
-                            ),
-                            Text(
-                              detail.overview ?? "",
-                            ),
-                            _setUpListRecommenadations(context),
-                            type == MOVIES
-                                ? SizedBox.shrink()
-                                : _setUpSeason(context, detail.seasons),
-                            SizedBox(height: 30),
-                          ],
+                              SizedBox(height: 16),
+                              Text(
+                                'Overview',
+                                style: kHeading6,
+                              ),
+                              Text(
+                                detail.overview ?? "",
+                              ),
+                              _setUpRecommenadation(context),
+                              type == MOVIES
+                                  ? SizedBox.shrink()
+                                  : _setUpSeason(context, detail.seasons),
+                              SizedBox(height: 30),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                        color: Colors.white,
-                        height: 4,
-                        width: 48,
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Container(
+                          color: Colors.white,
+                          height: 4,
+                          width: 48,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            // initialChildSize: 0.5,
-            minChildSize: 0.25,
-            // maxChildSize: 1.0,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundColor: kRichBlack,
-            foregroundColor: Colors.white,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context);
+                    ],
+                  ),
+                );
               },
+              // initialChildSize: 0.5,
+              minChildSize: 0.25,
+              // maxChildSize: 1.0,
             ),
           ),
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CircleAvatar(
+              backgroundColor: kRichBlack,
+              foregroundColor: Colors.white,
+              child: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
-  Widget _setUpListRecommenadations(BuildContext context) {
+  Future<void> _addWatchlist(BuildContext context) async {
+    if (!isAddedWatchlist) {
+      await Provider.of<WatchlistNotifier>(context, listen: false)
+          .addWatchlist(detail.toWatchlist(type));
+    } else {
+      await Provider.of<WatchlistNotifier>(context, listen: false)
+          .removeFromWatchlist(detail.toWatchlist(type));
+    }
+
+    final message =
+        Provider.of<WatchlistNotifier>(context, listen: false).watchlistMessage;
+
+    if (message == WatchlistNotifier.watchlistAddSuccessMessage ||
+        message == WatchlistNotifier.watchlistRemoveSuccessMessage) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(message)));
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(message),
+            );
+          });
+    }
+  }
+
+  Widget _setUpRecommenadation(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -272,48 +265,51 @@ class DetailContent extends StatelessWidget {
             } else if (data.recommendationState == RequestState.Error) {
               return Text(data.message);
             } else if (data.recommendationState == RequestState.Loaded) {
-              return Container(
-                height: 150,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    final recommendation = recommendations[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            DetailPage.ROUTE_NAME,
-                            arguments: recommendation.id,
-                          );
-                        },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                'https://image.tmdb.org/t/p/w500${recommendation.posterPath}',
-                            placeholder: (context, url) => Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  itemCount: recommendations.length,
-                ),
-              );
+              return _setUpListRecommendations();
             } else {
               return Container();
             }
           },
         )
       ],
+    );
+  }
+
+  Widget _setUpListRecommendations() {
+    return Container(
+      height: 150,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          final recommendation = recommendations[index];
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  DetailPage.ROUTE_NAME,
+                  arguments: recommendation.id,
+                );
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(8),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl:
+                      'https://image.tmdb.org/t/p/w500${recommendation.posterPath}',
+                  placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+              ),
+            ),
+          );
+        },
+        itemCount: recommendations.length,
+      ),
     );
   }
 
