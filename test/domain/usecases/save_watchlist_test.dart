@@ -1,28 +1,39 @@
 import 'package:dartz/dartz.dart';
+import 'package:dartz_test/dartz_test.dart';
+import 'package:ditonton/data/models/watchlist_table.dart';
+import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-
-import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late SaveWatchlist usecase;
-  late MockMovieRepository mockMovieRepository;
+  late SaveWatchlist saveWatchlist;
+  late MockWatchlistRepository mockWatchlistRepository;
 
   setUp(() {
-    mockMovieRepository = MockMovieRepository();
-    usecase = SaveWatchlist(mockMovieRepository);
+    mockWatchlistRepository = MockWatchlistRepository();
+    saveWatchlist = SaveWatchlist(mockWatchlistRepository);
   });
 
-  test('should save movie to the repository', () async {
+  final WatchlistTable dummyWatchlistTable = WatchlistTable(
+    id: 1,
+    title: "Title",
+    posterPath: "Poster Path",
+    overview: "Overview",
+    category: "Movie or Tv Show",
+  );
+
+  final Watchlist dummyWatchlist = dummyWatchlistTable.toWatchlist();
+
+  test('should save watchlist to the repository', () async {
     // arrange
-    when(mockMovieRepository.saveWatchlist(testMovieDetail))
+    when(mockWatchlistRepository.saveWatchlist(dummyWatchlist))
         .thenAnswer((_) async => Right('Added to Watchlist'));
     // act
-    final result = await usecase.execute(testMovieDetail);
+    final result = await saveWatchlist.execute(dummyWatchlist);
     // assert
-    verify(mockMovieRepository.saveWatchlist(testMovieDetail));
-    expect(result, Right('Added to Watchlist'));
+    verify(mockWatchlistRepository.saveWatchlist(dummyWatchlist));
+    expect(result, isRightThat('Added to Watchlist'));
   });
 }

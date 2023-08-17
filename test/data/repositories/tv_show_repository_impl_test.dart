@@ -249,7 +249,7 @@ void main() {
   });
 
   group('Seach Tv Shows', () {
-    final dummyQuery = 'Title';
+    final dummyQuery = 'Here it all begins';
 
     test('should return tv show list when call to data source is successful',
         () async {
