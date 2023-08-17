@@ -7,22 +7,26 @@
       "genre_ids": [
         1,
         2,
-        3
+        3,
+        4
       ],
       "id": 1,
-      "media_type": "movie",
-      "title": "Title",
       "original_language": "en",
       "original_title": "Original Title",
       "overview": "Overview",
       "popularity": 1.0,
       "poster_path": "/path.jpg",
       "release_date": "2020-05-05",
+      "title": "Title",
       "video": false,
       "vote_average": 1.0,
       "vote_count": 1
     }
   ],
-  "total_pages": 1,
-  "total_results": 10
+  "dates": {
+    "maximum": "2021-05-23",
+    "minimum": "2021-04-05"
+  },
+  "total_pages": 47,
+  "total_results": 940
 }

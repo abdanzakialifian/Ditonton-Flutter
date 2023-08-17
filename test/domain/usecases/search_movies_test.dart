@@ -15,7 +15,7 @@ void main() {
     usecase = SearchMovies(mockMovieRepository);
   });
 
-  final tMovies = <Movie>[];
+  final tMovies = <Category>[];
   final tQuery = 'Spiderman';
 
   test('should get list of movies from the repository', () async {

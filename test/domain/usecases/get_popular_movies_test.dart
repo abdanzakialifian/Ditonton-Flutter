@@ -15,7 +15,7 @@ void main() {
     usecase = GetPopularMovies(mockMovieRpository);
   });
 
-  final tMovies = <Movie>[];
+  final tMovies = <Category>[];
 
   group('GetPopularMovies Tests', () {
     group('execute', () {

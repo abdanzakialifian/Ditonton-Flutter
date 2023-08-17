@@ -24,23 +24,14 @@ void main() {
       });
   });
 
-  final tMovie = Movie(
-    adult: false,
-    backdropPath: 'backdropPath',
-    genreIds: [1, 2, 3],
+  final tMovie = Category(
     id: 1,
-    originalTitle: 'originalTitle',
     overview: 'overview',
-    popularity: 1,
     posterPath: 'posterPath',
-    releaseDate: 'releaseDate',
     title: 'title',
-    video: false,
-    voteAverage: 1,
-    voteCount: 1,
   );
 
-  final tMovieList = <Movie>[tMovie];
+  final tMovieList = <Category>[tMovie];
 
   test('should change state to loading when usecase is called', () async {
     // arrange
@@ -61,7 +52,7 @@ void main() {
     await notifier.fetchPopularMovies();
     // assert
     expect(notifier.state, RequestState.Loaded);
-    expect(notifier.movies, tMovieList);
+    expect(notifier.data, tMovieList);
     expect(listenerCallCount, 2);
   });
 

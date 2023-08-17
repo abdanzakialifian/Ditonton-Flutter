@@ -9,15 +9,15 @@ import 'package:mockito/mockito.dart';
 import '../../dummy_data/dummy_objects.dart';
 import 'watchlist_notifier_test.mocks.dart';
 
-@GenerateMocks([GetWatchlistMovies])
+@GenerateMocks([GetWatchlist])
 void main() {
   late WatchlistNotifier provider;
-  late MockGetWatchlistMovies mockGetWatchlistMovies;
+  late MockGetWatchlist mockGetWatchlistMovies;
   late int listenerCallCount;
 
   setUp(() {
     listenerCallCount = 0;
-    mockGetWatchlistMovies = MockGetWatchlistMovies();
+    mockGetWatchlistMovies = MockGetWatchlist();
     provider = WatchlistNotifier(
       getWatchlistMovies: mockGetWatchlistMovies,
     )..addListener(() {

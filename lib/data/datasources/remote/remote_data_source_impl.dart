@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:developer';
 import 'package:ditonton/data/datasources/remote/remote_data_source.dart';
 import 'package:ditonton/data/models/movie/movie_response.dart';
 import 'package:ditonton/data/models/movie/movie_result_response.dart';
@@ -60,6 +60,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     final response = await client.get(Uri.parse('$BASE_URL/tv/$id?$API_KEY'));
 
     if (response.statusCode == 200) {
+      log(response.body);
       return TvShowDetailResponse.fromJson(json.decode(response.body));
     } else {
       throw ServerException();

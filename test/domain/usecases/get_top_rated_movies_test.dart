@@ -15,7 +15,7 @@ void main() {
     usecase = GetTopRatedMovies(mockMovieRepository);
   });
 
-  final tMovies = <Movie>[];
+  final tMovies = <Category>[];
 
   test('should get list of movies from repository', () async {
     // arrange

@@ -48,7 +48,7 @@ void main() {
   testWidgets('Page should display when data is loaded',
       (WidgetTester tester) async {
     when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.movies).thenReturn(<Movie>[]);
+    when(mockNotifier.data).thenReturn(<Category>[]);
 
     final listViewFinder = find.byType(ListView);
 
