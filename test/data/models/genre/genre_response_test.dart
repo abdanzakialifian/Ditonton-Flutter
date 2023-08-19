@@ -1,6 +1,5 @@
 import 'package:ditonton/data/models/genre/genre_response.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import '../../../dummy_data/dummy_objects.dart';
 
 void main() {

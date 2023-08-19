@@ -7,7 +7,7 @@ part 'season_response.g.dart';
 @JsonSerializable()
 class SeasonResponse extends Equatable {
   @JsonKey(name: "air_date")
-  final DateTime? airDate;
+  final String? airDate;
   @JsonKey(name: "episode_count")
   final int? episodeCount;
   @JsonKey(name: "id")

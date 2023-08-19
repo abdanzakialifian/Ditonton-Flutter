@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:ditonton/data/models/movie/movie_response.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import '../../../json_reader.dart';
 
 void main() {
@@ -35,5 +33,9 @@ void main() {
 
   test("should return movie response json", () {
     expect(dummyJson, dummyMoviesResponse.toJson());
+  });
+
+  test("should return movie response", () {
+    expect(dummyMoviesResponse, MovieResponse.fromJson(dummyJson));
   });
 }

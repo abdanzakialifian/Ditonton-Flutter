@@ -16,7 +16,7 @@ class LastEpisodeToAirResponse extends Equatable {
   @JsonKey(name: "vote_count")
   final int? voteCount;
   @JsonKey(name: "air_date")
-  final DateTime? airDate;
+  final String? airDate;
   @JsonKey(name: "episode_number")
   final int? episodeNumber;
   @JsonKey(name: "episode_type")

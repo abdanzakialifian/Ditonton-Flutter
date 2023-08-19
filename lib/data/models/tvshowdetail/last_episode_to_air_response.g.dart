@@ -14,9 +14,7 @@ LastEpisodeToAirResponse _$LastEpisodeToAirResponseFromJson(
       overview: json['overview'] as String?,
       voteAverage: (json['vote_average'] as num?)?.toDouble(),
       voteCount: json['vote_count'] as int?,
-      airDate: json['air_date'] == null
-          ? null
-          : DateTime.parse(json['air_date'] as String),
+      airDate: json['air_date'] as String?,
       episodeNumber: json['episode_number'] as int?,
       episodeType: json['episode_type'] as String?,
       productionCode: json['production_code'] as String?,
@@ -34,7 +32,7 @@ Map<String, dynamic> _$LastEpisodeToAirResponseToJson(
       'overview': instance.overview,
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
-      'air_date': instance.airDate?.toIso8601String(),
+      'air_date': instance.airDate,
       'episode_number': instance.episodeNumber,
       'episode_type': instance.episodeType,
       'production_code': instance.productionCode,

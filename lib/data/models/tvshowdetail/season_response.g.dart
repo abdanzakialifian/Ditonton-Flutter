@@ -8,9 +8,7 @@ part of 'season_response.dart';
 
 SeasonResponse _$SeasonResponseFromJson(Map<String, dynamic> json) =>
     SeasonResponse(
-      airDate: json['air_date'] == null
-          ? null
-          : DateTime.parse(json['air_date'] as String),
+      airDate: json['air_date'] as String?,
       episodeCount: json['episode_count'] as int?,
       id: json['id'] as int?,
       name: json['name'] as String?,
@@ -22,7 +20,7 @@ SeasonResponse _$SeasonResponseFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SeasonResponseToJson(SeasonResponse instance) =>
     <String, dynamic>{
-      'air_date': instance.airDate?.toIso8601String(),
+      'air_date': instance.airDate,
       'episode_count': instance.episodeCount,
       'id': instance.id,
       'name': instance.name,
