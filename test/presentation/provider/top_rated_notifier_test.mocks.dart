@@ -9,6 +9,7 @@ import 'package:dartz/dartz.dart' as _i2;
 import 'package:ditonton/common/failure.dart' as _i5;
 import 'package:ditonton/domain/entities/category.dart' as _i6;
 import 'package:ditonton/domain/usecases/get_top_rated_movies.dart' as _i3;
+import 'package:ditonton/domain/usecases/get_top_rated_tv_shows.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -37,6 +38,34 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 /// See the documentation for Mockito's code generation for more information.
 class MockGetTopRatedMovies extends _i1.Mock implements _i3.GetTopRatedMovies {
   MockGetTopRatedMovies() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>> execute() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+        ),
+        returnValue:
+            _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>>.value(
+                _FakeEither_0<_i5.Failure, List<_i6.Category>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>>);
+}
+
+/// A class which mocks [GetTopRatedTvShows].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetTopRatedTvShows extends _i1.Mock
+    implements _i7.GetTopRatedTvShows {
+  MockGetTopRatedTvShows() {
     _i1.throwOnMissingStub(this);
   }
 

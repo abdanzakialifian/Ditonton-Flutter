@@ -6,11 +6,11 @@ import 'package:flutter/foundation.dart';
 import 'package:ditonton/domain/entities/category.dart' as category;
 
 class TvShowNotifier extends ChangeNotifier {
-  List<category.Category> _nowPlayingTvShows = <category.Category>[];
-  List<category.Category> get nowPlayingTvShows => _nowPlayingTvShows;
+  List<category.Category> _airingTodayTvShows = <category.Category>[];
+  List<category.Category> get airingTodayTvShows => _airingTodayTvShows;
 
-  RequestState _nowPlayingTvShowsState = RequestState.Empty;
-  RequestState get nowPlayingTvShowsState => _nowPlayingTvShowsState;
+  RequestState _airingTodayTvShowsState = RequestState.Empty;
+  RequestState get airingTodayTvShowsState => _airingTodayTvShowsState;
 
   List<category.Category> _popularTvShows = <category.Category>[];
   List<category.Category> get popularTvShows => _popularTvShows;
@@ -38,17 +38,17 @@ class TvShowNotifier extends ChangeNotifier {
   });
 
   Future<void> fetchAiringTodayTvShows() async {
-    _nowPlayingTvShowsState = RequestState.Loading;
+    _airingTodayTvShowsState = RequestState.Loading;
     notifyListeners();
 
     final result = await getAiringTodayTvShows.execute();
     result.fold((failure) {
-      _nowPlayingTvShowsState = RequestState.Error;
+      _airingTodayTvShowsState = RequestState.Error;
       _message = failure.message;
       notifyListeners();
     }, (tvShowsData) {
-      _nowPlayingTvShowsState = RequestState.Loaded;
-      _nowPlayingTvShows = tvShowsData;
+      _airingTodayTvShowsState = RequestState.Loaded;
+      _airingTodayTvShows = tvShowsData;
       notifyListeners();
     });
   }

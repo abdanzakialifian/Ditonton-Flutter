@@ -9,12 +9,11 @@ import 'package:dartz/dartz.dart' as _i2;
 import 'package:ditonton/common/failure.dart' as _i5;
 import 'package:ditonton/domain/entities/category.dart' as _i8;
 import 'package:ditonton/domain/entities/detail.dart' as _i6;
-import 'package:ditonton/domain/entities/watchlist.dart' as _i11;
 import 'package:ditonton/domain/usecases/get_movie_detail.dart' as _i3;
 import 'package:ditonton/domain/usecases/get_movie_recommendations.dart' as _i7;
-import 'package:ditonton/domain/usecases/get_watchlist_status.dart' as _i9;
-import 'package:ditonton/domain/usecases/remove_watchlist.dart' as _i12;
-import 'package:ditonton/domain/usecases/save_watchlist.dart' as _i10;
+import 'package:ditonton/domain/usecases/get_tv_show_detail.dart' as _i9;
+import 'package:ditonton/domain/usecases/get_tv_show_recommendations.dart'
+    as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -92,75 +91,56 @@ class MockGetMovieRecommendations extends _i1.Mock
       ) as _i4.Future<_i2.Either<_i5.Failure, List<_i8.Category>>>);
 }
 
-/// A class which mocks [GetWatchListStatus].
+/// A class which mocks [GetTvShowDetail].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetWatchListStatus extends _i1.Mock
-    implements _i9.GetWatchListStatus {
-  MockGetWatchListStatus() {
+class MockGetTvShowDetail extends _i1.Mock implements _i9.GetTvShowDetail {
+  MockGetTvShowDetail() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<bool> execute(int? id) => (super.noSuchMethod(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Detail>> execute(int? id) =>
+      (super.noSuchMethod(
         Invocation.method(
           #execute,
           [id],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Detail>>.value(
+            _FakeEither_0<_i5.Failure, _i6.Detail>(
+          this,
+          Invocation.method(
+            #execute,
+            [id],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Detail>>);
 }
 
-/// A class which mocks [SaveWatchlist].
+/// A class which mocks [GetTvShowRecommendations].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSaveWatchlist extends _i1.Mock implements _i10.SaveWatchlist {
-  MockSaveWatchlist() {
+class MockGetTvShowRecommendations extends _i1.Mock
+    implements _i10.GetTvShowRecommendations {
+  MockGetTvShowRecommendations() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, String>> execute(
-          _i11.Watchlist? watchlist) =>
+  _i4.Future<_i2.Either<_i5.Failure, List<_i8.Category>>> execute(int? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
-          [watchlist],
+          [id],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, String>>.value(
-            _FakeEither_0<_i5.Failure, String>(
+        returnValue:
+            _i4.Future<_i2.Either<_i5.Failure, List<_i8.Category>>>.value(
+                _FakeEither_0<_i5.Failure, List<_i8.Category>>(
           this,
           Invocation.method(
             #execute,
-            [watchlist],
+            [id],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, String>>);
-}
-
-/// A class which mocks [RemoveWatchlist].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockRemoveWatchlist extends _i1.Mock implements _i12.RemoveWatchlist {
-  MockRemoveWatchlist() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i4.Future<_i2.Either<_i5.Failure, String>> execute(
-          _i11.Watchlist? watchlist) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #execute,
-          [watchlist],
-        ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, String>>.value(
-            _FakeEither_0<_i5.Failure, String>(
-          this,
-          Invocation.method(
-            #execute,
-            [watchlist],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, String>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i8.Category>>>);
 }

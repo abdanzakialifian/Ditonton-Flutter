@@ -16,7 +16,6 @@ import 'package:ditonton/presentation/provider/search_notifier.dart';
 import 'package:ditonton/presentation/provider/now_playing_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_show_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_show_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
@@ -56,9 +55,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<TvShowNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvShowDetailNotifier>(),
         ),
       ],
       child: MaterialApp(

@@ -73,13 +73,13 @@ class _TvShowsPageState extends State<TvShowsPage> {
   Widget _getAiringTodayTvShows() {
     return Consumer<TvShowNotifier>(
       builder: (context, data, child) {
-        final state = data.nowPlayingTvShowsState;
+        final state = data.airingTodayTvShowsState;
         if (state == RequestState.Loading) {
           return Center(
             child: CircularProgressIndicator(),
           );
         } else if (state == RequestState.Loaded) {
-          return _tvShowsList(data.nowPlayingTvShows);
+          return _tvShowsList(data.airingTodayTvShows);
         } else {
           return Text('Failed');
         }
