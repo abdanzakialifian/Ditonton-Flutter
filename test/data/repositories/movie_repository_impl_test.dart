@@ -1,15 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:dartz_test/dartz_test.dart';
-import 'package:ditonton/data/models/movie/movie_response.dart';
-import 'package:ditonton/data/models/moviedetail/movie_detail_response.dart';
 import 'package:ditonton/data/repositories/movie_repository_impl.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
-import '../../json_reader.dart';
 
 void main() {
   late MovieRepositoryImpl movieRepositoryImpl;
@@ -20,27 +17,18 @@ void main() {
     movieRepositoryImpl = MovieRepositoryImpl(mockRemoteDataSource);
   });
 
-  final dummyMoviesResponse = MovieResponse.fromJson(
-    jsonDecode(
-      readJson('dummy_data/dummy_movie_response.json'),
-    ),
-  ).movieList;
-
-  final dummyCategories =
-      dummyMoviesResponse?.map((model) => model.toCategory()).toList();
-
   group('Get Now Playing Movies', () {
     test(
         'should return remote data when the call to remote data source is successful',
         () async {
       // arrange
       when(mockRemoteDataSource.getNowPlayingMovies())
-          .thenAnswer((_) async => dummyMoviesResponse ?? []);
+          .thenAnswer((_) async => dummyMovieResponse.movieList ?? []);
       // act
       final result = await movieRepositoryImpl.getNowPlayingMovies();
       // assert
       verify(mockRemoteDataSource.getNowPlayingMovies());
-      expect(result, isRightThat(dummyCategories));
+      expect(result, isRightThat(dummyCategoryMovies));
     });
 
     test(
@@ -73,11 +61,6 @@ void main() {
 
   group('Get Movie Detail', () {
     final dummyMovieId = 1;
-    final dummyMovieDetailResponse = MovieDetailResponse.fromJson(
-      jsonDecode(
-        readJson('dummy_data/dummy_movie_detail_response.json'),
-      ),
-    );
     final dummyDetail = dummyMovieDetailResponse.toDetail();
 
     test(
@@ -128,13 +111,13 @@ void main() {
         () async {
       // arrange
       when(mockRemoteDataSource.getMovieRecommendations(dummyMovieId))
-          .thenAnswer((_) async => dummyMoviesResponse ?? []);
+          .thenAnswer((_) async => dummyMovieResponse.movieList ?? []);
       // act
       final result =
           await movieRepositoryImpl.getMovieRecommendations(dummyMovieId);
       // assert
       verify(mockRemoteDataSource.getMovieRecommendations(dummyMovieId));
-      expect(result, isRightThat(dummyCategories));
+      expect(result, isRightThat(dummyCategoryMovies));
     });
 
     test(
@@ -172,12 +155,12 @@ void main() {
         () async {
       // arrange
       when(mockRemoteDataSource.getPopularMovies())
-          .thenAnswer((_) async => dummyMoviesResponse ?? []);
+          .thenAnswer((_) async => dummyMovieResponse.movieList ?? []);
       // act
       final result = await movieRepositoryImpl.getPopularMovies();
       // assert
       verify(mockRemoteDataSource.getPopularMovies());
-      expect(result, isRightThat(dummyCategories));
+      expect(result, isRightThat(dummyCategoryMovies));
     });
 
     test(
@@ -213,12 +196,12 @@ void main() {
         () async {
       // arrange
       when(mockRemoteDataSource.getTopRatedMovies())
-          .thenAnswer((_) async => dummyMoviesResponse ?? []);
+          .thenAnswer((_) async => dummyMovieResponse.movieList ?? []);
       // act
       final result = await movieRepositoryImpl.getTopRatedMovies();
       // assert
       verify(mockRemoteDataSource.getTopRatedMovies());
-      expect(result, isRightThat(dummyCategories));
+      expect(result, isRightThat(dummyCategoryMovies));
     });
 
     test('should return ServerFailure when call to data source is unsuccessful',
@@ -255,12 +238,12 @@ void main() {
         () async {
       // arrange
       when(mockRemoteDataSource.searchMovies(dummyQuery))
-          .thenAnswer((_) async => dummyMoviesResponse ?? []);
+          .thenAnswer((_) async => dummyMovieResponse.movieList ?? []);
       // act
       final result = await movieRepositoryImpl.searchMovies(dummyQuery);
       // assert
       verify(mockRemoteDataSource.searchMovies(dummyQuery));
-      expect(result, isRightThat(dummyCategories));
+      expect(result, isRightThat(dummyCategoryMovies));
     });
 
     test('should return ServerFailure when call to data source is unsuccessful',

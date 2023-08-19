@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/data/models/watchlist_table.dart';
 import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:ditonton/domain/usecases/get_watchlist.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
@@ -11,6 +10,7 @@ import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import '../../dummy_data/dummy_objects.dart';
 import 'watchlist_notifier_test.mocks.dart';
 
 @GenerateMocks(
@@ -34,14 +34,6 @@ void main() {
       saveWatchlist: mockSaveWatchlist,
     );
   });
-
-  final WatchlistTable dummyWatchlistTable = WatchlistTable(
-    id: 1,
-    title: "Title",
-    posterPath: "Poster Path",
-    overview: "Overview",
-    category: "Movie or Tv Show",
-  );
 
   final Watchlist dummyWatchlist = dummyWatchlistTable.toWatchlist();
 

@@ -1,29 +1,13 @@
-import 'dart:convert';
 import 'package:ditonton/data/datasources/remote/remote_data_source_impl.dart';
-import 'package:ditonton/data/models/movie/movie_response.dart';
 import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/data/models/moviedetail/movie_detail_response.dart';
-import 'package:ditonton/data/models/tvshow/tv_show_response.dart';
-import 'package:ditonton/data/models/tvshowdetail/tv_show_detail_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
+import '../../../dummy_data/dummy_objects.dart';
 import '../../../helpers/test_helper.mocks.dart';
 import '../../../json_reader.dart';
 
 void main() {
-  const API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
-  const BASE_URL = 'https://api.themoviedb.org/3';
-  final String dummyMovieResponse =
-      readJson('dummy_data/dummy_movie_response.json');
-  final String dummyTvShowResponse =
-      readJson('dummy_data/dummy_tv_show_response.json');
-
-  final String dummyMovieEmptyResponse =
-      readJson('dummy_data/dummy_movie_empty_response.json');
-  final String dummyTvShowEmptyResponse =
-      readJson('dummy_data/dummy_tv_show_empty_response.json');
-
   late RemoteDataSourceImpl remoteDataSourceImpl;
   late MockHttpClient mockHttpClient;
 
@@ -33,17 +17,16 @@ void main() {
   });
 
   group('Get Now Playing Movies', () {
-    final dummyNowPlayingMoviesResponse =
-        MovieResponse.fromJson(jsonDecode(dummyMovieResponse)).movieList;
+    final dummyNowPlayingMoviesResponse = dummyMovieResponse.movieList;
 
     test('should return list of movie when the response code is 200', () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/now_playing?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/movie/now_playing?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyMovieResponse, 200),
+        (_) async => http.Response(dummyMovieJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.getNowPlayingMovies();
@@ -56,10 +39,10 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/now_playing?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/movie/now_playing?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyMovieEmptyResponse, 200),
+        (_) async => http.Response(dummyMovieEmptyJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.getNowPlayingMovies();
@@ -73,7 +56,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/now_playing?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/movie/now_playing?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -86,18 +69,17 @@ void main() {
   });
 
   group('Get Airing Today Tv Shows', () {
-    final dummyAiringTodayTvShowsResponse =
-        TvShowResponse.fromJson(jsonDecode(dummyTvShowResponse)).tvShowList;
+    final dummyAiringTodayTvShowsResponse = dummyTvShowResponse.tvShowList;
 
     test('should return list of tv show when the response code is 200',
         () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/airing_today?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/tv/airing_today?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyTvShowResponse, 200),
+        (_) async => http.Response(dummyTvShowJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.getAiringTodayTvShows();
@@ -110,10 +92,10 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/airing_today?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/tv/airing_today?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyTvShowEmptyResponse, 200),
+        (_) async => http.Response(dummyMovieEmptyJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.getAiringTodayTvShows();
@@ -127,7 +109,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/airing_today?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/tv/airing_today?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -141,17 +123,12 @@ void main() {
 
   group('Get Movie Detail', () {
     final dummyMovieId = 1;
-    final dummyMovieDetailResponse = MovieDetailResponse.fromJson(
-      jsonDecode(
-        readJson('dummy_data/dummy_movie_detail_response.json'),
-      ),
-    );
 
     test('should return movie detail when the response code is 200', () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/$dummyMovieId?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/movie/$dummyMovieId?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response(
@@ -168,7 +145,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/$dummyMovieId?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/movie/$dummyMovieId?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -182,18 +159,13 @@ void main() {
 
   group('Get Tv Show Detail', () {
     final dummyTvShowId = 90521;
-    final dummyTvShowDetailResponse = TvShowDetailResponse.fromJson(
-      jsonDecode(
-        readJson('dummy_data/dummy_tv_show_detail_response.json'),
-      ),
-    );
 
     test('should return tv show detail when the response code is 200',
         () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/$dummyTvShowId?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/tv/$dummyTvShowId?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response(
@@ -210,7 +182,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/$dummyTvShowId?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/tv/$dummyTvShowId?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -224,9 +196,7 @@ void main() {
 
   group('Get Movie Recommendations', () {
     final dummyMovieId = 1;
-    final dummyMovieRecommendationResponse = MovieResponse.fromJson(
-      jsonDecode(dummyMovieResponse),
-    ).movieList;
+    final dummyMovieRecommendationResponse = dummyMovieResponse.movieList;
 
     test(
         'should return list of movie recommendations when the response code is 200',
@@ -234,10 +204,11 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/$dummyMovieId/recommendations?$API_KEY'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/movie/$dummyMovieId/recommendations?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyMovieResponse, 200),
+        (_) async => http.Response(dummyMovieJsonResponse, 200),
       );
       // act
       final result =
@@ -252,10 +223,11 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/$dummyMovieId/recommendations?$API_KEY'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/movie/$dummyMovieId/recommendations?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyMovieEmptyResponse, 200),
+        (_) async => http.Response(dummyMovieEmptyJsonResponse, 200),
       );
       // act
       final result =
@@ -269,7 +241,8 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/$dummyMovieId/recommendations?$API_KEY'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/movie/$dummyMovieId/recommendations?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -283,9 +256,7 @@ void main() {
 
   group('Get Tv Show Recommendations', () {
     final dummyTvShowId = 90521;
-    final dummyTvShowRecommendationResponse = TvShowResponse.fromJson(
-      jsonDecode(dummyTvShowResponse),
-    ).tvShowList;
+    final dummyTvShowRecommendationResponse = dummyTvShowResponse.tvShowList;
 
     test(
         'should return list of tv show recommendations when the response code is 200',
@@ -293,10 +264,11 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/$dummyTvShowId/recommendations?$API_KEY'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/tv/$dummyTvShowId/recommendations?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyTvShowResponse, 200),
+        (_) async => http.Response(dummyTvShowJsonResponse, 200),
       );
       // act
       final result =
@@ -311,10 +283,11 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/$dummyTvShowId/recommendations?$API_KEY'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/tv/$dummyTvShowId/recommendations?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyTvShowEmptyResponse, 200),
+        (_) async => http.Response(dummyTvShowEmptyJsonResponse, 200),
       );
       // act
       final result =
@@ -328,7 +301,8 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/$dummyTvShowId/recommendations?$API_KEY'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/tv/$dummyTvShowId/recommendations?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -342,17 +316,16 @@ void main() {
   });
 
   group('Get Popular Movies', () {
-    final dummyPopularMoviesResponse =
-        MovieResponse.fromJson(jsonDecode(dummyMovieResponse)).movieList;
+    final dummyPopularMoviesResponse = dummyMovieResponse.movieList;
 
     test('should return list of movies when response is success (200)',
         () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/popular?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/movie/popular?$DUMMY_API_KEY'),
         ),
-      ).thenAnswer((_) async => http.Response(dummyMovieResponse, 200));
+      ).thenAnswer((_) async => http.Response(dummyMovieJsonResponse, 200));
       // act
       final result = await remoteDataSourceImpl.getPopularMovies();
       // assert
@@ -364,9 +337,10 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/popular?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/movie/popular?$DUMMY_API_KEY'),
         ),
-      ).thenAnswer((_) async => http.Response(dummyMovieEmptyResponse, 200));
+      ).thenAnswer(
+          (_) async => http.Response(dummyMovieEmptyJsonResponse, 200));
       // act
       final result = await remoteDataSourceImpl.getPopularMovies();
       // assert
@@ -379,7 +353,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/popular?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/movie/popular?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -392,18 +366,17 @@ void main() {
   });
 
   group('Get Popular Tv Shows', () {
-    final dummyPopularTvShowsResponse =
-        TvShowResponse.fromJson(jsonDecode(dummyTvShowResponse)).tvShowList;
+    final dummyPopularTvShowsResponse = dummyTvShowResponse.tvShowList;
 
     test('should return list of tv shows when response is success (200)',
         () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/popular?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/tv/popular?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyTvShowResponse, 200),
+        (_) async => http.Response(dummyTvShowJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.getPopularTvShows();
@@ -416,10 +389,10 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/popular?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/tv/popular?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyTvShowEmptyResponse, 200),
+        (_) async => http.Response(dummyTvShowEmptyJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.getPopularTvShows();
@@ -433,7 +406,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/popular?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/tv/popular?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -446,17 +419,16 @@ void main() {
   });
 
   group('Get Top Rated Movies', () {
-    final dummyTopRatedMoviesResponse =
-        MovieResponse.fromJson(jsonDecode(dummyMovieResponse)).movieList;
+    final dummyTopRatedMoviesResponse = dummyMovieResponse.movieList;
 
     test('should return list of movies when response code is 200', () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/top_rated?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/movie/top_rated?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyMovieResponse, 200),
+        (_) async => http.Response(dummyMovieJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.getTopRatedMovies();
@@ -469,10 +441,10 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/top_rated?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/movie/top_rated?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyMovieEmptyResponse, 200),
+        (_) async => http.Response(dummyMovieEmptyJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.getTopRatedMovies();
@@ -485,7 +457,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/movie/top_rated?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/movie/top_rated?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -498,17 +470,16 @@ void main() {
   });
 
   group('Get Top Rated Tv Shows', () {
-    final dummyGetTopRatedTvShowsResponse =
-        TvShowResponse.fromJson(jsonDecode(dummyTvShowResponse)).tvShowList;
+    final dummyGetTopRatedTvShowsResponse = dummyTvShowResponse.tvShowList;
 
     test('should return list of movies when response code is 200', () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/tv/top_rated?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyTvShowResponse, 200),
+        (_) async => http.Response(dummyTvShowJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.getTopRatedTvShows();
@@ -521,10 +492,10 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/tv/top_rated?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyTvShowEmptyResponse, 200),
+        (_) async => http.Response(dummyMovieEmptyJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.getTopRatedTvShows();
@@ -537,7 +508,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'),
+          Uri.parse('$DUMMY_BASE_URL/tv/top_rated?$DUMMY_API_KEY'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -551,17 +522,16 @@ void main() {
 
   group('Search Movies', () {
     final dummyQuery = 'Title';
-    final dummySearchMoviesResponse = MovieResponse.fromJson(
-      jsonDecode(dummyMovieResponse),
-    ).movieList;
+    final dummySearchMoviesResponse = dummyMovieResponse.movieList;
 
     test('should return list of movies when response code is 200', () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$dummyQuery'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/search/movie?$DUMMY_API_KEY&query=$dummyQuery'),
         ),
-      ).thenAnswer((_) async => http.Response(dummyMovieResponse, 200));
+      ).thenAnswer((_) async => http.Response(dummyMovieJsonResponse, 200));
       // act
       final result = await remoteDataSourceImpl.searchMovies(dummyQuery);
       // assert
@@ -573,9 +543,11 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$dummyQuery'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/search/movie?$DUMMY_API_KEY&query=$dummyQuery'),
         ),
-      ).thenAnswer((_) async => http.Response(dummyMovieEmptyResponse, 200));
+      ).thenAnswer(
+          (_) async => http.Response(dummyMovieEmptyJsonResponse, 200));
       // act
       final result = await remoteDataSourceImpl.searchMovies(dummyQuery);
       // assert
@@ -587,7 +559,8 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$dummyQuery'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/search/movie?$DUMMY_API_KEY&query=$dummyQuery'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -601,18 +574,17 @@ void main() {
 
   group('Search Tv Shows', () {
     final dummyQuery = 'Here it all begins';
-    final dummySearchTvShowsResponse = TvShowResponse.fromJson(
-      jsonDecode(dummyTvShowResponse),
-    ).tvShowList;
+    final dummySearchTvShowsResponse = dummyTvShowResponse.tvShowList;
 
     test('should return list of tv shows when response code is 200', () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$dummyQuery'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/search/tv?$DUMMY_API_KEY&query=$dummyQuery'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyTvShowResponse, 200),
+        (_) async => http.Response(dummyTvShowJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.searchTvShows(dummyQuery);
@@ -625,10 +597,11 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$dummyQuery'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/search/tv?$DUMMY_API_KEY&query=$dummyQuery'),
         ),
       ).thenAnswer(
-        (_) async => http.Response(dummyTvShowEmptyResponse, 200),
+        (_) async => http.Response(dummyTvShowEmptyJsonResponse, 200),
       );
       // act
       final result = await remoteDataSourceImpl.searchTvShows(dummyQuery);
@@ -641,7 +614,8 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$dummyQuery'),
+          Uri.parse(
+              '$DUMMY_BASE_URL/search/tv?$DUMMY_API_KEY&query=$dummyQuery'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),

@@ -1,12 +1,10 @@
-import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dartz_test/dartz_test.dart';
-import 'package:ditonton/data/models/tvshowdetail/tv_show_detail_response.dart';
 import 'package:ditonton/domain/usecases/get_tv_show_detail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
-import '../../json_reader.dart';
 
 void main() {
   late GetTvShowDetail getTvShowDetail;
@@ -18,11 +16,6 @@ void main() {
   });
 
   final dummyTvShowId = 90521;
-  final dummyTvShowDetailResponse = TvShowDetailResponse.fromJson(
-    jsonDecode(
-      readJson('dummy_data/dummy_tv_show_detail_response.json'),
-    ),
-  );
   final dummyDetail = dummyTvShowDetailResponse.toEntity();
 
   test('should get tv show detail from the repository', () async {

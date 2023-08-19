@@ -1,15 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:dartz_test/dartz_test.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/data/models/tvshow/tv_show_response.dart';
-import 'package:ditonton/data/models/tvshowdetail/tv_show_detail_response.dart';
 import 'package:ditonton/data/repositories/tv_show_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
-import '../../json_reader.dart';
 
 void main() {
   late TvShowRepositoryImpl tvShowRepositoryImpl;
@@ -20,27 +17,18 @@ void main() {
     tvShowRepositoryImpl = TvShowRepositoryImpl(mockRemoteDataSource);
   });
 
-  final dummyTvShowResponse = TvShowResponse.fromJson(
-    jsonDecode(
-      readJson('dummy_data/dummy_tv_show_response.json'),
-    ),
-  ).tvShowList;
-
-  final dummyCategories =
-      dummyTvShowResponse?.map((model) => model.toCategory()).toList();
-
   group('Get Airing Today Tv Shows', () {
     test(
         'should return remote data when the call to remote data source is successful',
         () async {
       // arrange
       when(mockRemoteDataSource.getAiringTodayTvShows())
-          .thenAnswer((_) async => dummyTvShowResponse ?? []);
+          .thenAnswer((_) async => dummyTvShowResponse.tvShowList ?? []);
       // act
       final result = await tvShowRepositoryImpl.getAiringTodayTvShows();
       // assert
       verify(mockRemoteDataSource.getAiringTodayTvShows());
-      expect(result, isRightThat(dummyCategories));
+      expect(result, isRightThat(dummyCategoryTvShows));
     });
 
     test(
@@ -76,12 +64,12 @@ void main() {
         () async {
       // arrange
       when(mockRemoteDataSource.getPopularTvShows())
-          .thenAnswer((_) async => dummyTvShowResponse ?? []);
+          .thenAnswer((_) async => dummyTvShowResponse.tvShowList ?? []);
       // act
       final result = await tvShowRepositoryImpl.getPopularTvShows();
       // assert
       verify(mockRemoteDataSource.getPopularTvShows());
-      expect(result, isRightThat(dummyCategories));
+      expect(result, isRightThat(dummyCategoryTvShows));
     });
 
     test(
@@ -117,12 +105,12 @@ void main() {
         () async {
       // arrange
       when(mockRemoteDataSource.getTopRatedTvShows())
-          .thenAnswer((_) async => dummyTvShowResponse ?? []);
+          .thenAnswer((_) async => dummyTvShowResponse.tvShowList ?? []);
       // act
       final result = await tvShowRepositoryImpl.getTopRatedTvShows();
       // assert
       verify(mockRemoteDataSource.getTopRatedTvShows());
-      expect(result, isRightThat(dummyCategories));
+      expect(result, isRightThat(dummyCategoryTvShows));
     });
 
     test('should return ServerFailure when call to data source is unsuccessful',
@@ -154,11 +142,6 @@ void main() {
 
   group('Get Tv Show Detail', () {
     final dummyTvShowId = 112470;
-    final dummyTvShowDetailResponse = TvShowDetailResponse.fromJson(
-      jsonDecode(
-        readJson('dummy_data/dummy_tv_show_detail_response.json'),
-      ),
-    );
     final dummyDetail = dummyTvShowDetailResponse.toEntity();
 
     test(
@@ -209,13 +192,13 @@ void main() {
         () async {
       // arrange
       when(mockRemoteDataSource.getTvShowRecommendations(dummyTvShowId))
-          .thenAnswer((_) async => dummyTvShowResponse ?? []);
+          .thenAnswer((_) async => dummyTvShowResponse.tvShowList ?? []);
       // act
       final result =
           await tvShowRepositoryImpl.getTvShowRecommendations(dummyTvShowId);
       // assert
       verify(mockRemoteDataSource.getTvShowRecommendations(dummyTvShowId));
-      expect(result, isRightThat(dummyCategories));
+      expect(result, isRightThat(dummyCategoryTvShows));
     });
 
     test(
@@ -255,12 +238,12 @@ void main() {
         () async {
       // arrange
       when(mockRemoteDataSource.searchTvShows(dummyQuery))
-          .thenAnswer((_) async => dummyTvShowResponse ?? []);
+          .thenAnswer((_) async => dummyTvShowResponse.tvShowList ?? []);
       // act
       final result = await tvShowRepositoryImpl.searchTvShows(dummyQuery);
       // assert
       verify(mockRemoteDataSource.searchTvShows(dummyQuery));
-      expect(result, isRightThat(dummyCategories));
+      expect(result, isRightThat(dummyCategoryTvShows));
     });
 
     test('should return ServerFailure when call to data source is unsuccessful',

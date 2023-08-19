@@ -1,16 +1,13 @@
-import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/data/models/movie/movie_response.dart';
-import 'package:ditonton/data/models/tvshow/tv_show_response.dart';
 import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
 import 'package:ditonton/domain/usecases/get_top_rated_tv_shows.dart';
 import 'package:ditonton/presentation/provider/top_rated_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import '../../json_reader.dart';
+import '../../dummy_data/dummy_objects.dart';
 import 'top_rated_notifier_test.mocks.dart';
 
 @GenerateMocks([GetTopRatedMovies, GetTopRatedTvShows])
@@ -26,24 +23,6 @@ void main() {
         TopRatedNotifier(mockGetTopRatedMovies, mockGetTopRatedTvShows);
   });
 
-  // movie list model
-  final dummyMoviesResponse = MovieResponse.fromJson(
-    jsonDecode(
-      readJson('dummy_data/dummy_movie_response.json'),
-    ),
-  ).movieList;
-  final dummyCategories =
-      dummyMoviesResponse?.map((model) => model.toCategory()).toList();
-
-  // tv show list model
-  final dummyTvShowResponse = TvShowResponse.fromJson(
-    jsonDecode(
-      readJson('dummy_data/dummy_tv_show_response.json'),
-    ),
-  ).tvShowList;
-  final dummyCategoriesTvShow =
-      dummyTvShowResponse?.map((model) => model.toCategory()).toList();
-
   group('Get Top Rated Movies', () {
     test('initial state should be empty', () {
       expect(topRatedNotifier.state, RequestState.Empty);
@@ -52,7 +31,7 @@ void main() {
     test('should call get top rated movies method from the usecase', () async {
       // arrange
       when(mockGetTopRatedMovies.execute())
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
       // act
       topRatedNotifier.fetchTopRatedMovies();
       // assert
@@ -62,7 +41,7 @@ void main() {
     test('should change state to loading when usecase is called', () async {
       // arrange
       when(mockGetTopRatedMovies.execute())
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
       // act
       topRatedNotifier.fetchTopRatedMovies();
       // assert
@@ -74,12 +53,12 @@ void main() {
         () async {
       // arrange
       when(mockGetTopRatedMovies.execute())
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
       // act
       await topRatedNotifier.fetchTopRatedMovies();
       // assert
       expect(topRatedNotifier.state, RequestState.Loaded);
-      expect(topRatedNotifier.data, dummyCategories);
+      expect(topRatedNotifier.data, dummyCategoryMovies);
     });
 
     test('should return error when data is unsuccessful', () async {
@@ -103,7 +82,7 @@ void main() {
         () async {
       // arrange
       when(mockGetTopRatedTvShows.execute())
-          .thenAnswer((_) async => Right(dummyCategoriesTvShow ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
       // act
       topRatedNotifier.fetchTopRatedTvShows();
       // assert
@@ -113,7 +92,7 @@ void main() {
     test('should change state to loading when usecase is called', () async {
       // arrange
       when(mockGetTopRatedTvShows.execute())
-          .thenAnswer((_) async => Right(dummyCategoriesTvShow ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
       // act
       topRatedNotifier.fetchTopRatedTvShows();
       // assert
@@ -125,12 +104,12 @@ void main() {
         () async {
       // arrange
       when(mockGetTopRatedTvShows.execute())
-          .thenAnswer((_) async => Right(dummyCategoriesTvShow ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
       // act
       await topRatedNotifier.fetchTopRatedTvShows();
       // assert
       expect(topRatedNotifier.state, RequestState.Loaded);
-      expect(topRatedNotifier.data, dummyCategoriesTvShow);
+      expect(topRatedNotifier.data, dummyCategoryTvShows);
     });
 
     test('should return error when data is unsuccessful', () async {

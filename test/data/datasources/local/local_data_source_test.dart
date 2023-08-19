@@ -71,7 +71,7 @@ void main() {
     test('should return watchlist by id when data is found', () async {
       // arrange
       when(mockDatabaseHelper.getWatchlistById(tId))
-          .thenAnswer((_) async => dummyWatchlistJson);
+          .thenAnswer((_) async => dummyWatchlistMap);
       // act
       final result = await localDataSourceImpl.getWatchlistById(tId);
       // assert
@@ -93,7 +93,7 @@ void main() {
     test('should return list of watchlist from database', () async {
       // arrange
       when(mockDatabaseHelper.getWatchlist())
-          .thenAnswer((_) async => [dummyWatchlistJson]);
+          .thenAnswer((_) async => [dummyWatchlistMap]);
       // act
       final result = await localDataSourceImpl.getWatchlists();
       // assert

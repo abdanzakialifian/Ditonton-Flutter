@@ -1,17 +1,13 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/data/models/movie/movie_response.dart';
-import 'package:ditonton/data/models/tvshow/tv_show_response.dart';
 import 'package:ditonton/domain/usecases/get_airing_today_tv_shows.dart';
 import 'package:ditonton/domain/usecases/get_now_playing_movies.dart';
 import 'package:ditonton/presentation/provider/now_playing_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import '../../json_reader.dart';
+import '../../dummy_data/dummy_objects.dart';
 import 'now_playing_notifier_test.mocks.dart';
 
 @GenerateMocks([GetNowPlayingMovies, GetAiringTodayTvShows])
@@ -27,24 +23,6 @@ void main() {
         NowPlayingNotifier(mockGetNowPlayingMovies, mockGetAiringTodayTvShows);
   });
 
-  // movie list model
-  final dummyMoviesResponse = MovieResponse.fromJson(
-    jsonDecode(
-      readJson('dummy_data/dummy_movie_response.json'),
-    ),
-  ).movieList;
-  final dummyCategories =
-      dummyMoviesResponse?.map((model) => model.toCategory()).toList();
-
-  // tv show list model
-  final dummyTvShowResponse = TvShowResponse.fromJson(
-    jsonDecode(
-      readJson('dummy_data/dummy_tv_show_response.json'),
-    ),
-  ).tvShowList;
-  final dummyCategoriesTvShow =
-      dummyTvShowResponse?.map((model) => model.toCategory()).toList();
-
   group('Get Now Playing Movies', () {
     test('initial state should be empty', () {
       expect(nowPlayingNotifier.state, RequestState.Empty);
@@ -54,7 +32,7 @@ void main() {
         () async {
       // arrange
       when(mockGetNowPlayingMovies.execute())
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
       // act
       nowPlayingNotifier.fetchNowPlayingMovies();
       // assert
@@ -64,7 +42,7 @@ void main() {
     test('should change state to loading when usecase is called', () async {
       // arrange
       when(mockGetNowPlayingMovies.execute())
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
       // act
       nowPlayingNotifier.fetchNowPlayingMovies();
       // assert
@@ -76,12 +54,12 @@ void main() {
         () async {
       // arrange
       when(mockGetNowPlayingMovies.execute())
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
       // act
       await nowPlayingNotifier.fetchNowPlayingMovies();
       // assert
       expect(nowPlayingNotifier.state, RequestState.Loaded);
-      expect(nowPlayingNotifier.data, dummyCategories);
+      expect(nowPlayingNotifier.data, dummyCategoryMovies);
     });
 
     test('should return error when data is unsuccessful', () async {
@@ -105,7 +83,7 @@ void main() {
         () async {
       // arrange
       when(mockGetAiringTodayTvShows.execute())
-          .thenAnswer((_) async => Right(dummyCategoriesTvShow ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
       // act
       nowPlayingNotifier.fetchAiringTodayTvShows();
       // assert
@@ -115,7 +93,7 @@ void main() {
     test('should change state to loading when usecase is called', () async {
       // arrange
       when(mockGetAiringTodayTvShows.execute())
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
       // act
       nowPlayingNotifier.fetchAiringTodayTvShows();
       // assert
@@ -127,12 +105,12 @@ void main() {
         () async {
       // arrange
       when(mockGetAiringTodayTvShows.execute())
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
       // act
       await nowPlayingNotifier.fetchAiringTodayTvShows();
       // assert
       expect(nowPlayingNotifier.state, RequestState.Loaded);
-      expect(nowPlayingNotifier.data, dummyCategories);
+      expect(nowPlayingNotifier.data, dummyCategoryTvShows);
     });
 
     test('should return error when data is unsuccessful', () async {

@@ -1,7 +1,4 @@
-import 'dart:convert';
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/data/models/movie/movie_response.dart';
-import 'package:ditonton/data/models/moviedetail/movie_detail_response.dart';
 import 'package:ditonton/domain/usecases/get_movie_detail.dart';
 import 'package:ditonton/domain/usecases/get_movie_recommendations.dart';
 import 'package:ditonton/common/failure.dart';
@@ -13,7 +10,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import '../../dummy_data/dummy_objects.dart';
-import '../../json_reader.dart';
 import 'detail_notifier_test.mocks.dart';
 
 @GenerateMocks([
@@ -45,34 +41,20 @@ void main() {
   final dummyMovieId = 1;
 
   // detail model
-  final dummyMovieDetailResponse = MovieDetailResponse.fromJson(
-    jsonDecode(
-      readJson('dummy_data/dummy_movie_detail_response.json'),
-    ),
-  );
   final dummyDetail = dummyMovieDetailResponse.toDetail();
-
-  // recommendation model
-  final dummyMoviesResponse = MovieResponse.fromJson(
-    jsonDecode(
-      readJson('dummy_data/dummy_movie_response.json'),
-    ),
-  ).movieList;
-  final dummyCategories =
-      dummyMoviesResponse?.map((model) => model.toCategory()).toList();
 
   void _arrangeUsecaseMovies() {
     when(mockGetMovieDetail.execute(dummyMovieId))
         .thenAnswer((_) async => Right(dummyDetail));
     when(mockGetMovieRecommendations.execute(dummyMovieId))
-        .thenAnswer((_) async => Right(dummyCategories ?? []));
+        .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
   }
 
   void _arrangeUsecaseTvShow() {
     when(mockGetTvShowDetail.execute(dummyMovieId))
         .thenAnswer((_) async => Right(dummyDetail));
     when(mockGetTvShowRecommendations.execute(dummyMovieId))
-        .thenAnswer((_) async => Right(dummyCategories ?? []));
+        .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
   }
 
   group('Get Movie Detail', () {
@@ -115,7 +97,7 @@ void main() {
       when(mockGetMovieDetail.execute(dummyMovieId))
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
       when(mockGetMovieRecommendations.execute(dummyMovieId))
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
       // act
       await detailNotifier.fetchMovieDetail(dummyMovieId);
       // assert
@@ -165,7 +147,7 @@ void main() {
       when(mockGetTvShowDetail.execute(dummyMovieId))
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
       when(mockGetTvShowRecommendations.execute(dummyMovieId))
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
       // act
       await detailNotifier.fetchTvShowDetail(dummyMovieId);
       // assert
@@ -196,7 +178,7 @@ void main() {
       await detailNotifier.fetchMovieDetail(dummyMovieId);
       // assert
       expect(detailNotifier.recommendationState, RequestState.Loaded);
-      expect(detailNotifier.recommendations, dummyCategories ?? []);
+      expect(detailNotifier.recommendations, dummyCategoryMovies ?? []);
     });
 
     test(
@@ -250,7 +232,7 @@ void main() {
       await detailNotifier.fetchTvShowDetail(dummyMovieId);
       // assert
       expect(detailNotifier.recommendationState, RequestState.Loaded);
-      expect(detailNotifier.recommendations, dummyCategories ?? []);
+      expect(detailNotifier.recommendations, dummyCategoryTvShows ?? []);
     });
 
     test(

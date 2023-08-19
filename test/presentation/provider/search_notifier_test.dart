@@ -1,16 +1,13 @@
-import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/data/models/movie/movie_response.dart';
-import 'package:ditonton/data/models/tvshow/tv_show_response.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
 import 'package:ditonton/domain/usecases/search_tv_shows.dart';
 import 'package:ditonton/presentation/provider/search_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import '../../json_reader.dart';
+import '../../dummy_data/dummy_objects.dart';
 import 'search_notifier_test.mocks.dart';
 
 @GenerateMocks([SearchMovies, SearchTvShows])
@@ -28,24 +25,8 @@ void main() {
     );
   });
 
-  // movie list model
-  final dummyMoviesResponse = MovieResponse.fromJson(
-    jsonDecode(
-      readJson('dummy_data/dummy_movie_response.json'),
-    ),
-  ).movieList;
-  final dummyCategories =
-      dummyMoviesResponse?.map((model) => model.toCategory()).toList();
   final dummyQueryMovie = 'Title';
 
-  // tv show list model
-  final dummyTvShowResponse = TvShowResponse.fromJson(
-    jsonDecode(
-      readJson('dummy_data/dummy_tv_show_response.json'),
-    ),
-  ).tvShowList;
-  final dummyCategoriesTvShow =
-      dummyTvShowResponse?.map((model) => model.toCategory()).toList();
   final dummyQueryTvShow = "Here it all begins";
 
   group('Search Movies', () {
@@ -56,7 +37,7 @@ void main() {
     test('should call search movies method from the usecase', () async {
       // arrange
       when(mockSearchMovies.execute(dummyQueryMovie))
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
       // act
       searchNotifier.fetchMovieSearch(dummyQueryMovie);
       // assert
@@ -66,7 +47,7 @@ void main() {
     test('should change state to loading when usecase is called', () async {
       // arrange
       when(mockSearchMovies.execute(dummyQueryMovie))
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
       // act
       searchNotifier.fetchMovieSearch(dummyQueryMovie);
       // assert
@@ -78,12 +59,12 @@ void main() {
         () async {
       // arrange
       when(mockSearchMovies.execute(dummyQueryMovie))
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
       // act
       await searchNotifier.fetchMovieSearch(dummyQueryMovie);
       // assert
       expect(searchNotifier.state, RequestState.Loaded);
-      expect(searchNotifier.searchResult, dummyCategories);
+      expect(searchNotifier.searchResult, dummyCategoryMovies);
     });
 
     test('should return error when data is unsuccessful', () async {
@@ -106,7 +87,7 @@ void main() {
     test('should call search tv shows method from the usecase', () async {
       // arrange
       when(mockSearchTvShows.execute(dummyQueryTvShow))
-          .thenAnswer((_) async => Right(dummyCategoriesTvShow ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
       // act
       searchNotifier.fetchTvShowSearch(dummyQueryTvShow);
       // assert
@@ -116,7 +97,7 @@ void main() {
     test('should change state to loading when usecase is called', () async {
       // arrange
       when(mockSearchTvShows.execute(dummyQueryTvShow))
-          .thenAnswer((_) async => Right(dummyCategoriesTvShow ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
       // act
       searchNotifier.fetchTvShowSearch(dummyQueryTvShow);
       // assert
@@ -128,12 +109,12 @@ void main() {
         () async {
       // arrange
       when(mockSearchTvShows.execute(dummyQueryTvShow))
-          .thenAnswer((_) async => Right(dummyCategoriesTvShow ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
       // act
       await searchNotifier.fetchTvShowSearch(dummyQueryTvShow);
       // assert
       expect(searchNotifier.state, RequestState.Loaded);
-      expect(searchNotifier.searchResult, dummyCategoriesTvShow);
+      expect(searchNotifier.searchResult, dummyCategoryTvShows);
     });
 
     test('should return error when data is unsuccessful', () async {
@@ -152,7 +133,7 @@ void main() {
     test('should clear search result movies', () async {
       // arrange
       when(mockSearchMovies.execute(dummyQueryMovie))
-          .thenAnswer((_) async => Right(dummyCategories ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryMovies ?? []));
       // act
       await searchNotifier.fetchMovieSearch(dummyQueryMovie);
       searchNotifier.clearSearchResult();
@@ -163,7 +144,7 @@ void main() {
     test('should clear search result tv shows', () async {
       // arrange
       when(mockSearchTvShows.execute(dummyQueryTvShow))
-          .thenAnswer((_) async => Right(dummyCategoriesTvShow ?? []));
+          .thenAnswer((_) async => Right(dummyCategoryTvShows ?? []));
       // act
       await searchNotifier.fetchTvShowSearch(dummyQueryTvShow);
       searchNotifier.clearSearchResult();
