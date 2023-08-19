@@ -13,6 +13,7 @@ MovieResultResponse _$MovieResultResponseFromJson(Map<String, dynamic> json) =>
       genreIds:
           (json['genre_ids'] as List<dynamic>?)?.map((e) => e as int).toList(),
       id: json['id'] as int?,
+      originalLanguage: json['original_language'] as String?,
       originalTitle: json['original_title'] as String?,
       overview: json['overview'] as String?,
       popularity: (json['popularity'] as num?)?.toDouble(),
@@ -31,6 +32,7 @@ Map<String, dynamic> _$MovieResultResponseToJson(
       'backdrop_path': instance.backdropPath,
       'genre_ids': instance.genreIds,
       'id': instance.id,
+      'original_language': instance.originalLanguage,
       'original_title': instance.originalTitle,
       'overview': instance.overview,
       'popularity': instance.popularity,

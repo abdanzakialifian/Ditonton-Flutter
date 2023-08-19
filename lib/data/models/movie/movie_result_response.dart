@@ -14,6 +14,8 @@ class MovieResultResponse extends Equatable {
   final List<int>? genreIds;
   @JsonKey(name: "id")
   final int? id;
+  @JsonKey(name: "original_language")
+  final String? originalLanguage;
   @JsonKey(name: "original_title")
   final String? originalTitle;
   @JsonKey(name: "overview")
@@ -38,6 +40,7 @@ class MovieResultResponse extends Equatable {
     required this.backdropPath,
     required this.genreIds,
     required this.id,
+    required this.originalLanguage,
     required this.originalTitle,
     required this.overview,
     required this.popularity,
@@ -67,6 +70,7 @@ class MovieResultResponse extends Equatable {
         backdropPath,
         genreIds,
         id,
+        originalTitle,
         originalTitle,
         overview,
         popularity,
