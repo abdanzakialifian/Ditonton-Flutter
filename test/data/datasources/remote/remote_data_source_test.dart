@@ -19,6 +19,11 @@ void main() {
   final String dummyTvShowResponse =
       readJson('dummy_data/dummy_tv_show_response.json');
 
+  final String dummyMovieEmptyResponse =
+      readJson('dummy_data/dummy_movie_empty_response.json');
+  final String dummyTvShowEmptyResponse =
+      readJson('dummy_data/dummy_tv_show_empty_response.json');
+
   late RemoteDataSourceImpl remoteDataSourceImpl;
   late MockHttpClient mockHttpClient;
 
@@ -44,6 +49,22 @@ void main() {
       final result = await remoteDataSourceImpl.getNowPlayingMovies();
       // assert
       expect(result, dummyNowPlayingMoviesResponse);
+    });
+
+    test('should return empty list of movie when the response code is 200',
+        () async {
+      // arrange
+      when(
+        mockHttpClient.get(
+          Uri.parse('$BASE_URL/movie/now_playing?$API_KEY'),
+        ),
+      ).thenAnswer(
+        (_) async => http.Response(dummyMovieEmptyResponse, 200),
+      );
+      // act
+      final result = await remoteDataSourceImpl.getNowPlayingMovies();
+      // assert
+      expect(result, []);
     });
 
     test(
@@ -82,6 +103,22 @@ void main() {
       final result = await remoteDataSourceImpl.getAiringTodayTvShows();
       // assert
       expect(result, dummyAiringTodayTvShowsResponse);
+    });
+
+    test('should return empty list of tv show when the response code is 200',
+        () async {
+      // arrange
+      when(
+        mockHttpClient.get(
+          Uri.parse('$BASE_URL/tv/airing_today?$API_KEY'),
+        ),
+      ).thenAnswer(
+        (_) async => http.Response(dummyTvShowEmptyResponse, 200),
+      );
+      // act
+      final result = await remoteDataSourceImpl.getAiringTodayTvShows();
+      // assert
+      expect(result, []);
     });
 
     test(
@@ -209,6 +246,24 @@ void main() {
       expect(result, equals(dummyMovieRecommendationResponse));
     });
 
+    test(
+        'should return empty list of movie recommendations when the response code is 200',
+        () async {
+      // arrange
+      when(
+        mockHttpClient.get(
+          Uri.parse('$BASE_URL/movie/$dummyMovieId/recommendations?$API_KEY'),
+        ),
+      ).thenAnswer(
+        (_) async => http.Response(dummyMovieEmptyResponse, 200),
+      );
+      // act
+      final result =
+          await remoteDataSourceImpl.getMovieRecommendations(dummyMovieId);
+      // assert
+      expect(result, []);
+    });
+
     test('should throw ServerException when the response code is 404 or other',
         () async {
       // arrange
@@ -250,6 +305,24 @@ void main() {
       expect(result, dummyTvShowRecommendationResponse);
     });
 
+    test(
+        'should return empty list of tv show recommendations when the response code is 200',
+        () async {
+      // arrange
+      when(
+        mockHttpClient.get(
+          Uri.parse('$BASE_URL/tv/$dummyTvShowId/recommendations?$API_KEY'),
+        ),
+      ).thenAnswer(
+        (_) async => http.Response(dummyTvShowEmptyResponse, 200),
+      );
+      // act
+      final result =
+          await remoteDataSourceImpl.getTvShowRecommendations(dummyTvShowId);
+      // assert
+      expect(result, []);
+    });
+
     test('should throw ServerException when the response code is 404 or other',
         () async {
       // arrange
@@ -284,6 +357,20 @@ void main() {
       final result = await remoteDataSourceImpl.getPopularMovies();
       // assert
       expect(result, dummyPopularMoviesResponse);
+    });
+
+    test('should return empty list of movies when response is success (200)',
+        () async {
+      // arrange
+      when(
+        mockHttpClient.get(
+          Uri.parse('$BASE_URL/movie/popular?$API_KEY'),
+        ),
+      ).thenAnswer((_) async => http.Response(dummyMovieEmptyResponse, 200));
+      // act
+      final result = await remoteDataSourceImpl.getPopularMovies();
+      // assert
+      expect(result, []);
     });
 
     test(
@@ -324,6 +411,22 @@ void main() {
       expect(result, dummyPopularTvShowsResponse);
     });
 
+    test('should return empty list of tv shows when response is success (200)',
+        () async {
+      // arrange
+      when(
+        mockHttpClient.get(
+          Uri.parse('$BASE_URL/tv/popular?$API_KEY'),
+        ),
+      ).thenAnswer(
+        (_) async => http.Response(dummyTvShowEmptyResponse, 200),
+      );
+      // act
+      final result = await remoteDataSourceImpl.getPopularTvShows();
+      // assert
+      expect(result, []);
+    });
+
     test(
         'should throw a ServerException when the response code is 404 or other',
         () async {
@@ -359,6 +462,22 @@ void main() {
       final result = await remoteDataSourceImpl.getTopRatedMovies();
       // assert
       expect(result, dummyTopRatedMoviesResponse);
+    });
+
+    test('should return empty list of movies when response code is 200',
+        () async {
+      // arrange
+      when(
+        mockHttpClient.get(
+          Uri.parse('$BASE_URL/movie/top_rated?$API_KEY'),
+        ),
+      ).thenAnswer(
+        (_) async => http.Response(dummyMovieEmptyResponse, 200),
+      );
+      // act
+      final result = await remoteDataSourceImpl.getTopRatedMovies();
+      // assert
+      expect(result, []);
     });
 
     test('should throw ServerException when response code is other than 200',
@@ -397,6 +516,22 @@ void main() {
       expect(result, dummyGetTopRatedTvShowsResponse);
     });
 
+    test('should return empty list of movies when response code is 200',
+        () async {
+      // arrange
+      when(
+        mockHttpClient.get(
+          Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'),
+        ),
+      ).thenAnswer(
+        (_) async => http.Response(dummyTvShowEmptyResponse, 200),
+      );
+      // act
+      final result = await remoteDataSourceImpl.getTopRatedTvShows();
+      // assert
+      expect(result, []);
+    });
+
     test('should throw ServerException when response code is other than 200',
         () async {
       // arrange
@@ -431,6 +566,20 @@ void main() {
       final result = await remoteDataSourceImpl.searchMovies(dummyQuery);
       // assert
       expect(result, dummySearchMoviesResponse);
+    });
+
+    test('should return empty list of movies when response code is 200',
+        () async {
+      // arrange
+      when(
+        mockHttpClient.get(
+          Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$dummyQuery'),
+        ),
+      ).thenAnswer((_) async => http.Response(dummyMovieEmptyResponse, 200));
+      // act
+      final result = await remoteDataSourceImpl.searchMovies(dummyQuery);
+      // assert
+      expect(result, []);
     });
 
     test('should throw ServerException when response code is other than 200',
@@ -469,6 +618,22 @@ void main() {
       final result = await remoteDataSourceImpl.searchTvShows(dummyQuery);
       // assert
       expect(result, dummySearchTvShowsResponse);
+    });
+
+    test('should return empty list of tv shows when response code is 200',
+        () async {
+      // arrange
+      when(
+        mockHttpClient.get(
+          Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$dummyQuery'),
+        ),
+      ).thenAnswer(
+        (_) async => http.Response(dummyTvShowEmptyResponse, 200),
+      );
+      // act
+      final result = await remoteDataSourceImpl.searchTvShows(dummyQuery);
+      // assert
+      expect(result, []);
     });
 
     test('should throw ServerException when response code is other than 200',
