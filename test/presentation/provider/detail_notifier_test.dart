@@ -199,6 +199,21 @@ void main() {
       expect(detailNotifier.recommendations, dummyCategories ?? []);
     });
 
+    test(
+        'should change state to loaded and get data empty when movie recommendations is gotten successfully',
+        () async {
+      // arrange
+      when(mockGetMovieDetail.execute(dummyMovieId))
+          .thenAnswer((_) async => Right(dummyDetail));
+      when(mockGetMovieRecommendations.execute(dummyMovieId))
+          .thenAnswer((_) async => Right([]));
+      // act
+      await detailNotifier.fetchMovieDetail(dummyMovieId);
+      // assert
+      expect(detailNotifier.recommendationState, RequestState.Empty);
+      expect(detailNotifier.recommendations, []);
+    });
+
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetMovieDetail.execute(dummyMovieId))
@@ -236,6 +251,21 @@ void main() {
       // assert
       expect(detailNotifier.recommendationState, RequestState.Loaded);
       expect(detailNotifier.recommendations, dummyCategories ?? []);
+    });
+
+    test(
+        'should change state to loaded and get data empty when tv show recommendations is gotten successfully',
+        () async {
+      // arrange
+      when(mockGetTvShowDetail.execute(dummyMovieId))
+          .thenAnswer((_) async => Right(dummyDetail));
+      when(mockGetTvShowRecommendations.execute(dummyMovieId))
+          .thenAnswer((_) async => Right([]));
+      // act
+      await detailNotifier.fetchTvShowDetail(dummyMovieId);
+      // assert
+      expect(detailNotifier.recommendationState, RequestState.Empty);
+      expect(detailNotifier.recommendations, []);
     });
 
     test('should return error when data is unsuccessful', () async {

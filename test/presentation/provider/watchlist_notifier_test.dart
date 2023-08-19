@@ -102,6 +102,17 @@ void main() {
       verify(mockRemoveWatchlist.execute(dummyWatchlist));
     });
 
+    test('should return error when remove watchlist is unsuccessful', () async {
+      // arrange
+      when(mockRemoveWatchlist.execute(dummyWatchlist))
+          .thenAnswer((_) async => Left(DatabaseFailure("Can't remove data")));
+      when(mockGetWatchListStatus.execute(1)).thenAnswer((_) async => false);
+      // act
+      await watchlistNotifier.removeFromWatchlist(dummyWatchlist);
+      // assert
+      expect(watchlistNotifier.watchlistMessage, "Can't remove data");
+    });
+
     test('should update watchlist status when add watchlist success', () async {
       // arrange
       when(mockSaveWatchlist.execute(dummyWatchlist))

@@ -147,4 +147,28 @@ void main() {
       expect(searchNotifier.message, 'Server Failure');
     });
   });
+
+  group('Clear Search Result', () {
+    test('should clear search result movies', () async {
+      // arrange
+      when(mockSearchMovies.execute(dummyQueryMovie))
+          .thenAnswer((_) async => Right(dummyCategories ?? []));
+      // act
+      await searchNotifier.fetchMovieSearch(dummyQueryMovie);
+      searchNotifier.clearSearchResult();
+      // assert
+      expect(searchNotifier.searchResult, []);
+    });
+
+    test('should clear search result tv shows', () async {
+      // arrange
+      when(mockSearchTvShows.execute(dummyQueryTvShow))
+          .thenAnswer((_) async => Right(dummyCategoriesTvShow ?? []));
+      // act
+      await searchNotifier.fetchTvShowSearch(dummyQueryTvShow);
+      searchNotifier.clearSearchResult();
+      // assert
+      expect(searchNotifier.searchResult, []);
+    });
+  });
 }
