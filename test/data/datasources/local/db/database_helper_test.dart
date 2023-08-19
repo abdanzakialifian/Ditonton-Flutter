@@ -36,6 +36,12 @@ void main() {
     verifyNever(mockDatabaseHelper.insertWatchlist(dummyWatchlistTable));
     expect(await mockDatabaseHelper.insertWatchlist(dummyWatchlistTable), 1);
     expect(result, 1);
+
+    await database.delete(
+      _tblWatchlist,
+      where: 'id = ?',
+      whereArgs: [dummyWatchlistTable.id],
+    );
   });
 
   test('should return 1 to successfully remove data in database', () async {
@@ -74,6 +80,12 @@ void main() {
     expect(await mockDatabaseHelper.getWatchlistById(dummyWatchlistTable.id),
         dummyWatchlistMap);
     expect(result.first, dummyWatchlistMap);
+
+    await database.delete(
+      _tblWatchlist,
+      where: 'id = ?',
+      whereArgs: [dummyWatchlistTable.id],
+    );
   });
 
   test('should return map data type if successfully get watchlist', () async {
@@ -88,6 +100,12 @@ void main() {
     verifyNever(mockDatabaseHelper.getWatchlist());
     expect(await mockDatabaseHelper.getWatchlist(), [dummyWatchlistMap]);
     expect(results, [dummyWatchlistMap]);
+
+    await database.delete(
+      _tblWatchlist,
+      where: 'id = ?',
+      whereArgs: [dummyWatchlistTable.id],
+    );
   });
 
   test('sqflite version', () async {
