@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/circle-g.png'),
+                backgroundImage: AssetImage('assets/avatar.jpg'),
               ),
               accountName: Text('Abdan Zaki Alifian'),
               accountEmail: Text('abdanzakialifian99@gmail.com'),
