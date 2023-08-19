@@ -13,7 +13,7 @@ void main() {
     expect(dummyJson, dummyGenreResponse.toJson());
   });
 
-  test("should return watchlist table", () {
+  test("should return genre response", () {
     expect(GenreResponse.fromJson(dummyJson), dummyGenreResponse);
   });
 }
