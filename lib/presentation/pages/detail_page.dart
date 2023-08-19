@@ -4,6 +4,7 @@ import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/category.dart';
 import 'package:ditonton/domain/entities/detail.dart';
 import 'package:ditonton/domain/entities/season.dart';
+import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:ditonton/presentation/pages/season_page.dart';
 import 'package:ditonton/presentation/provider/detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
@@ -214,10 +215,10 @@ class DetailContent extends StatelessWidget {
   Future<void> _addWatchlist(BuildContext context) async {
     if (!isAddedWatchlist) {
       await Provider.of<WatchlistNotifier>(context, listen: false)
-          .addWatchlist(detail.toWatchlist(type));
+          .addWatchlist(Watchlist.fromDetailToWatchlist(detail, type));
     } else {
       await Provider.of<WatchlistNotifier>(context, listen: false)
-          .removeFromWatchlist(detail.toWatchlist(type));
+          .removeFromWatchlist(Watchlist.fromDetailToWatchlist(detail, type));
     }
 
     final message =

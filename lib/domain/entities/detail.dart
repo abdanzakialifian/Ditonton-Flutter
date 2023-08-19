@@ -1,6 +1,5 @@
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/season.dart';
-import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:equatable/equatable.dart';
 
 class Detail extends Equatable {
@@ -27,11 +26,6 @@ class Detail extends Equatable {
     required this.seasons,
     required this.status,
   });
-
-  Watchlist toWatchlist(String category) => Watchlist.fromDetailToWatchlist(
-        this,
-        category,
-      );
 
   @override
   List<Object?> get props => [

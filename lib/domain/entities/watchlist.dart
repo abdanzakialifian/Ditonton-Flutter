@@ -1,5 +1,4 @@
 import 'package:ditonton/data/models/watchlist_table.dart';
-import 'package:ditonton/domain/entities/category.dart';
 import 'package:ditonton/domain/entities/detail.dart';
 import 'package:equatable/equatable.dart';
 
@@ -35,13 +34,6 @@ class Watchlist extends Equatable {
         posterPath: watchlistTable.posterPath,
         title: watchlistTable.title,
         category: watchlistTable.category,
-      );
-
-  Category toCategory() => Category(
-        id: id,
-        overview: overview,
-        posterPath: posterPath,
-        title: title,
       );
 
   @override

@@ -1,5 +1,6 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/utils.dart';
+import 'package:ditonton/domain/entities/category.dart';
 import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
 import 'package:ditonton/presentation/widgets/category_card_item.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
             itemBuilder: (context, index) {
               final watchlist = data.watchlist[index];
               return CategoryCardItem(
-                category: watchlist.toCategory(),
+                category: Category.fromWatchlist(watchlist),
                 type: watchlist.category ?? "",
               );
             },
