@@ -11,13 +11,13 @@ class DatabaseHelper {
 
   factory DatabaseHelper() => _databaseHelper ?? DatabaseHelper._instance();
 
-  static Database? _database;
+  Database? setDatabase;
 
   Future<Database?> get database async {
-    if (_database == null) {
-      _database = await _initDb();
+    if (setDatabase == null) {
+      setDatabase = await _initDb();
     }
-    return _database;
+    return setDatabase;
   }
 
   static const String _tblWatchlist = 'watchlist';

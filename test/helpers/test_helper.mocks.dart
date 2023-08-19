@@ -588,6 +588,14 @@ class MockDatabaseHelper extends _i1.Mock implements _i19.DatabaseHelper {
   }
 
   @override
+  set setDatabase(_i20.Database? _setDatabase) => super.noSuchMethod(
+        Invocation.setter(
+          #setDatabase,
+          _setDatabase,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   _i7.Future<_i20.Database?> get database => (super.noSuchMethod(
         Invocation.getter(#database),
         returnValue: _i7.Future<_i20.Database?>.value(),
