@@ -3,11 +3,11 @@ import 'package:ditonton/presentation/widgets/season_card_item.dart';
 import 'package:flutter/material.dart';
 
 class SeasonPage extends StatelessWidget {
-  static const ROUTE_NAME = '/season';
+  static const routeName = '/season';
 
   final List<Season> seasons;
 
-  SeasonPage({Key? key, required this.seasons}) : super(key: key);
+  const SeasonPage({Key? key, required this.seasons}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
