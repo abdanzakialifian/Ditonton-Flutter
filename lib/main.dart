@@ -1,23 +1,22 @@
 import 'package:about/about.dart';
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/utils.dart';
-import 'package:ditonton/domain/entities/season.dart';
-import 'package:ditonton/presentation/pages/detail_page.dart';
-import 'package:ditonton/presentation/pages/home_page.dart';
-import 'package:ditonton/presentation/pages/now_playing_page.dart';
-import 'package:ditonton/presentation/pages/popular_page.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
-import 'package:ditonton/presentation/pages/season_page.dart';
-import 'package:ditonton/presentation/pages/top_rated_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_page.dart';
-import 'package:ditonton/presentation/provider/detail_notifier.dart';
-import 'package:ditonton/presentation/provider/movie_notifier.dart';
-import 'package:ditonton/presentation/provider/search_notifier.dart';
-import 'package:ditonton/presentation/provider/now_playing_notifier.dart';
-import 'package:ditonton/presentation/provider/popular_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_show_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
+import 'package:core/core.dart';
+import 'package:core/domain/entities/season.dart';
+import 'package:core/presentation/pages/detail_page.dart';
+import 'package:core/presentation/pages/home_page.dart';
+import 'package:core/presentation/pages/now_playing_page.dart';
+import 'package:core/presentation/pages/popular_page.dart';
+import 'package:core/presentation/pages/search_page.dart';
+import 'package:core/presentation/pages/season_page.dart';
+import 'package:core/presentation/pages/top_rated_page.dart';
+import 'package:core/presentation/pages/watchlist_page.dart';
+import 'package:core/presentation/provider/detail_notifier.dart';
+import 'package:core/presentation/provider/movie_notifier.dart';
+import 'package:core/presentation/provider/search_notifier.dart';
+import 'package:core/presentation/provider/now_playing_notifier.dart';
+import 'package:core/presentation/provider/popular_notifier.dart';
+import 'package:core/presentation/provider/top_rated_notifier.dart';
+import 'package:core/presentation/provider/tv_show_notifier.dart';
+import 'package:core/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/locator/injection.dart' as di;
@@ -72,9 +71,9 @@ class MyApp extends StatelessWidget {
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
-            case HomePage.routeName:
+            case homePageRoute:
               return MaterialPageRoute(builder: (_) => const HomePage());
-            case NowPlayingPage.routeName:
+            case nowPlayingPageRoute:
               final type = settings.arguments as String;
               return MaterialPageRoute(
                 builder: (_) => NowPlayingPage(
@@ -82,13 +81,13 @@ class MyApp extends StatelessWidget {
                 ),
                 settings: settings,
               );
-            case PopularPage.routeName:
+            case popularPageRoute:
               final type = settings.arguments as String;
               return MaterialPageRoute(
                 builder: (_) => PopularPage(type: type),
                 settings: settings,
               );
-            case TopRatedPage.routeName:
+            case topRatedPageRoute:
               final type = settings.arguments as String;
               return MaterialPageRoute(
                 builder: (_) => TopRatedPage(
@@ -96,7 +95,7 @@ class MyApp extends StatelessWidget {
                 ),
                 settings: settings,
               );
-            case DetailPage.routeName:
+            case detailPageRoute:
               final data = settings.arguments as List<dynamic>;
               return MaterialPageRoute(
                 builder: (_) => DetailPage(
@@ -105,20 +104,20 @@ class MyApp extends StatelessWidget {
                 ),
                 settings: settings,
               );
-            case SeasonPage.routeName:
+            case seasonPageRoute:
               final data = settings.arguments as List<Season>;
               return MaterialPageRoute(
                 builder: (context) => SeasonPage(seasons: data),
                 settings: settings,
               );
-            case SearchPage.routeName:
+            case searchPageRoute:
               final type = settings.arguments as String;
               return MaterialPageRoute(
                 builder: (_) => SearchPage(
                   type: type,
                 ),
               );
-            case WatchlistPage.routeName:
+            case watchlistPageRoute:
               return MaterialPageRoute(builder: (_) => const WatchlistPage());
             case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => const AboutPage());
