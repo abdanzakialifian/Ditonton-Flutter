@@ -6,21 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class NowPlayingPage extends StatefulWidget {
-  static const ROUTE_NAME = "/now-playing";
+  static const routeName = "/now-playing";
   final String? type;
 
   const NowPlayingPage({Key? key, required this.type}) : super(key: key);
 
   @override
-  _NowPlayingPageState createState() => _NowPlayingPageState();
+  NowPlayingPageState createState() => NowPlayingPageState();
 }
 
-class _NowPlayingPageState extends State<NowPlayingPage> {
+class NowPlayingPageState extends State<NowPlayingPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(
-      () => widget.type == MOVIES
+      () => widget.type == movies
           ? Provider.of<NowPlayingNotifier>(context, listen: false)
               .fetchNowPlayingMovies()
           : Provider.of<NowPlayingNotifier>(context, listen: false)
@@ -33,7 +33,7 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.type == MOVIES
+          widget.type == movies
               ? "Now Playing Movies"
               : "Airing Today Tv Shows",
         ),
@@ -49,7 +49,7 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
     return Consumer<NowPlayingNotifier>(
       builder: (context, data, child) {
         if (data.state == RequestState.Loading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (data.state == RequestState.Loaded) {
@@ -65,7 +65,7 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
           );
         } else {
           return Center(
-            key: Key('error_message'),
+            key: const Key('error_message'),
             child: Text(data.message),
           );
         }
