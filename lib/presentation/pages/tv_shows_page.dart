@@ -41,7 +41,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
               title: 'Airing Today',
               onTap: () => Navigator.pushNamed(
                 context,
-                NowPlayingPage.ROUTE_NAME,
+                NowPlayingPage.routeName,
                 arguments: widget.type,
               ),
             ),
@@ -50,7 +50,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
               title: 'Popular',
               onTap: () => Navigator.pushNamed(
                 context,
-                PopularPage.ROUTE_NAME,
+                PopularPage.routeName,
                 arguments: widget.type,
               ),
             ),
@@ -59,7 +59,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
               title: 'Top Rated',
               onTap: () => Navigator.pushNamed(
                 context,
-                TopRatedPage.ROUTE_NAME,
+                TopRatedPage.routeName,
                 arguments: widget.type,
               ),
             ),
@@ -75,13 +75,13 @@ class _TvShowsPageState extends State<TvShowsPage> {
       builder: (context, data, child) {
         final state = data.airingTodayTvShowsState;
         if (state == RequestState.Loading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (state == RequestState.Loaded) {
           return _tvShowsList(data.airingTodayTvShows);
         } else {
-          return Text('Failed');
+          return const Text('Failed');
         }
       },
     );
@@ -92,13 +92,13 @@ class _TvShowsPageState extends State<TvShowsPage> {
       builder: (context, data, child) {
         final state = data.popularTvShowsState;
         if (state == RequestState.Loading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (state == RequestState.Loaded) {
           return _tvShowsList(data.popularTvShows);
         } else {
-          return Text('Failed');
+          return const Text('Failed');
         }
       },
     );
@@ -109,13 +109,13 @@ class _TvShowsPageState extends State<TvShowsPage> {
       builder: (context, data, child) {
         final state = data.topRatedTvShowsState;
         if (state == RequestState.Loading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (state == RequestState.Loaded) {
           return _tvShowsList(data.topRatedTvShows);
         } else {
-          return Text('Failed');
+          return const Text('Failed');
         }
       },
     );
@@ -131,8 +131,8 @@ class _TvShowsPageState extends State<TvShowsPage> {
         ),
         InkWell(
           onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Row(
               children: [Text('See More'), Icon(Icons.arrow_forward_ios)],
             ),
@@ -143,7 +143,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
   }
 
   Widget _tvShowsList(List<Category> tvShows) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -155,18 +155,18 @@ class _TvShowsPageState extends State<TvShowsPage> {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  DetailPage.ROUTE_NAME,
+                  DetailPage.routeName,
                   arguments: [tvShow.id, widget.type],
                 );
               },
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${tvShow.posterPath}',
-                  placeholder: (context, url) => Center(
+                  imageUrl: '$baseImageUrl${tvShow.posterPath}',
+                  placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),
