@@ -75,13 +75,13 @@ class _MoviesPageState extends State<MoviesPage> {
       builder: (context, data, child) {
         final state = data.nowPlayingState;
         if (state == RequestState.Loading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (state == RequestState.Loaded) {
           return _moviesList(data.nowPlayingMovies);
         } else {
-          return Text('Failed');
+          return const Text('Failed');
         }
       },
     );
@@ -92,13 +92,13 @@ class _MoviesPageState extends State<MoviesPage> {
       builder: (context, data, child) {
         final state = data.popularMoviesState;
         if (state == RequestState.Loading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (state == RequestState.Loaded) {
           return _moviesList(data.popularMovies);
         } else {
-          return Text('Failed');
+          return const Text('Failed');
         }
       },
     );
@@ -109,13 +109,13 @@ class _MoviesPageState extends State<MoviesPage> {
       builder: (context, data, child) {
         final state = data.topRatedMoviesState;
         if (state == RequestState.Loading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (state == RequestState.Loaded) {
           return _moviesList(data.topRatedMovies);
         } else {
-          return Text('Failed');
+          return const Text('Failed');
         }
       },
     );
@@ -131,8 +131,8 @@ class _MoviesPageState extends State<MoviesPage> {
         ),
         InkWell(
           onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Row(
               children: [Text('See More'), Icon(Icons.arrow_forward_ios)],
             ),
@@ -143,7 +143,7 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _moviesList(List<Category> movies) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -155,18 +155,18 @@ class _MoviesPageState extends State<MoviesPage> {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  DetailPage.ROUTE_NAME,
+                  DetailPage.routeName,
                   arguments: [movie.id, widget.type],
                 );
               },
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
-                  placeholder: (context, url) => Center(
+                  imageUrl: '$baseImageUrl${movie.posterPath}',
+                  placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),
