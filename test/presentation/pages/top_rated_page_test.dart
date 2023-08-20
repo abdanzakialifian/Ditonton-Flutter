@@ -18,7 +18,7 @@ void main() {
     mockNotifier = MockTopRatedNotifier();
   });
 
-  Widget _makeTestableWidget(Widget body) {
+  Widget makeTestableWidget(Widget body) {
     return ChangeNotifierProvider<TopRatedNotifier>.value(
       value: mockNotifier,
       child: MaterialApp(
@@ -36,9 +36,9 @@ void main() {
       final centerFinder = find.byType(Center);
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          TopRatedPage(
-            type: MOVIES,
+        makeTestableWidget(
+          const TopRatedPage(
+            type: movies,
           ),
         ),
       );
@@ -55,9 +55,9 @@ void main() {
       final listViewFinder = find.byType(ListView);
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          TopRatedPage(
-            type: MOVIES,
+        makeTestableWidget(
+          const TopRatedPage(
+            type: movies,
           ),
         ),
       );
@@ -70,12 +70,12 @@ void main() {
       when(mockNotifier.state).thenReturn(RequestState.Error);
       when(mockNotifier.message).thenReturn('Error message');
 
-      final textFinder = find.byKey(Key('error_message'));
+      final textFinder = find.byKey(const Key('error_message'));
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          TopRatedPage(
-            type: MOVIES,
+        makeTestableWidget(
+          const TopRatedPage(
+            type: movies,
           ),
         ),
       );
@@ -93,9 +93,9 @@ void main() {
       final centerFinder = find.byType(Center);
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          TopRatedPage(
-            type: TV_SHOWS,
+        makeTestableWidget(
+          const TopRatedPage(
+            type: tvShows,
           ),
         ),
       );
@@ -112,9 +112,9 @@ void main() {
       final listViewFinder = find.byType(ListView);
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          TopRatedPage(
-            type: TV_SHOWS,
+        makeTestableWidget(
+          const TopRatedPage(
+            type: tvShows,
           ),
         ),
       );
@@ -127,12 +127,12 @@ void main() {
       when(mockNotifier.state).thenReturn(RequestState.Error);
       when(mockNotifier.message).thenReturn('Error message');
 
-      final textFinder = find.byKey(Key('error_message'));
+      final textFinder = find.byKey(const Key('error_message'));
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          TopRatedPage(
-            type: TV_SHOWS,
+        makeTestableWidget(
+          const TopRatedPage(
+            type: tvShows,
           ),
         ),
       );
