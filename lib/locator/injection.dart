@@ -23,11 +23,8 @@ import 'package:core/domain/usecases/get_watchlist.dart';
 import 'package:core/domain/usecases/get_watchlist_status.dart';
 import 'package:core/domain/usecases/remove_watchlist.dart';
 import 'package:core/domain/usecases/save_watchlist.dart';
-import 'package:core/domain/usecases/search_movies.dart';
-import 'package:core/domain/usecases/search_tv_shows.dart';
 import 'package:core/presentation/provider/detail_notifier.dart';
 import 'package:core/presentation/provider/movie_notifier.dart';
-import 'package:core/presentation/provider/search_notifier.dart';
 import 'package:core/presentation/provider/now_playing_notifier.dart';
 import 'package:core/presentation/provider/popular_notifier.dart';
 import 'package:core/presentation/provider/top_rated_notifier.dart';
@@ -35,6 +32,9 @@ import 'package:core/presentation/provider/tv_show_notifier.dart';
 import 'package:core/presentation/provider/watchlist_notifier.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
+import 'package:search/domain/usecases/search_movies.dart';
+import 'package:search/domain/usecases/search_tv_shows.dart';
+import 'package:search/presentation/provider/search_notifier.dart';
 
 final locator = GetIt.instance;
 

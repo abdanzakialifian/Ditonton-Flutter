@@ -5,13 +5,11 @@ import 'package:core/presentation/pages/detail_page.dart';
 import 'package:core/presentation/pages/home_page.dart';
 import 'package:core/presentation/pages/now_playing_page.dart';
 import 'package:core/presentation/pages/popular_page.dart';
-import 'package:core/presentation/pages/search_page.dart';
 import 'package:core/presentation/pages/season_page.dart';
 import 'package:core/presentation/pages/top_rated_page.dart';
 import 'package:core/presentation/pages/watchlist_page.dart';
 import 'package:core/presentation/provider/detail_notifier.dart';
 import 'package:core/presentation/provider/movie_notifier.dart';
-import 'package:core/presentation/provider/search_notifier.dart';
 import 'package:core/presentation/provider/now_playing_notifier.dart';
 import 'package:core/presentation/provider/popular_notifier.dart';
 import 'package:core/presentation/provider/top_rated_notifier.dart';
@@ -20,6 +18,8 @@ import 'package:core/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/locator/injection.dart' as di;
+import 'package:search/presentation/pages/search_page.dart';
+import 'package:search/presentation/provider/search_notifier.dart';
 
 void main() {
   di.init();

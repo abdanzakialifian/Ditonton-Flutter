@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dartz_test/dartz_test.dart';
-import 'package:core/domain/usecases/search_tv_shows.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:search/domain/usecases/search_tv_shows.dart';
 import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
