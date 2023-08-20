@@ -24,7 +24,6 @@ import 'package:ditonton/locator/injection.dart' as di;
 
 void main() {
   di.init();
-
   runApp(const MyApp());
 }
 
