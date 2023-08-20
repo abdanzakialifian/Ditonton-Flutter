@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // constants varibale
-const String BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
-const String MOVIES = "Movies";
-const String TV_SHOWS = "Tv Shows";
-const String STATUS_ENDED = "Ended";
+const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
+const String movies = "Movies";
+const String tvShows = "Tv Shows";
+const String statusEnded = "Ended";
 
 // colors
 const Color kRichBlack = Color(0xFF000814);
