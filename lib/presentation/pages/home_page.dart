@@ -7,14 +7,16 @@ import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  static const ROUTE_NAME = '/home';
+  static const routeName = '/home';
+
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  String _type = MOVIES;
+class HomePageState extends State<HomePage> {
+  String _type = movies;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         child: Column(
           children: [
-            UserAccountsDrawerHeader(
+            const UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/avatar.jpg'),
               ),
@@ -30,28 +32,28 @@ class _HomePageState extends State<HomePage> {
               accountEmail: Text('abdanzakialifian99@gmail.com'),
             ),
             ListTile(
-              leading: Icon(Icons.movie),
-              title: Text('Movies'),
+              leading: const Icon(Icons.movie),
+              title: const Text('Movies'),
               onTap: () {
                 setState(() {
-                  _type = MOVIES;
+                  _type = movies;
                 });
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: Icon(Icons.tv),
-              title: Text('Tv Shows'),
+              leading: const Icon(Icons.tv),
+              title: const Text('Tv Shows'),
               onTap: () {
                 setState(() {
-                  _type = TV_SHOWS;
+                  _type = tvShows;
                 });
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: Icon(Icons.save_alt),
-              title: Text('Watchlist'),
+              leading: const Icon(Icons.save_alt),
+              title: const Text('Watchlist'),
               onTap: () {
                 Navigator.pushNamed(context, WatchlistPage.ROUTE_NAME);
               },
@@ -60,14 +62,14 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
               },
-              leading: Icon(Icons.info_outline),
-              title: Text('About'),
+              leading: const Icon(Icons.info_outline),
+              title: const Text('About'),
             ),
           ],
         ),
       ),
       appBar: AppBar(
-        title: Text(_type == MOVIES ? "Movies" : "Tv Shows"),
+        title: Text(_type == movies ? "Movies" : "Tv Shows"),
         actions: [
           IconButton(
             onPressed: () {
@@ -77,11 +79,11 @@ class _HomePageState extends State<HomePage> {
                 arguments: _type,
               );
             },
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           )
         ],
       ),
-      body: _type == MOVIES
+      body: _type == movies
           ? MoviesPage(
               type: _type,
             )
