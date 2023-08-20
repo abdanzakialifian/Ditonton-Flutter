@@ -21,7 +21,7 @@ void main() {
     mockWatchlistNotifier = MockWatchlistNotifier();
   });
 
-  Widget _makeTestableWidget(Widget body) {
+  Widget makeTestableWidget(Widget body) {
     return ChangeNotifierProvider<DetailNotifier>.value(
       value: mockDetailNotifier,
       child: MaterialApp(
@@ -46,10 +46,10 @@ void main() {
       final watchlistButtonIcon = find.byIcon(Icons.add);
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          DetailPage(
+        makeTestableWidget(
+          const DetailPage(
             id: 1,
-            type: MOVIES,
+            type: movies,
           ),
         ),
       );
@@ -72,10 +72,10 @@ void main() {
       final watchlistButtonIcon = find.byIcon(Icons.check);
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          DetailPage(
+        makeTestableWidget(
+          const DetailPage(
             id: 1,
-            type: MOVIES,
+            type: movies,
           ),
         ),
       );
@@ -99,9 +99,9 @@ void main() {
 
       final watchlistButton = find.byType(ElevatedButton);
 
-      await tester.pumpWidget(_makeTestableWidget(DetailPage(
+      await tester.pumpWidget(makeTestableWidget(const DetailPage(
         id: 1,
-        type: MOVIES,
+        type: movies,
       )));
 
       expect(find.byIcon(Icons.add), findsOneWidget);
@@ -129,10 +129,10 @@ void main() {
       final watchlistButton = find.byType(ElevatedButton);
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          DetailPage(
+        makeTestableWidget(
+          const DetailPage(
             id: 1,
-            type: MOVIES,
+            type: movies,
           ),
         ),
       );
@@ -163,10 +163,10 @@ void main() {
       final watchlistButtonIcon = find.byIcon(Icons.add);
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          DetailPage(
+        makeTestableWidget(
+          const DetailPage(
             id: 1,
-            type: TV_SHOWS,
+            type: tvShows,
           ),
         ),
       );
@@ -189,10 +189,10 @@ void main() {
       final watchlistButtonIcon = find.byIcon(Icons.check);
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          DetailPage(
+        makeTestableWidget(
+          const DetailPage(
             id: 1,
-            type: TV_SHOWS,
+            type: tvShows,
           ),
         ),
       );
@@ -216,9 +216,9 @@ void main() {
 
       final watchlistButton = find.byType(ElevatedButton);
 
-      await tester.pumpWidget(_makeTestableWidget(DetailPage(
+      await tester.pumpWidget(makeTestableWidget(const DetailPage(
         id: 1,
-        type: TV_SHOWS,
+        type: tvShows,
       )));
 
       expect(find.byIcon(Icons.add), findsOneWidget);
@@ -246,10 +246,10 @@ void main() {
       final watchlistButton = find.byType(ElevatedButton);
 
       await tester.pumpWidget(
-        _makeTestableWidget(
-          DetailPage(
+        makeTestableWidget(
+          const DetailPage(
             id: 1,
-            type: TV_SHOWS,
+            type: tvShows,
           ),
         ),
       );
