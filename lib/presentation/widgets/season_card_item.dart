@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 class SeasonCardItem extends StatelessWidget {
   final Season? season;
 
-  SeasonCardItem({Key? key, required this.season}) : super(key: key);
+  const SeasonCardItem({Key? key, required this.season}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class SeasonCardItem extends StatelessWidget {
           _setUpImageSeason(),
           Flexible(
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -35,7 +35,7 @@ class SeasonCardItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Container(
@@ -47,15 +47,15 @@ class SeasonCardItem extends StatelessWidget {
                           ),
                         ),
                         child: Padding(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 4, horizontal: 8),
                           child: Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.star,
                                 size: 13,
                               ),
-                              SizedBox(width: 2),
+                              const SizedBox(width: 2),
                               Text(
                                 (season?.voteAverage ?? 0.0).toString(),
                                 style: GoogleFonts.poppins(
@@ -66,7 +66,7 @@ class SeasonCardItem extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(width: 6),
+                      const SizedBox(width: 6),
                       Text(
                         season?.airDate?.toString().split("-")[0] ?? "-",
                         style: GoogleFonts.poppins(
@@ -87,7 +87,7 @@ class SeasonCardItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     (season?.overview == null ||
                             season?.overview?.isEmpty == true)
@@ -120,7 +120,7 @@ class SeasonCardItem extends StatelessWidget {
   Widget _setUpImageSeason() {
     if (season?.posterPath == null) {
       return ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
           bottomLeft: Radius.circular(10),
         ),
@@ -132,19 +132,19 @@ class SeasonCardItem extends StatelessWidget {
       );
     } else {
       return ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
           bottomLeft: Radius.circular(10),
         ),
         child: CachedNetworkImage(
           fit: BoxFit.cover,
-          imageUrl: "$BASE_IMAGE_URL${season?.posterPath}",
+          imageUrl: "$baseImageUrl${season?.posterPath}",
           width: 110,
           height: 160,
-          placeholder: (context, url) => Center(
+          placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
           ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
       );
     }
