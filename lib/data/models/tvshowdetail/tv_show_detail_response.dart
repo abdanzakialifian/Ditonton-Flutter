@@ -77,7 +77,7 @@ class TvShowDetailResponse extends Equatable {
   @JsonKey(name: "vote_count")
   final int? voteCount;
 
-  TvShowDetailResponse({
+  const TvShowDetailResponse({
     required this.adult,
     required this.backdropPath,
     required this.createdBy,

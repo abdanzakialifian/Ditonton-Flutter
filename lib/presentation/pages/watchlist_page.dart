@@ -51,11 +51,11 @@ class WatchlistPageState extends State<WatchlistPage> with RouteAware {
   Widget _setUpWatchlist() {
     return Consumer<WatchlistNotifier>(
       builder: (context, data, child) {
-        if (data.watchlistState == RequestState.Loading) {
+        if (data.watchlistState == RequestState.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (data.watchlistState == RequestState.Loaded) {
+        } else if (data.watchlistState == RequestState.loaded) {
           return ListView.builder(
             itemBuilder: (context, index) {
               final watchlist = data.watchlist[index];

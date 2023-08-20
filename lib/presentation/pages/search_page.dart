@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
-  static const ROUTE_NAME = '/search';
+  static const routeName = '/search';
   final String? type;
 
-  SearchPage({required this.type});
+  const SearchPage({Key? key, required this.type}) : super(key: key);
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -26,7 +26,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search'),
+        title: const Text('Search'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -35,7 +35,7 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             TextField(
               onSubmitted: (query) {
-                if (widget.type == MOVIES) {
+                if (widget.type == movies) {
                   Provider.of<SearchNotifier>(context, listen: false)
                       .fetchMovieSearch(query);
                 } else {
@@ -43,14 +43,14 @@ class _SearchPageState extends State<SearchPage> {
                       .fetchTvShowSearch(query);
                 }
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search title',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
               ),
               textInputAction: TextInputAction.search,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Search Result',
               style: kHeading6,
@@ -65,11 +65,11 @@ class _SearchPageState extends State<SearchPage> {
   Widget _setUpList(String? type) {
     return Consumer<SearchNotifier>(
       builder: (context, data, child) {
-        if (data.state == RequestState.Loading) {
-          return Center(
+        if (data.state == RequestState.loading) {
+          return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (data.state == RequestState.Loaded) {
+        } else if (data.state == RequestState.loaded) {
           final result = data.searchResult;
           return Expanded(
             child: ListView.builder(

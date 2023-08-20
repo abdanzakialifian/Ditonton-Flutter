@@ -10,7 +10,7 @@ class TopRatedNotifier extends ChangeNotifier {
 
   TopRatedNotifier(this.getTopRatedMovies, this.getTopRatedTvShows);
 
-  RequestState _state = RequestState.Empty;
+  RequestState _state = RequestState.empty;
   RequestState get state => _state;
 
   List<category.Category> _data = [];
@@ -20,7 +20,7 @@ class TopRatedNotifier extends ChangeNotifier {
   String get message => _message;
 
   Future<void> fetchTopRatedMovies() async {
-    _state = RequestState.Loading;
+    _state = RequestState.loading;
     notifyListeners();
 
     final result = await getTopRatedMovies.execute();
@@ -28,30 +28,30 @@ class TopRatedNotifier extends ChangeNotifier {
     result.fold(
       (failure) {
         _message = failure.message;
-        _state = RequestState.Error;
+        _state = RequestState.error;
         notifyListeners();
       },
       (moviesData) {
         _data = moviesData;
-        _state = RequestState.Loaded;
+        _state = RequestState.loaded;
         notifyListeners();
       },
     );
   }
 
   Future<void> fetchTopRatedTvShows() async {
-    _state = RequestState.Loading;
+    _state = RequestState.loading;
     notifyListeners();
 
     final result = await getTopRatedTvShows.execute();
 
     result.fold((failure) {
       _message = failure.message;
-      _state = RequestState.Error;
+      _state = RequestState.error;
       notifyListeners();
     }, (tvShowsData) {
       _data = tvShowsData;
-      _state = RequestState.Loaded;
+      _state = RequestState.loaded;
       notifyListeners();
     });
   }

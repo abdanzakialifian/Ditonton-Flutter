@@ -13,7 +13,7 @@ class SearchNotifier extends ChangeNotifier {
     required this.searchTvShows,
   });
 
-  RequestState _state = RequestState.Empty;
+  RequestState _state = RequestState.empty;
   RequestState get state => _state;
 
   List<category.Category> _searchResult = [];
@@ -23,38 +23,38 @@ class SearchNotifier extends ChangeNotifier {
   String get message => _message;
 
   Future<void> fetchMovieSearch(String query) async {
-    _state = RequestState.Loading;
+    _state = RequestState.loading;
     notifyListeners();
 
     final result = await searchMovies.execute(query);
     result.fold(
       (failure) {
         _message = failure.message;
-        _state = RequestState.Error;
+        _state = RequestState.error;
         notifyListeners();
       },
       (data) {
         _searchResult = data;
-        _state = RequestState.Loaded;
+        _state = RequestState.loaded;
         notifyListeners();
       },
     );
   }
 
   Future<void> fetchTvShowSearch(String query) async {
-    _state = RequestState.Loading;
+    _state = RequestState.loading;
     notifyListeners();
 
     final result = await searchTvShows.execute(query);
     result.fold(
       (failure) {
         _message = failure.message;
-        _state = RequestState.Error;
+        _state = RequestState.error;
         notifyListeners();
       },
       (data) {
         _searchResult = data;
-        _state = RequestState.Loaded;
+        _state = RequestState.loaded;
         notifyListeners();
       },
     );

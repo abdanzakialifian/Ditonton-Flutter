@@ -31,7 +31,7 @@ void main() {
 
   group('Get Airing Today Tv Shows', () {
     test('initial state should be empty', () {
-      expect(tvShowNotifier.airingTodayTvShowsState, RequestState.Empty);
+      expect(tvShowNotifier.airingTodayTvShowsState, RequestState.empty);
     });
 
     test('should call get airing today tv shows method from the usecase',
@@ -52,7 +52,7 @@ void main() {
       // act
       tvShowNotifier.fetchAiringTodayTvShows();
       // assert
-      expect(tvShowNotifier.airingTodayTvShowsState, RequestState.Loading);
+      expect(tvShowNotifier.airingTodayTvShowsState, RequestState.loading);
     });
 
     test(
@@ -64,25 +64,25 @@ void main() {
       // act
       await tvShowNotifier.fetchAiringTodayTvShows();
       // assert
-      expect(tvShowNotifier.airingTodayTvShowsState, RequestState.Loaded);
+      expect(tvShowNotifier.airingTodayTvShowsState, RequestState.loaded);
       expect(tvShowNotifier.airingTodayTvShows, dummyCategoryTvShows);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetAiringTodayTvShows.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await tvShowNotifier.fetchAiringTodayTvShows();
       // assert
-      expect(tvShowNotifier.airingTodayTvShowsState, RequestState.Error);
+      expect(tvShowNotifier.airingTodayTvShowsState, RequestState.error);
       expect(tvShowNotifier.message, 'Server Failure');
     });
   });
 
   group('Get Popular Tv Shows', () {
     test('initial state should be empty', () {
-      expect(tvShowNotifier.popularTvShowsState, RequestState.Empty);
+      expect(tvShowNotifier.popularTvShowsState, RequestState.empty);
     });
 
     test('should call get popular tv shows method from the usecase', () async {
@@ -102,7 +102,7 @@ void main() {
       // act
       tvShowNotifier.fetchPopularTvShows();
       // assert
-      expect(tvShowNotifier.popularTvShowsState, RequestState.Loading);
+      expect(tvShowNotifier.popularTvShowsState, RequestState.loading);
     });
 
     test(
@@ -114,25 +114,25 @@ void main() {
       // act
       await tvShowNotifier.fetchPopularTvShows();
       // assert
-      expect(tvShowNotifier.popularTvShowsState, RequestState.Loaded);
+      expect(tvShowNotifier.popularTvShowsState, RequestState.loaded);
       expect(tvShowNotifier.popularTvShows, dummyCategoryTvShows ?? []);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetPopularTvShows.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await tvShowNotifier.fetchPopularTvShows();
       // assert
-      expect(tvShowNotifier.popularTvShowsState, RequestState.Error);
+      expect(tvShowNotifier.popularTvShowsState, RequestState.error);
       expect(tvShowNotifier.message, 'Server Failure');
     });
   });
 
   group('Get Top Rated Tv Shows', () {
     test('initial state should be empty', () {
-      expect(tvShowNotifier.topRatedTvShowsState, RequestState.Empty);
+      expect(tvShowNotifier.topRatedTvShowsState, RequestState.empty);
     });
 
     test('should call get top rated tv shows method from the usecase',
@@ -153,7 +153,7 @@ void main() {
       // act
       tvShowNotifier.fetchTopRatedTvShows();
       // assert
-      expect(tvShowNotifier.topRatedTvShowsState, RequestState.Loading);
+      expect(tvShowNotifier.topRatedTvShowsState, RequestState.loading);
     });
 
     test(
@@ -165,18 +165,18 @@ void main() {
       // act
       await tvShowNotifier.fetchTopRatedTvShows();
       // assert
-      expect(tvShowNotifier.topRatedTvShowsState, RequestState.Loaded);
+      expect(tvShowNotifier.topRatedTvShowsState, RequestState.loaded);
       expect(tvShowNotifier.topRatedTvShows, dummyCategoryTvShows);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetTopRatedTvShows.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await tvShowNotifier.fetchTopRatedTvShows();
       // assert
-      expect(tvShowNotifier.topRatedTvShowsState, RequestState.Error);
+      expect(tvShowNotifier.topRatedTvShowsState, RequestState.error);
       expect(tvShowNotifier.message, 'Server Failure');
     });
   });

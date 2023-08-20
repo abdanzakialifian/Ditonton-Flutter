@@ -21,7 +21,7 @@ void main() {
   test('should save watchlist to the repository', () async {
     // arrange
     when(mockWatchlistRepository.saveWatchlist(dummyWatchlist))
-        .thenAnswer((_) async => Right('Added to Watchlist'));
+        .thenAnswer((_) async => const Right('Added to Watchlist'));
     // act
     final result = await saveWatchlist.execute(dummyWatchlist);
     // assert

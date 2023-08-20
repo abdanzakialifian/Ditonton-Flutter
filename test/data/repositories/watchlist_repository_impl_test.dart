@@ -41,7 +41,8 @@ void main() {
           await watchlistRepositoryImpl.saveWatchlist(dummyWatchlist);
       // assert
       verify(mockLocalDataSource.insertWatchlist(dummyWatchlistTable));
-      expect(result, isLeftThat(DatabaseFailure('Failed to add watchlist')));
+      expect(
+          result, isLeftThat(const DatabaseFailure('Failed to add watchlist')));
     });
   });
 
@@ -67,14 +68,15 @@ void main() {
           await watchlistRepositoryImpl.removeWatchlist(dummyWatchlist);
       // assert
       verify(mockLocalDataSource.removeWatchlist(dummyWatchlistTable));
-      expect(result, isLeftThat(DatabaseFailure('Failed to remove watchlist')));
+      expect(result,
+          isLeftThat(const DatabaseFailure('Failed to remove watchlist')));
     });
   });
 
   group('Get Watchlist Status', () {
     test('should return true watch status whether data is found', () async {
       // arrange
-      final dummyWatchlistId = 1;
+      const dummyWatchlistId = 1;
       when(mockLocalDataSource.getWatchlistById(dummyWatchlistId))
           .thenAnswer((_) async => dummyWatchlistTable);
       // act
@@ -88,7 +90,7 @@ void main() {
     test('should return false watch status whether data is not found',
         () async {
       // arrange
-      final dummyWatchlistId = 1;
+      const dummyWatchlistId = 1;
       when(mockLocalDataSource.getWatchlistById(dummyWatchlistId))
           .thenAnswer((_) async => null);
       // act

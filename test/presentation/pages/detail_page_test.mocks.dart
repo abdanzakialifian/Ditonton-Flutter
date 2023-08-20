@@ -183,7 +183,7 @@ class MockDetailNotifier extends _i1.Mock implements _i11.DetailNotifier {
   @override
   _i12.RequestState get detailState => (super.noSuchMethod(
         Invocation.getter(#detailState),
-        returnValue: _i12.RequestState.Empty,
+        returnValue: _i12.RequestState.empty,
       ) as _i12.RequestState);
   @override
   List<_i13.Category> get recommendations => (super.noSuchMethod(
@@ -193,7 +193,7 @@ class MockDetailNotifier extends _i1.Mock implements _i11.DetailNotifier {
   @override
   _i12.RequestState get recommendationState => (super.noSuchMethod(
         Invocation.getter(#recommendationState),
-        returnValue: _i12.RequestState.Empty,
+        returnValue: _i12.RequestState.empty,
       ) as _i12.RequestState);
   @override
   String get message => (super.noSuchMethod(
@@ -305,7 +305,7 @@ class MockWatchlistNotifier extends _i1.Mock implements _i16.WatchlistNotifier {
   @override
   _i12.RequestState get watchlistState => (super.noSuchMethod(
         Invocation.getter(#watchlistState),
-        returnValue: _i12.RequestState.Empty,
+        returnValue: _i12.RequestState.empty,
       ) as _i12.RequestState);
   @override
   String get message => (super.noSuchMethod(

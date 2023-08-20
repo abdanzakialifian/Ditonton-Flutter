@@ -25,7 +25,7 @@ void main() {
 
   group('Get Top Rated Movies', () {
     test('initial state should be empty', () {
-      expect(topRatedNotifier.state, RequestState.Empty);
+      expect(topRatedNotifier.state, RequestState.empty);
     });
 
     test('should call get top rated movies method from the usecase', () async {
@@ -45,7 +45,7 @@ void main() {
       // act
       topRatedNotifier.fetchTopRatedMovies();
       // assert
-      expect(topRatedNotifier.state, RequestState.Loading);
+      expect(topRatedNotifier.state, RequestState.loading);
     });
 
     test(
@@ -57,25 +57,25 @@ void main() {
       // act
       await topRatedNotifier.fetchTopRatedMovies();
       // assert
-      expect(topRatedNotifier.state, RequestState.Loaded);
+      expect(topRatedNotifier.state, RequestState.loaded);
       expect(topRatedNotifier.data, dummyCategoryMovies);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetTopRatedMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await topRatedNotifier.fetchTopRatedMovies();
       // assert
-      expect(topRatedNotifier.state, RequestState.Error);
+      expect(topRatedNotifier.state, RequestState.error);
       expect(topRatedNotifier.message, 'Server Failure');
     });
   });
 
   group('Get Top Rated Tv Shows', () {
     test('initial state should be empty', () {
-      expect(topRatedNotifier.state, RequestState.Empty);
+      expect(topRatedNotifier.state, RequestState.empty);
     });
 
     test('should call get top rated tv shows method from the usecase',
@@ -96,7 +96,7 @@ void main() {
       // act
       topRatedNotifier.fetchTopRatedTvShows();
       // assert
-      expect(topRatedNotifier.state, RequestState.Loading);
+      expect(topRatedNotifier.state, RequestState.loading);
     });
 
     test(
@@ -108,18 +108,18 @@ void main() {
       // act
       await topRatedNotifier.fetchTopRatedTvShows();
       // assert
-      expect(topRatedNotifier.state, RequestState.Loaded);
+      expect(topRatedNotifier.state, RequestState.loaded);
       expect(topRatedNotifier.data, dummyCategoryTvShows);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetTopRatedTvShows.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await topRatedNotifier.fetchTopRatedTvShows();
       // assert
-      expect(topRatedNotifier.state, RequestState.Error);
+      expect(topRatedNotifier.state, RequestState.error);
       expect(topRatedNotifier.message, 'Server Failure');
     });
   });

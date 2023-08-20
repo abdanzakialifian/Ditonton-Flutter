@@ -23,7 +23,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/movie/now_playing?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/movie/now_playing?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyMovieJsonResponse, 200),
@@ -39,7 +39,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/movie/now_playing?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/movie/now_playing?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyMovieEmptyJsonResponse, 200),
@@ -56,7 +56,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/movie/now_playing?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/movie/now_playing?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -76,7 +76,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/tv/airing_today?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/tv/airing_today?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyTvShowJsonResponse, 200),
@@ -92,7 +92,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/tv/airing_today?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/tv/airing_today?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyMovieEmptyJsonResponse, 200),
@@ -109,7 +109,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/tv/airing_today?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/tv/airing_today?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -122,13 +122,13 @@ void main() {
   });
 
   group('Get Movie Detail', () {
-    final dummyMovieId = 1;
+    const dummyMovieId = 1;
 
     test('should return movie detail when the response code is 200', () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/movie/$dummyMovieId?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/movie/$dummyMovieId?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(
@@ -145,7 +145,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/movie/$dummyMovieId?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/movie/$dummyMovieId?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -158,14 +158,14 @@ void main() {
   });
 
   group('Get Tv Show Detail', () {
-    final dummyTvShowId = 90521;
+    const dummyTvShowId = 90521;
 
     test('should return tv show detail when the response code is 200',
         () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/tv/$dummyTvShowId?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/tv/$dummyTvShowId?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(
@@ -182,7 +182,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/tv/$dummyTvShowId?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/tv/$dummyTvShowId?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -195,7 +195,7 @@ void main() {
   });
 
   group('Get Movie Recommendations', () {
-    final dummyMovieId = 1;
+    const dummyMovieId = 1;
     final dummyMovieRecommendationResponse = dummyMovieResponse.movieList;
 
     test(
@@ -205,7 +205,7 @@ void main() {
       when(
         mockHttpClient.get(
           Uri.parse(
-              '$DUMMY_BASE_URL/movie/$dummyMovieId/recommendations?$DUMMY_API_KEY'),
+              '$dummyBaseUrl/movie/$dummyMovieId/recommendations?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyMovieJsonResponse, 200),
@@ -224,7 +224,7 @@ void main() {
       when(
         mockHttpClient.get(
           Uri.parse(
-              '$DUMMY_BASE_URL/movie/$dummyMovieId/recommendations?$DUMMY_API_KEY'),
+              '$dummyBaseUrl/movie/$dummyMovieId/recommendations?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyMovieEmptyJsonResponse, 200),
@@ -242,7 +242,7 @@ void main() {
       when(
         mockHttpClient.get(
           Uri.parse(
-              '$DUMMY_BASE_URL/movie/$dummyMovieId/recommendations?$DUMMY_API_KEY'),
+              '$dummyBaseUrl/movie/$dummyMovieId/recommendations?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -255,7 +255,7 @@ void main() {
   });
 
   group('Get Tv Show Recommendations', () {
-    final dummyTvShowId = 90521;
+    const dummyTvShowId = 90521;
     final dummyTvShowRecommendationResponse = dummyTvShowResponse.tvShowList;
 
     test(
@@ -265,7 +265,7 @@ void main() {
       when(
         mockHttpClient.get(
           Uri.parse(
-              '$DUMMY_BASE_URL/tv/$dummyTvShowId/recommendations?$DUMMY_API_KEY'),
+              '$dummyBaseUrl/tv/$dummyTvShowId/recommendations?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyTvShowJsonResponse, 200),
@@ -284,7 +284,7 @@ void main() {
       when(
         mockHttpClient.get(
           Uri.parse(
-              '$DUMMY_BASE_URL/tv/$dummyTvShowId/recommendations?$DUMMY_API_KEY'),
+              '$dummyBaseUrl/tv/$dummyTvShowId/recommendations?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyTvShowEmptyJsonResponse, 200),
@@ -302,7 +302,7 @@ void main() {
       when(
         mockHttpClient.get(
           Uri.parse(
-              '$DUMMY_BASE_URL/tv/$dummyTvShowId/recommendations?$DUMMY_API_KEY'),
+              '$dummyBaseUrl/tv/$dummyTvShowId/recommendations?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -323,7 +323,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/movie/popular?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/movie/popular?$dummyApiKey'),
         ),
       ).thenAnswer((_) async => http.Response(dummyMovieJsonResponse, 200));
       // act
@@ -337,7 +337,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/movie/popular?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/movie/popular?$dummyApiKey'),
         ),
       ).thenAnswer(
           (_) async => http.Response(dummyMovieEmptyJsonResponse, 200));
@@ -353,7 +353,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/movie/popular?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/movie/popular?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -373,7 +373,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/tv/popular?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/tv/popular?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyTvShowJsonResponse, 200),
@@ -389,7 +389,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/tv/popular?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/tv/popular?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyTvShowEmptyJsonResponse, 200),
@@ -406,7 +406,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/tv/popular?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/tv/popular?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -425,7 +425,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/movie/top_rated?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/movie/top_rated?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyMovieJsonResponse, 200),
@@ -441,7 +441,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/movie/top_rated?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/movie/top_rated?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyMovieEmptyJsonResponse, 200),
@@ -457,7 +457,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/movie/top_rated?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/movie/top_rated?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -476,7 +476,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/tv/top_rated?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/tv/top_rated?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyTvShowJsonResponse, 200),
@@ -492,7 +492,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/tv/top_rated?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/tv/top_rated?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyMovieEmptyJsonResponse, 200),
@@ -508,7 +508,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse('$DUMMY_BASE_URL/tv/top_rated?$DUMMY_API_KEY'),
+          Uri.parse('$dummyBaseUrl/tv/top_rated?$dummyApiKey'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -521,7 +521,7 @@ void main() {
   });
 
   group('Search Movies', () {
-    final dummyQuery = 'Title';
+    const dummyQuery = 'Title';
     final dummySearchMoviesResponse = dummyMovieResponse.movieList;
 
     test('should return list of movies when response code is 200', () async {
@@ -529,7 +529,7 @@ void main() {
       when(
         mockHttpClient.get(
           Uri.parse(
-              '$DUMMY_BASE_URL/search/movie?$DUMMY_API_KEY&query=$dummyQuery'),
+              '$dummyBaseUrl/search/movie?$dummyApiKey&query=$dummyQuery'),
         ),
       ).thenAnswer((_) async => http.Response(dummyMovieJsonResponse, 200));
       // act
@@ -544,7 +544,7 @@ void main() {
       when(
         mockHttpClient.get(
           Uri.parse(
-              '$DUMMY_BASE_URL/search/movie?$DUMMY_API_KEY&query=$dummyQuery'),
+              '$dummyBaseUrl/search/movie?$dummyApiKey&query=$dummyQuery'),
         ),
       ).thenAnswer(
           (_) async => http.Response(dummyMovieEmptyJsonResponse, 200));
@@ -560,7 +560,7 @@ void main() {
       when(
         mockHttpClient.get(
           Uri.parse(
-              '$DUMMY_BASE_URL/search/movie?$DUMMY_API_KEY&query=$dummyQuery'),
+              '$dummyBaseUrl/search/movie?$dummyApiKey&query=$dummyQuery'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),
@@ -573,15 +573,14 @@ void main() {
   });
 
   group('Search Tv Shows', () {
-    final dummyQuery = 'Here it all begins';
+    const dummyQuery = 'Here it all begins';
     final dummySearchTvShowsResponse = dummyTvShowResponse.tvShowList;
 
     test('should return list of tv shows when response code is 200', () async {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse(
-              '$DUMMY_BASE_URL/search/tv?$DUMMY_API_KEY&query=$dummyQuery'),
+          Uri.parse('$dummyBaseUrl/search/tv?$dummyApiKey&query=$dummyQuery'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyTvShowJsonResponse, 200),
@@ -597,8 +596,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse(
-              '$DUMMY_BASE_URL/search/tv?$DUMMY_API_KEY&query=$dummyQuery'),
+          Uri.parse('$dummyBaseUrl/search/tv?$dummyApiKey&query=$dummyQuery'),
         ),
       ).thenAnswer(
         (_) async => http.Response(dummyTvShowEmptyJsonResponse, 200),
@@ -614,8 +612,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.get(
-          Uri.parse(
-              '$DUMMY_BASE_URL/search/tv?$DUMMY_API_KEY&query=$dummyQuery'),
+          Uri.parse('$dummyBaseUrl/search/tv?$dummyApiKey&query=$dummyQuery'),
         ),
       ).thenAnswer(
         (_) async => http.Response('Not Found', 404),

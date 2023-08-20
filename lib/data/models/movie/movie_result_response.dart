@@ -35,7 +35,7 @@ class MovieResultResponse extends Equatable {
   @JsonKey(name: "vote_count")
   final int? voteCount;
 
-  MovieResultResponse({
+  const MovieResultResponse({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,
@@ -58,10 +58,10 @@ class MovieResultResponse extends Equatable {
   Map<String, dynamic> toJson() => _$MovieResultResponseToJson(this);
 
   Category toCategory() => Category(
-        id: this.id,
-        overview: this.overview,
-        posterPath: this.posterPath,
-        title: this.title,
+        id: id,
+        overview: overview,
+        posterPath: posterPath,
+        title: title,
       );
 
   @override

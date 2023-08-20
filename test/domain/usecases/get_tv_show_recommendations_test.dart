@@ -15,7 +15,7 @@ void main() {
     getTvShowRecommendations = GetTvShowRecommendations(mockTvShowRepository);
   });
 
-  final dummyTvShowId = 90521;
+  const dummyTvShowId = 90521;
 
   test('should get list of tv shows recommendations from the repository',
       () async {

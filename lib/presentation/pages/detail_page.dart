@@ -54,11 +54,11 @@ class DetailPageState extends State<DetailPage> {
     return Scaffold(
       body: Consumer<DetailNotifier>(
         builder: (context, provider, child) {
-          if (provider.detailState == RequestState.Loading) {
+          if (provider.detailState == RequestState.loading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.detailState == RequestState.Loaded) {
+          } else if (provider.detailState == RequestState.loaded) {
             return DetailContent(
               provider.detail,
               provider.recommendations,
@@ -258,13 +258,13 @@ class DetailContent extends StatelessWidget {
             : const SizedBox.shrink(),
         Consumer<DetailNotifier>(
           builder: (context, data, child) {
-            if (data.recommendationState == RequestState.Loading) {
+            if (data.recommendationState == RequestState.loading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.recommendationState == RequestState.Error) {
+            } else if (data.recommendationState == RequestState.error) {
               return Text(data.message);
-            } else if (data.recommendationState == RequestState.Loaded) {
+            } else if (data.recommendationState == RequestState.loaded) {
               return _setUpListRecommendations();
             } else {
               return Container();
@@ -332,7 +332,7 @@ class DetailContent extends StatelessWidget {
                   ? InkWell(
                       onTap: () => Navigator.pushNamed(
                         context,
-                        SeasonPage.ROUTE_NAME,
+                        SeasonPage.routeName,
                         arguments: seasons,
                       ),
                       child: const Padding(

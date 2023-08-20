@@ -66,7 +66,7 @@ void main() {
   });
 
   group('Get Watchlist List By Id', () {
-    final tId = 1;
+    const tId = 1;
 
     test('should return watchlist by id when data is found', () async {
       // arrange

@@ -16,7 +16,7 @@ class CreatedByResponse extends Equatable {
   @JsonKey(name: "profile_path")
   final String? profilePath;
 
-  CreatedByResponse({
+  const CreatedByResponse({
     this.id,
     this.creditId,
     this.name,

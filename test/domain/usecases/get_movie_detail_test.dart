@@ -15,7 +15,7 @@ void main() {
     getMovieDetail = GetMovieDetail(mockMovieRepository);
   });
 
-  final dummyMovieId = 1;
+  const dummyMovieId = 1;
   final dummyDetail = dummyMovieDetailResponse.toDetail();
 
   test('should get movie detail from the repository', () async {

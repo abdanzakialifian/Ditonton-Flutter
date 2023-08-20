@@ -13,12 +13,12 @@ class SeasonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Season Tv Show"),
+        title: const Text("Season Tv Show"),
       ),
       body: Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: ListView.separated(
-          separatorBuilder: (context, index) => SizedBox(height: 6),
+          separatorBuilder: (context, index) => const SizedBox(height: 6),
           itemCount: seasons.length,
           itemBuilder: (context, index) {
             final season = seasons[index];

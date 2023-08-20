@@ -25,7 +25,7 @@ void main() {
 
   group('Get Popular Movies', () {
     test('initial state should be empty', () {
-      expect(popularNotifier.state, RequestState.Empty);
+      expect(popularNotifier.state, RequestState.empty);
     });
 
     test('should call get popular movies method from the usecase', () async {
@@ -45,7 +45,7 @@ void main() {
       // act
       popularNotifier.fetchPopularMovies();
       // assert
-      expect(popularNotifier.state, RequestState.Loading);
+      expect(popularNotifier.state, RequestState.loading);
     });
 
     test(
@@ -57,25 +57,25 @@ void main() {
       // act
       await popularNotifier.fetchPopularMovies();
       // assert
-      expect(popularNotifier.state, RequestState.Loaded);
+      expect(popularNotifier.state, RequestState.loaded);
       expect(popularNotifier.data, dummyCategoryMovies ?? []);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetPopularMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await popularNotifier.fetchPopularMovies();
       // assert
-      expect(popularNotifier.state, RequestState.Error);
+      expect(popularNotifier.state, RequestState.error);
       expect(popularNotifier.message, 'Server Failure');
     });
   });
 
   group('Get Popular Tv Shows', () {
     test('initial state should be empty', () {
-      expect(popularNotifier.state, RequestState.Empty);
+      expect(popularNotifier.state, RequestState.empty);
     });
 
     test('should call get popular tv shows method from the usecase', () async {
@@ -95,7 +95,7 @@ void main() {
       // act
       popularNotifier.fetchPopularTvShows();
       // assert
-      expect(popularNotifier.state, RequestState.Loading);
+      expect(popularNotifier.state, RequestState.loading);
     });
 
     test(
@@ -107,18 +107,18 @@ void main() {
       // act
       await popularNotifier.fetchPopularTvShows();
       // assert
-      expect(popularNotifier.state, RequestState.Loaded);
+      expect(popularNotifier.state, RequestState.loaded);
       expect(popularNotifier.data, dummyCategoryTvShows ?? []);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetPopularTvShows.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await popularNotifier.fetchPopularTvShows();
       // assert
-      expect(popularNotifier.state, RequestState.Error);
+      expect(popularNotifier.state, RequestState.error);
       expect(popularNotifier.message, 'Server Failure');
     });
   });

@@ -41,7 +41,7 @@ class _MoviesPageState extends State<MoviesPage> {
               title: 'Now Playing',
               onTap: () => Navigator.pushNamed(
                 context,
-                NowPlayingPage.ROUTE_NAME,
+                NowPlayingPage.routeName,
                 arguments: widget.type,
               ),
             ),
@@ -50,7 +50,7 @@ class _MoviesPageState extends State<MoviesPage> {
               title: 'Popular',
               onTap: () => Navigator.pushNamed(
                 context,
-                PopularPage.ROUTE_NAME,
+                PopularPage.routeName,
                 arguments: widget.type,
               ),
             ),
@@ -59,7 +59,7 @@ class _MoviesPageState extends State<MoviesPage> {
               title: 'Top Rated',
               onTap: () => Navigator.pushNamed(
                 context,
-                TopRatedPage.ROUTE_NAME,
+                TopRatedPage.routeName,
                 arguments: widget.type,
               ),
             ),
@@ -74,11 +74,11 @@ class _MoviesPageState extends State<MoviesPage> {
     return Consumer<MovieNotifier>(
       builder: (context, data, child) {
         final state = data.nowPlayingState;
-        if (state == RequestState.Loading) {
+        if (state == RequestState.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state == RequestState.Loaded) {
+        } else if (state == RequestState.loaded) {
           return _moviesList(data.nowPlayingMovies);
         } else {
           return const Text('Failed');
@@ -91,11 +91,11 @@ class _MoviesPageState extends State<MoviesPage> {
     return Consumer<MovieNotifier>(
       builder: (context, data, child) {
         final state = data.popularMoviesState;
-        if (state == RequestState.Loading) {
+        if (state == RequestState.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state == RequestState.Loaded) {
+        } else if (state == RequestState.loaded) {
           return _moviesList(data.popularMovies);
         } else {
           return const Text('Failed');
@@ -108,11 +108,11 @@ class _MoviesPageState extends State<MoviesPage> {
     return Consumer<MovieNotifier>(
       builder: (context, data, child) {
         final state = data.topRatedMoviesState;
-        if (state == RequestState.Loading) {
+        if (state == RequestState.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state == RequestState.Loaded) {
+        } else if (state == RequestState.loaded) {
           return _moviesList(data.topRatedMovies);
         } else {
           return const Text('Failed');

@@ -24,10 +24,12 @@ import 'package:ditonton/locator/injection.dart' as di;
 
 void main() {
   di.init();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -66,13 +68,13 @@ class MyApp extends StatelessWidget {
           textTheme: kTextTheme,
         ),
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: const HomePage(),
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
-            case HomePage.ROUTE_NAME:
-              return MaterialPageRoute(builder: (_) => HomePage());
-            case NowPlayingPage.ROUTE_NAME:
+            case HomePage.routeName:
+              return MaterialPageRoute(builder: (_) => const HomePage());
+            case NowPlayingPage.routeName:
               final type = settings.arguments as String;
               return MaterialPageRoute(
                 builder: (_) => NowPlayingPage(
@@ -80,13 +82,13 @@ class MyApp extends StatelessWidget {
                 ),
                 settings: settings,
               );
-            case PopularPage.ROUTE_NAME:
+            case PopularPage.routeName:
               final type = settings.arguments as String;
               return MaterialPageRoute(
                 builder: (_) => PopularPage(type: type),
                 settings: settings,
               );
-            case TopRatedPage.ROUTE_NAME:
+            case TopRatedPage.routeName:
               final type = settings.arguments as String;
               return MaterialPageRoute(
                 builder: (_) => TopRatedPage(
@@ -94,7 +96,7 @@ class MyApp extends StatelessWidget {
                 ),
                 settings: settings,
               );
-            case DetailPage.ROUTE_NAME:
+            case DetailPage.routeName:
               final data = settings.arguments as List<dynamic>;
               return MaterialPageRoute(
                 builder: (_) => DetailPage(
@@ -103,27 +105,27 @@ class MyApp extends StatelessWidget {
                 ),
                 settings: settings,
               );
-            case SeasonPage.ROUTE_NAME:
+            case SeasonPage.routeName:
               final data = settings.arguments as List<Season>;
               return MaterialPageRoute(
                 builder: (context) => SeasonPage(seasons: data),
                 settings: settings,
               );
-            case SearchPage.ROUTE_NAME:
+            case SearchPage.routeName:
               final type = settings.arguments as String;
               return MaterialPageRoute(
                 builder: (_) => SearchPage(
                   type: type,
                 ),
               );
-            case WatchlistPage.ROUTE_NAME:
-              return MaterialPageRoute(builder: (_) => WatchlistPage());
-            case AboutPage.ROUTE_NAME:
-              return MaterialPageRoute(builder: (_) => AboutPage());
+            case WatchlistPage.routeName:
+              return MaterialPageRoute(builder: (_) => const WatchlistPage());
+            case AboutPage.routeName:
+              return MaterialPageRoute(builder: (_) => const AboutPage());
             default:
               return MaterialPageRoute(
                 builder: (_) {
-                  return Scaffold(
+                  return const Scaffold(
                     body: Center(
                       child: Text('Page not found :('),
                     ),

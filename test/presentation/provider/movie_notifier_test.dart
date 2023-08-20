@@ -31,7 +31,7 @@ void main() {
 
   group('Get Now Playing Movies', () {
     test('initial state should be empty', () {
-      expect(movieNotifier.nowPlayingState, RequestState.Empty);
+      expect(movieNotifier.nowPlayingState, RequestState.empty);
     });
 
     test('should call get now playing movies method from the usecase',
@@ -52,7 +52,7 @@ void main() {
       // act
       movieNotifier.fetchNowPlayingMovies();
       // assert
-      expect(movieNotifier.nowPlayingState, RequestState.Loading);
+      expect(movieNotifier.nowPlayingState, RequestState.loading);
     });
 
     test(
@@ -64,25 +64,25 @@ void main() {
       // act
       await movieNotifier.fetchNowPlayingMovies();
       // assert
-      expect(movieNotifier.nowPlayingState, RequestState.Loaded);
+      expect(movieNotifier.nowPlayingState, RequestState.loaded);
       expect(movieNotifier.nowPlayingMovies, dummyCategoryMovies);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetNowPlayingMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await movieNotifier.fetchNowPlayingMovies();
       // assert
-      expect(movieNotifier.nowPlayingState, RequestState.Error);
+      expect(movieNotifier.nowPlayingState, RequestState.error);
       expect(movieNotifier.message, 'Server Failure');
     });
   });
 
   group('Get Popular Movies', () {
     test('initial state should be empty', () {
-      expect(movieNotifier.popularMoviesState, RequestState.Empty);
+      expect(movieNotifier.popularMoviesState, RequestState.empty);
     });
 
     test('should call get popular movies method from the usecase', () async {
@@ -102,7 +102,7 @@ void main() {
       // act
       movieNotifier.fetchPopularMovies();
       // assert
-      expect(movieNotifier.popularMoviesState, RequestState.Loading);
+      expect(movieNotifier.popularMoviesState, RequestState.loading);
     });
 
     test(
@@ -114,25 +114,25 @@ void main() {
       // act
       await movieNotifier.fetchPopularMovies();
       // assert
-      expect(movieNotifier.popularMoviesState, RequestState.Loaded);
+      expect(movieNotifier.popularMoviesState, RequestState.loaded);
       expect(movieNotifier.popularMovies, dummyCategoryMovies);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetPopularMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await movieNotifier.fetchPopularMovies();
       // assert
-      expect(movieNotifier.popularMoviesState, RequestState.Error);
+      expect(movieNotifier.popularMoviesState, RequestState.error);
       expect(movieNotifier.message, 'Server Failure');
     });
   });
 
   group('Get Top Rated Movies', () {
     test('initial state should be empty', () {
-      expect(movieNotifier.topRatedMoviesState, RequestState.Empty);
+      expect(movieNotifier.topRatedMoviesState, RequestState.empty);
     });
 
     test('should call get top rated movies method from the usecase', () async {
@@ -152,7 +152,7 @@ void main() {
       // act
       movieNotifier.fetchTopRatedMovies();
       // assert
-      expect(movieNotifier.topRatedMoviesState, RequestState.Loading);
+      expect(movieNotifier.topRatedMoviesState, RequestState.loading);
     });
 
     test(
@@ -164,18 +164,18 @@ void main() {
       // act
       await movieNotifier.fetchTopRatedMovies();
       // assert
-      expect(movieNotifier.topRatedMoviesState, RequestState.Loaded);
+      expect(movieNotifier.topRatedMoviesState, RequestState.loaded);
       expect(movieNotifier.topRatedMovies, dummyCategoryMovies);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetTopRatedMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await movieNotifier.fetchTopRatedMovies();
       // assert
-      expect(movieNotifier.topRatedMoviesState, RequestState.Error);
+      expect(movieNotifier.topRatedMoviesState, RequestState.error);
       expect(movieNotifier.message, 'Server Failure');
     });
   });

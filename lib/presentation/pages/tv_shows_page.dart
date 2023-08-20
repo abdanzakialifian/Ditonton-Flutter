@@ -74,11 +74,11 @@ class _TvShowsPageState extends State<TvShowsPage> {
     return Consumer<TvShowNotifier>(
       builder: (context, data, child) {
         final state = data.airingTodayTvShowsState;
-        if (state == RequestState.Loading) {
+        if (state == RequestState.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state == RequestState.Loaded) {
+        } else if (state == RequestState.loaded) {
           return _tvShowsList(data.airingTodayTvShows);
         } else {
           return const Text('Failed');
@@ -91,11 +91,11 @@ class _TvShowsPageState extends State<TvShowsPage> {
     return Consumer<TvShowNotifier>(
       builder: (context, data, child) {
         final state = data.popularTvShowsState;
-        if (state == RequestState.Loading) {
+        if (state == RequestState.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state == RequestState.Loaded) {
+        } else if (state == RequestState.loaded) {
           return _tvShowsList(data.popularTvShows);
         } else {
           return const Text('Failed');
@@ -108,11 +108,11 @@ class _TvShowsPageState extends State<TvShowsPage> {
     return Consumer<TvShowNotifier>(
       builder: (context, data, child) {
         final state = data.topRatedTvShowsState;
-        if (state == RequestState.Loading) {
+        if (state == RequestState.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state == RequestState.Loaded) {
+        } else if (state == RequestState.loaded) {
           return _tvShowsList(data.topRatedTvShows);
         } else {
           return const Text('Failed');

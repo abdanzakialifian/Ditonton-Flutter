@@ -21,7 +21,7 @@ void main() {
   test('should remove watchlist watchlist from repository', () async {
     // arrange
     when(mockWatchlistRepository.removeWatchlist(dummyWatchlist))
-        .thenAnswer((_) async => Right('Removed from watchlist'));
+        .thenAnswer((_) async => const Right('Removed from watchlist'));
     // act
     final result = await removeWatchlist.execute(dummyWatchlist);
     // assert

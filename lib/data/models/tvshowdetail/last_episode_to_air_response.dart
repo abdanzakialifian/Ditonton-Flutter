@@ -32,7 +32,7 @@ class LastEpisodeToAirResponse extends Equatable {
   @JsonKey(name: "still_path")
   final String? stillPath;
 
-  LastEpisodeToAirResponse({
+  const LastEpisodeToAirResponse({
     this.id,
     this.name,
     this.overview,

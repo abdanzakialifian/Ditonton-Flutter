@@ -12,7 +12,7 @@ void main() {
     getWatchListStatus = GetWatchListStatus(mockWatchlistRepository);
   });
 
-  final dummyWatchlistId = 1;
+  const dummyWatchlistId = 1;
 
   group('Get Watchlist Status', () {
     test('should get watchlist status true from repository', () async {

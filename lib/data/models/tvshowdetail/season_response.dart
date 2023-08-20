@@ -23,7 +23,7 @@ class SeasonResponse extends Equatable {
   @JsonKey(name: "vote_average")
   final double? voteAverage;
 
-  SeasonResponse({
+  const SeasonResponse({
     this.airDate,
     this.episodeCount,
     this.id,

@@ -34,7 +34,7 @@ void main() {
     test('should get list empty of watchlist from the repository', () async {
       // arrange
       when(mockWatchlistRepository.getWatchlist())
-          .thenAnswer((_) async => Right([]));
+          .thenAnswer((_) async => const Right([]));
       // act
       final result = await getWatchlist.execute();
       // assert

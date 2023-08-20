@@ -25,13 +25,13 @@ void main() {
     );
   });
 
-  final dummyQueryMovie = 'Title';
+  const dummyQueryMovie = 'Title';
 
-  final dummyQueryTvShow = "Here it all begins";
+  const dummyQueryTvShow = "Here it all begins";
 
   group('Search Movies', () {
     test('initial state should be empty', () {
-      expect(searchNotifier.state, RequestState.Empty);
+      expect(searchNotifier.state, RequestState.empty);
     });
 
     test('should call search movies method from the usecase', () async {
@@ -51,7 +51,7 @@ void main() {
       // act
       searchNotifier.fetchMovieSearch(dummyQueryMovie);
       // assert
-      expect(searchNotifier.state, RequestState.Loading);
+      expect(searchNotifier.state, RequestState.loading);
     });
 
     test(
@@ -63,25 +63,25 @@ void main() {
       // act
       await searchNotifier.fetchMovieSearch(dummyQueryMovie);
       // assert
-      expect(searchNotifier.state, RequestState.Loaded);
+      expect(searchNotifier.state, RequestState.loaded);
       expect(searchNotifier.searchResult, dummyCategoryMovies);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockSearchMovies.execute(dummyQueryMovie))
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await searchNotifier.fetchMovieSearch(dummyQueryMovie);
       // assert
-      expect(searchNotifier.state, RequestState.Error);
+      expect(searchNotifier.state, RequestState.error);
       expect(searchNotifier.message, 'Server Failure');
     });
   });
 
   group('Search Tv Shows', () {
     test('initial state should be empty', () {
-      expect(searchNotifier.state, RequestState.Empty);
+      expect(searchNotifier.state, RequestState.empty);
     });
 
     test('should call search tv shows method from the usecase', () async {
@@ -101,7 +101,7 @@ void main() {
       // act
       searchNotifier.fetchTvShowSearch(dummyQueryTvShow);
       // assert
-      expect(searchNotifier.state, RequestState.Loading);
+      expect(searchNotifier.state, RequestState.loading);
     });
 
     test(
@@ -113,18 +113,18 @@ void main() {
       // act
       await searchNotifier.fetchTvShowSearch(dummyQueryTvShow);
       // assert
-      expect(searchNotifier.state, RequestState.Loaded);
+      expect(searchNotifier.state, RequestState.loaded);
       expect(searchNotifier.searchResult, dummyCategoryTvShows);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockSearchTvShows.execute(dummyQueryTvShow))
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await searchNotifier.fetchTvShowSearch(dummyQueryTvShow);
       // assert
-      expect(searchNotifier.state, RequestState.Error);
+      expect(searchNotifier.state, RequestState.error);
       expect(searchNotifier.message, 'Server Failure');
     });
   });

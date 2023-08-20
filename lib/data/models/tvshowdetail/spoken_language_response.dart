@@ -12,7 +12,7 @@ class SpokenLanguageResponse extends Equatable {
   @JsonKey(name: "name")
   final String? name;
 
-  SpokenLanguageResponse({
+  const SpokenLanguageResponse({
     this.englishName,
     this.iso6391,
     this.name,

@@ -15,7 +15,7 @@ void main() {
     searchTvShows = SearchTvShows(mockTvShowRepository);
   });
 
-  final dummyQuery = 'Here it all begins';
+  const dummyQuery = 'Here it all begins';
 
   test('should get list of tv shows from the repository', () async {
     // arrange

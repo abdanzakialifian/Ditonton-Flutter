@@ -14,7 +14,7 @@ class NetworkResponse extends Equatable {
   @JsonKey(name: "origin_country")
   final String? originCountry;
 
-  NetworkResponse({
+  const NetworkResponse({
     this.id,
     this.logoPath,
     this.name,

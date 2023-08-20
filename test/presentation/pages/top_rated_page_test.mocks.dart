@@ -73,7 +73,7 @@ class MockTopRatedNotifier extends _i1.Mock implements _i4.TopRatedNotifier {
   @override
   _i5.RequestState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i5.RequestState.Empty,
+        returnValue: _i5.RequestState.empty,
       ) as _i5.RequestState);
   @override
   List<_i6.Category> get data => (super.noSuchMethod(

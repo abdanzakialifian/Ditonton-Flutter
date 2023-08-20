@@ -15,7 +15,7 @@ void main() {
     getMovieRecommendations = GetMovieRecommendations(mockMovieRepository);
   });
 
-  final dummyMovieId = 1;
+  const dummyMovieId = 1;
 
   test('should get list of movie recommendations from the repository',
       () async {

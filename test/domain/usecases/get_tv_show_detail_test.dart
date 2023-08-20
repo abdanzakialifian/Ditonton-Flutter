@@ -15,7 +15,7 @@ void main() {
     getTvShowDetail = GetTvShowDetail(mockTvShowRepository);
   });
 
-  final dummyTvShowId = 90521;
+  const dummyTvShowId = 90521;
   final dummyDetail = dummyTvShowDetailResponse.toEntity();
 
   test('should get tv show detail from the repository', () async {

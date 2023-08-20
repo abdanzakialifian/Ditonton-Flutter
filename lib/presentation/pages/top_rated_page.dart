@@ -6,21 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TopRatedPage extends StatefulWidget {
-  static const ROUTE_NAME = '/top-rated';
+  static const routeName = '/top-rated';
   final String? type;
 
   const TopRatedPage({Key? key, required this.type}) : super(key: key);
 
   @override
-  _TopRatedPageState createState() => _TopRatedPageState();
+  TopRatedPageState createState() => TopRatedPageState();
 }
 
-class _TopRatedPageState extends State<TopRatedPage> {
+class TopRatedPageState extends State<TopRatedPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(
-      () => widget.type == MOVIES
+      () => widget.type == movies
           ? Provider.of<TopRatedNotifier>(context, listen: false)
               .fetchTopRatedMovies()
           : Provider.of<TopRatedNotifier>(context, listen: false)
@@ -33,7 +33,7 @@ class _TopRatedPageState extends State<TopRatedPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.type == MOVIES ? 'Top Rated Movies' : 'Top Rated Tv Shows',
+          widget.type == movies ? 'Top Rated Movies' : 'Top Rated Tv Shows',
         ),
       ),
       body: Padding(
@@ -44,11 +44,11 @@ class _TopRatedPageState extends State<TopRatedPage> {
   Widget _setUpList(String? type) {
     return Consumer<TopRatedNotifier>(
       builder: (context, data, child) {
-        if (data.state == RequestState.Loading) {
-          return Center(
+        if (data.state == RequestState.loading) {
+          return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (data.state == RequestState.Loaded) {
+        } else if (data.state == RequestState.loaded) {
           return ListView.builder(
             itemBuilder: (context, index) {
               final result = data.data[index];
@@ -61,7 +61,7 @@ class _TopRatedPageState extends State<TopRatedPage> {
           );
         } else {
           return Center(
-            key: Key('error_message'),
+            key: const Key('error_message'),
             child: Text(data.message),
           );
         }

@@ -34,10 +34,10 @@ void main() {
     testWidgets(
         'Watchlist button should display add icon when movie not added to watchlist',
         (WidgetTester tester) async {
-      when(mockDetailNotifier.detailState).thenReturn(RequestState.Loaded);
+      when(mockDetailNotifier.detailState).thenReturn(RequestState.loaded);
       when(mockDetailNotifier.detail).thenReturn(testMovieDetail);
       when(mockDetailNotifier.recommendationState)
-          .thenReturn(RequestState.Loaded);
+          .thenReturn(RequestState.loaded);
       when(mockDetailNotifier.recommendations)
           .thenReturn(dummyCategoryMovies ?? []);
       when(mockWatchlistNotifier.isAddedToWatchlist).thenReturn(false);
@@ -60,10 +60,10 @@ void main() {
     testWidgets(
         'Watchlist button should dispay check icon when movie is added to wathclist',
         (WidgetTester tester) async {
-      when(mockDetailNotifier.detailState).thenReturn(RequestState.Loaded);
+      when(mockDetailNotifier.detailState).thenReturn(RequestState.loaded);
       when(mockDetailNotifier.detail).thenReturn(testMovieDetail);
       when(mockDetailNotifier.recommendationState)
-          .thenReturn(RequestState.Loaded);
+          .thenReturn(RequestState.loaded);
       when(mockDetailNotifier.recommendations)
           .thenReturn(dummyCategoryMovies ?? []);
       when(mockWatchlistNotifier.isAddedToWatchlist).thenReturn(true);
@@ -86,10 +86,10 @@ void main() {
     testWidgets(
         'Watchlist button should display Snackbar when added to watchlist',
         (WidgetTester tester) async {
-      when(mockDetailNotifier.detailState).thenReturn(RequestState.Loaded);
+      when(mockDetailNotifier.detailState).thenReturn(RequestState.loaded);
       when(mockDetailNotifier.detail).thenReturn(testMovieDetail);
       when(mockDetailNotifier.recommendationState)
-          .thenReturn(RequestState.Loaded);
+          .thenReturn(RequestState.loaded);
       when(mockDetailNotifier.recommendations)
           .thenReturn(dummyCategoryMovies ?? []);
       when(mockWatchlistNotifier.isAddedToWatchlist).thenReturn(false);
@@ -116,10 +116,10 @@ void main() {
     testWidgets(
         'Watchlist button should display AlertDialog when add to watchlist failed',
         (WidgetTester tester) async {
-      when(mockDetailNotifier.detailState).thenReturn(RequestState.Loaded);
+      when(mockDetailNotifier.detailState).thenReturn(RequestState.loaded);
       when(mockDetailNotifier.detail).thenReturn(testMovieDetail);
       when(mockDetailNotifier.recommendationState)
-          .thenReturn(RequestState.Loaded);
+          .thenReturn(RequestState.loaded);
       when(mockDetailNotifier.recommendations)
           .thenReturn(dummyCategoryMovies ?? []);
       when(mockWatchlistNotifier.isAddedToWatchlist).thenReturn(false);
@@ -151,10 +151,10 @@ void main() {
     testWidgets(
         'Watchlist button should display add icon when movie not added to watchlist',
         (WidgetTester tester) async {
-      when(mockDetailNotifier.detailState).thenReturn(RequestState.Loaded);
+      when(mockDetailNotifier.detailState).thenReturn(RequestState.loaded);
       when(mockDetailNotifier.detail).thenReturn(testMovieDetail);
       when(mockDetailNotifier.recommendationState)
-          .thenReturn(RequestState.Loaded);
+          .thenReturn(RequestState.loaded);
       when(mockDetailNotifier.recommendations)
           .thenReturn(dummyCategoryTvShows ?? []);
       when(mockWatchlistNotifier.isAddedToWatchlist).thenReturn(false);
@@ -177,10 +177,10 @@ void main() {
     testWidgets(
         'Watchlist button should dispay check icon when movie is added to wathclist',
         (WidgetTester tester) async {
-      when(mockDetailNotifier.detailState).thenReturn(RequestState.Loaded);
+      when(mockDetailNotifier.detailState).thenReturn(RequestState.loaded);
       when(mockDetailNotifier.detail).thenReturn(testMovieDetail);
       when(mockDetailNotifier.recommendationState)
-          .thenReturn(RequestState.Loaded);
+          .thenReturn(RequestState.loaded);
       when(mockDetailNotifier.recommendations)
           .thenReturn(dummyCategoryTvShows ?? []);
       when(mockWatchlistNotifier.isAddedToWatchlist).thenReturn(true);
@@ -203,10 +203,10 @@ void main() {
     testWidgets(
         'Watchlist button should display Snackbar when added to watchlist',
         (WidgetTester tester) async {
-      when(mockDetailNotifier.detailState).thenReturn(RequestState.Loaded);
+      when(mockDetailNotifier.detailState).thenReturn(RequestState.loaded);
       when(mockDetailNotifier.detail).thenReturn(testMovieDetail);
       when(mockDetailNotifier.recommendationState)
-          .thenReturn(RequestState.Loaded);
+          .thenReturn(RequestState.loaded);
       when(mockDetailNotifier.recommendations)
           .thenReturn(dummyCategoryTvShows ?? []);
       when(mockWatchlistNotifier.isAddedToWatchlist).thenReturn(false);
@@ -233,10 +233,10 @@ void main() {
     testWidgets(
         'Watchlist button should display AlertDialog when add to watchlist failed',
         (WidgetTester tester) async {
-      when(mockDetailNotifier.detailState).thenReturn(RequestState.Loaded);
+      when(mockDetailNotifier.detailState).thenReturn(RequestState.loaded);
       when(mockDetailNotifier.detail).thenReturn(testMovieDetail);
       when(mockDetailNotifier.recommendationState)
-          .thenReturn(RequestState.Loaded);
+          .thenReturn(RequestState.loaded);
       when(mockDetailNotifier.recommendations)
           .thenReturn(dummyCategoryTvShows ?? []);
       when(mockWatchlistNotifier.isAddedToWatchlist).thenReturn(false);

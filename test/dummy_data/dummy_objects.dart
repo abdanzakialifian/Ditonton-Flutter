@@ -11,9 +11,9 @@ import 'package:ditonton/domain/entities/detail.dart';
 import 'package:ditonton/domain/entities/watchlist.dart';
 import '../json_reader.dart';
 
-const DUMMY_API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
+const dummyApiKey = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
 
-const DUMMY_BASE_URL = 'https://api.themoviedb.org/3';
+const dummyBaseUrl = 'https://api.themoviedb.org/3';
 
 final dummyMovieJsonResponse = readJson('dummy_data/dummy_movie_response.json');
 
@@ -56,7 +56,7 @@ final dummyTvShowResponse = TvShowResponse.fromJson(
   ),
 );
 
-final testMovieDetail = Detail(
+const testMovieDetail = Detail(
     genres: [Genre(id: 1, name: 'Action')],
     id: 1,
     overview: 'overview',
@@ -68,7 +68,7 @@ final testMovieDetail = Detail(
     status: "Ended",
     seasons: []);
 
-final dummyWatchlistTable = WatchlistTable(
+const dummyWatchlistTable = WatchlistTable(
   id: 1,
   title: 'title',
   posterPath: 'posterPath',
@@ -76,7 +76,7 @@ final dummyWatchlistTable = WatchlistTable(
   category: "Movies or Tv Shows",
 );
 
-final dummyWatchlist = Watchlist(
+const dummyWatchlist = Watchlist(
   id: 1,
   title: 'title',
   posterPath: 'posterPath',
@@ -97,16 +97,16 @@ final dummyGenreResponseMap = {
   'name': "Adventure",
 };
 
-final dummyGenreResponse = GenreResponse(id: 1, name: "Adventure");
+const dummyGenreResponse = GenreResponse(id: 1, name: "Adventure");
 
-final dummyCategory = Category(
+const dummyCategory = Category(
   id: 1,
   overview: 'overview',
   posterPath: 'posterPath',
   title: 'title',
 );
 
-final dummyDetail = Detail(
+const dummyDetail = Detail(
   genres: [],
   id: 1,
   overview: 'overview',

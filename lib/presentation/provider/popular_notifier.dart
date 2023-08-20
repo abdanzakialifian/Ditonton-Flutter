@@ -10,7 +10,7 @@ class PopularNotifier extends ChangeNotifier {
 
   PopularNotifier(this.getPopularMovies, this.getPopularTvShows);
 
-  RequestState _state = RequestState.Empty;
+  RequestState _state = RequestState.empty;
   RequestState get state => _state;
 
   List<category.Category> _data = [];
@@ -20,7 +20,7 @@ class PopularNotifier extends ChangeNotifier {
   String get message => _message;
 
   Future<void> fetchPopularMovies() async {
-    _state = RequestState.Loading;
+    _state = RequestState.loading;
     notifyListeners();
 
     final result = await getPopularMovies.execute();
@@ -28,30 +28,30 @@ class PopularNotifier extends ChangeNotifier {
     result.fold(
       (failure) {
         _message = failure.message;
-        _state = RequestState.Error;
+        _state = RequestState.error;
         notifyListeners();
       },
       (moviesData) {
         _data = moviesData;
-        _state = RequestState.Loaded;
+        _state = RequestState.loaded;
         notifyListeners();
       },
     );
   }
 
   Future<void> fetchPopularTvShows() async {
-    _state = RequestState.Loading;
+    _state = RequestState.loading;
     notifyListeners();
 
     final result = await getPopularTvShows.execute();
 
     result.fold((failure) {
       _message = failure.message;
-      _state = RequestState.Error;
+      _state = RequestState.error;
       notifyListeners();
     }, (tvShowsData) {
       _data = tvShowsData;
-      _state = RequestState.Loaded;
+      _state = RequestState.loaded;
       notifyListeners();
     });
   }

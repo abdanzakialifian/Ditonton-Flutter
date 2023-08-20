@@ -46,18 +46,18 @@ void main() {
       // act
       await watchlistNotifier.fetchWatchlist();
       // assert
-      expect(watchlistNotifier.watchlistState, RequestState.Loaded);
+      expect(watchlistNotifier.watchlistState, RequestState.loaded);
       expect(watchlistNotifier.watchlist, [dummyWatchlist]);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
-      when(mockGetWatchlist.execute())
-          .thenAnswer((_) async => Left(DatabaseFailure("Can't get data")));
+      when(mockGetWatchlist.execute()).thenAnswer(
+          (_) async => const Left(DatabaseFailure("Can't get data")));
       // act
       await watchlistNotifier.fetchWatchlist();
       // assert
-      expect(watchlistNotifier.watchlistState, RequestState.Error);
+      expect(watchlistNotifier.watchlistState, RequestState.error);
       expect(watchlistNotifier.message, "Can't get data");
     });
 
@@ -73,7 +73,7 @@ void main() {
     test('should execute save watchlist when function called', () async {
       // arrange
       when(mockSaveWatchlist.execute(dummyWatchlist))
-          .thenAnswer((_) async => Right('Success'));
+          .thenAnswer((_) async => const Right('Success'));
       when(mockGetWatchListStatus.execute(dummyWatchlist.id))
           .thenAnswer((_) async => true);
       // act
@@ -85,7 +85,7 @@ void main() {
     test('should execute remove watchlist when function called', () async {
       // arrange
       when(mockRemoveWatchlist.execute(dummyWatchlist))
-          .thenAnswer((_) async => Right('Removed'));
+          .thenAnswer((_) async => const Right('Removed'));
       when(mockGetWatchListStatus.execute(dummyWatchlist.id))
           .thenAnswer((_) async => false);
       // act
@@ -96,8 +96,8 @@ void main() {
 
     test('should return error when remove watchlist is unsuccessful', () async {
       // arrange
-      when(mockRemoveWatchlist.execute(dummyWatchlist))
-          .thenAnswer((_) async => Left(DatabaseFailure("Can't remove data")));
+      when(mockRemoveWatchlist.execute(dummyWatchlist)).thenAnswer(
+          (_) async => const Left(DatabaseFailure("Can't remove data")));
       when(mockGetWatchListStatus.execute(1)).thenAnswer((_) async => false);
       // act
       await watchlistNotifier.removeFromWatchlist(dummyWatchlist);
@@ -108,7 +108,7 @@ void main() {
     test('should update watchlist status when add watchlist success', () async {
       // arrange
       when(mockSaveWatchlist.execute(dummyWatchlist))
-          .thenAnswer((_) async => Right('Added to Watchlist'));
+          .thenAnswer((_) async => const Right('Added to Watchlist'));
       when(mockGetWatchListStatus.execute(dummyWatchlist.id))
           .thenAnswer((_) async => true);
       // act
@@ -122,7 +122,7 @@ void main() {
     test('should update watchlist message when add watchlist failed', () async {
       // arrange
       when(mockSaveWatchlist.execute(dummyWatchlist))
-          .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
+          .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
       when(mockGetWatchListStatus.execute(dummyWatchlist.id))
           .thenAnswer((_) async => false);
       // act

@@ -49,7 +49,7 @@ class MovieDetailResponse extends Equatable {
   @JsonKey(name: "vote_count")
   final int? voteCount;
 
-  MovieDetailResponse({
+  const MovieDetailResponse({
     required this.adult,
     required this.backdropPath,
     required this.budget,
@@ -79,15 +79,15 @@ class MovieDetailResponse extends Equatable {
   Map<String, dynamic> toJson() => _$MovieDetailResponseToJson(this);
 
   Detail toDetail() => Detail(
-        genres: this.genres?.map((genre) => genre.toGenre()).toList(),
-        id: this.id,
-        overview: this.overview,
-        posterPath: this.posterPath,
-        runtime: this.runtime,
-        title: this.title,
-        voteCount: this.voteCount,
+        genres: genres?.map((genre) => genre.toGenre()).toList(),
+        id: id,
+        overview: overview,
+        posterPath: posterPath,
+        runtime: runtime,
+        title: title,
+        voteCount: voteCount,
         voteAverage: voteAverage,
-        seasons: [],
+        seasons: const [],
         status: status,
       );
 

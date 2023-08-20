@@ -7,7 +7,7 @@ class Category extends Equatable {
   final String? posterPath;
   final String? title;
 
-  Category({
+  const Category({
     required this.id,
     required this.overview,
     required this.posterPath,

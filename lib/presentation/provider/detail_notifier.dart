@@ -23,85 +23,85 @@ class DetailNotifier extends ChangeNotifier {
   late Detail _detail;
   Detail get detail => _detail;
 
-  RequestState _detailState = RequestState.Empty;
+  RequestState _detailState = RequestState.empty;
   RequestState get detailState => _detailState;
 
   List<category.Category> _recommendations = [];
   List<category.Category> get recommendations => _recommendations;
 
-  RequestState _recommendationState = RequestState.Empty;
+  RequestState _recommendationState = RequestState.empty;
   RequestState get recommendationState => _recommendationState;
 
   String _message = '';
   String get message => _message;
 
   Future<void> fetchMovieDetail(int id) async {
-    _detailState = RequestState.Loading;
+    _detailState = RequestState.loading;
     notifyListeners();
     final detailResult = await getMovieDetail.execute(id);
     final recommendationResult = await getMovieRecommendations.execute(id);
     detailResult.fold(
       (failure) {
-        _detailState = RequestState.Error;
+        _detailState = RequestState.error;
         _message = failure.message;
         notifyListeners();
       },
       (movie) {
-        _recommendationState = RequestState.Loading;
+        _recommendationState = RequestState.loading;
         _detail = movie;
         notifyListeners();
         recommendationResult.fold(
           (failure) {
-            _recommendationState = RequestState.Error;
+            _recommendationState = RequestState.error;
             _message = failure.message;
           },
           (movies) {
             if (movies.isNotEmpty) {
-              _recommendationState = RequestState.Loaded;
+              _recommendationState = RequestState.loaded;
               _recommendations = movies;
             } else {
-              _recommendationState = RequestState.Empty;
+              _recommendationState = RequestState.empty;
               _recommendations = movies;
             }
           },
         );
-        _detailState = RequestState.Loaded;
+        _detailState = RequestState.loaded;
         notifyListeners();
       },
     );
   }
 
   Future<void> fetchTvShowDetail(int id) async {
-    _detailState = RequestState.Loading;
+    _detailState = RequestState.loading;
     notifyListeners();
     final detailResult = await getTvShowDetail.execute(id);
     final recommendationResult = await getTvShowRecommendations.execute(id);
     detailResult.fold(
       (failure) {
-        _detailState = RequestState.Error;
+        _detailState = RequestState.error;
         _message = failure.message;
         notifyListeners();
       },
       (tvShow) {
-        _recommendationState = RequestState.Loading;
+        _recommendationState = RequestState.loading;
         _detail = tvShow;
         notifyListeners();
         recommendationResult.fold(
           (failure) {
-            _recommendationState = RequestState.Error;
+            _recommendationState = RequestState.error;
             _message = failure.message;
           },
           (tvShows) {
             if (tvShows.isNotEmpty) {
-              _recommendationState = RequestState.Loaded;
+              _recommendationState = RequestState.loaded;
               _recommendations = tvShows;
             } else {
-              _recommendationState = RequestState.Empty;
+              _recommendationState = RequestState.empty;
               _recommendations = tvShows;
             }
           },
         );
-        _detailState = RequestState.Loaded;
+        _detailState = RequestState.loaded;
         notifyListeners();
       },
     );

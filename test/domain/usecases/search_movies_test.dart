@@ -15,7 +15,7 @@ void main() {
     searchMovies = SearchMovies(mockMovieRepository);
   });
 
-  final dummyQuery = 'Title';
+  const dummyQuery = 'Title';
 
   test('should get list of movies from the repository', () async {
     // arrange

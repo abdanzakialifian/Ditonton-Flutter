@@ -10,7 +10,7 @@ class ProductionCountryResponse extends Equatable {
   @JsonKey(name: "name")
   final String? name;
 
-  ProductionCountryResponse({
+  const ProductionCountryResponse({
     this.iso31661,
     this.name,
   });

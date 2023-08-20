@@ -14,7 +14,7 @@ class Detail extends Equatable {
   final List<Season>? seasons;
   final String? status;
 
-  Detail({
+  const Detail({
     required this.genres,
     required this.id,
     required this.overview,

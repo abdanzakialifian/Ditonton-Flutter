@@ -33,7 +33,7 @@ class TvShowResultResponse extends Equatable {
   @JsonKey(name: "vote_count")
   final int? voteCount;
 
-  TvShowResultResponse({
+  const TvShowResultResponse({
     required this.backdropPath,
     required this.firstAirDate,
     required this.genreIds,

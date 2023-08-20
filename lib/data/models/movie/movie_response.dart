@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 class MovieResponse extends Equatable {
   final List<MovieResultResponse>? movieList;
 
-  MovieResponse({required this.movieList});
+  const MovieResponse({required this.movieList});
 
   factory MovieResponse.fromJson(Map<String, dynamic> json) => MovieResponse(
         movieList: List<MovieResultResponse>.from(

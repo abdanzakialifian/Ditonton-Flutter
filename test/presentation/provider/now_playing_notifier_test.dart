@@ -25,7 +25,7 @@ void main() {
 
   group('Get Now Playing Movies', () {
     test('initial state should be empty', () {
-      expect(nowPlayingNotifier.state, RequestState.Empty);
+      expect(nowPlayingNotifier.state, RequestState.empty);
     });
 
     test('should call get now playing movies method from the usecase',
@@ -46,7 +46,7 @@ void main() {
       // act
       nowPlayingNotifier.fetchNowPlayingMovies();
       // assert
-      expect(nowPlayingNotifier.state, RequestState.Loading);
+      expect(nowPlayingNotifier.state, RequestState.loading);
     });
 
     test(
@@ -58,25 +58,25 @@ void main() {
       // act
       await nowPlayingNotifier.fetchNowPlayingMovies();
       // assert
-      expect(nowPlayingNotifier.state, RequestState.Loaded);
+      expect(nowPlayingNotifier.state, RequestState.loaded);
       expect(nowPlayingNotifier.data, dummyCategoryMovies);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetNowPlayingMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await nowPlayingNotifier.fetchNowPlayingMovies();
       // assert
-      expect(nowPlayingNotifier.state, RequestState.Error);
+      expect(nowPlayingNotifier.state, RequestState.error);
       expect(nowPlayingNotifier.message, 'Server Failure');
     });
   });
 
   group('Get Airing Today Tv Shows', () {
     test('initial state should be empty', () {
-      expect(nowPlayingNotifier.state, RequestState.Empty);
+      expect(nowPlayingNotifier.state, RequestState.empty);
     });
 
     test('should call get airing today tv shows method from the usecase',
@@ -97,7 +97,7 @@ void main() {
       // act
       nowPlayingNotifier.fetchAiringTodayTvShows();
       // assert
-      expect(nowPlayingNotifier.state, RequestState.Loading);
+      expect(nowPlayingNotifier.state, RequestState.loading);
     });
 
     test(
@@ -109,18 +109,18 @@ void main() {
       // act
       await nowPlayingNotifier.fetchAiringTodayTvShows();
       // assert
-      expect(nowPlayingNotifier.state, RequestState.Loaded);
+      expect(nowPlayingNotifier.state, RequestState.loaded);
       expect(nowPlayingNotifier.data, dummyCategoryTvShows);
     });
 
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetAiringTodayTvShows.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await nowPlayingNotifier.fetchAiringTodayTvShows();
       // assert
-      expect(nowPlayingNotifier.state, RequestState.Error);
+      expect(nowPlayingNotifier.state, RequestState.error);
       expect(nowPlayingNotifier.message, 'Server Failure');
     });
   });

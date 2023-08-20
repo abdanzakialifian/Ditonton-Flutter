@@ -7,13 +7,13 @@ import '../../../../helpers/test_helper.mocks.dart';
 void main() {
   late Database database;
   late MockDatabaseHelper mockDatabaseHelper;
-  const String _tblWatchlist = 'watchlist';
+  const String tblWatchlist = 'watchlist';
 
   setUpAll(() async {
     sqfliteFfiInit();
     database = await databaseFactoryFfi.openDatabase(inMemoryDatabasePath);
     await database.execute('''
-      CREATE TABLE  $_tblWatchlist (
+      CREATE TABLE  $tblWatchlist (
         id INTEGER PRIMARY KEY,
         category TEXT,
         title TEXT,
@@ -31,14 +31,14 @@ void main() {
         .thenAnswer((_) async => 1);
     // act
     final result =
-        await database.insert(_tblWatchlist, dummyWatchlistTable.toJson());
+        await database.insert(tblWatchlist, dummyWatchlistTable.toJson());
     // assert
     verifyNever(mockDatabaseHelper.insertWatchlist(dummyWatchlistTable));
     expect(await mockDatabaseHelper.insertWatchlist(dummyWatchlistTable), 1);
     expect(result, 1);
 
     await database.delete(
-      _tblWatchlist,
+      tblWatchlist,
       where: 'id = ?',
       whereArgs: [dummyWatchlistTable.id],
     );
@@ -49,9 +49,9 @@ void main() {
     when(mockDatabaseHelper.removeWatchlist(dummyWatchlistTable))
         .thenAnswer((_) async => 1);
     // act
-    await database.insert(_tblWatchlist, dummyWatchlistTable.toJson());
+    await database.insert(tblWatchlist, dummyWatchlistTable.toJson());
     final result = await database.delete(
-      _tblWatchlist,
+      tblWatchlist,
       where: 'id = ?',
       whereArgs: [dummyWatchlistTable.id],
     );
@@ -69,9 +69,9 @@ void main() {
       (_) async => dummyWatchlistMap,
     );
     // act
-    await database.insert(_tblWatchlist, dummyWatchlistTable.toJson());
+    await database.insert(tblWatchlist, dummyWatchlistTable.toJson());
     final result = await database.query(
-      _tblWatchlist,
+      tblWatchlist,
       where: 'id = ?',
       whereArgs: [dummyWatchlistTable.id],
     );
@@ -82,7 +82,7 @@ void main() {
     expect(result.first, dummyWatchlistMap);
 
     await database.delete(
-      _tblWatchlist,
+      tblWatchlist,
       where: 'id = ?',
       whereArgs: [dummyWatchlistTable.id],
     );
@@ -94,15 +94,15 @@ void main() {
       (_) async => [dummyWatchlistMap],
     );
     // act
-    await database.insert(_tblWatchlist, dummyWatchlistTable.toJson());
-    final results = await database.query(_tblWatchlist);
+    await database.insert(tblWatchlist, dummyWatchlistTable.toJson());
+    final results = await database.query(tblWatchlist);
     // assert
     verifyNever(mockDatabaseHelper.getWatchlist());
     expect(await mockDatabaseHelper.getWatchlist(), [dummyWatchlistMap]);
     expect(results, [dummyWatchlistMap]);
 
     await database.delete(
-      _tblWatchlist,
+      tblWatchlist,
       where: 'id = ?',
       whereArgs: [dummyWatchlistTable.id],
     );

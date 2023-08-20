@@ -13,7 +13,7 @@ class NowPlayingNotifier extends ChangeNotifier {
     this.getAiringTodayTvShows,
   );
 
-  RequestState _state = RequestState.Empty;
+  RequestState _state = RequestState.empty;
   RequestState get state => _state;
 
   List<category.Category> _data = [];
@@ -23,7 +23,7 @@ class NowPlayingNotifier extends ChangeNotifier {
   String get message => _message;
 
   Future<void> fetchNowPlayingMovies() async {
-    _state = RequestState.Loading;
+    _state = RequestState.loading;
     notifyListeners();
 
     final result = await getNowPlayingMovies.execute();
@@ -31,30 +31,30 @@ class NowPlayingNotifier extends ChangeNotifier {
     result.fold(
       (failure) {
         _message = failure.message;
-        _state = RequestState.Error;
+        _state = RequestState.error;
         notifyListeners();
       },
       (moviesData) {
         _data = moviesData;
-        _state = RequestState.Loaded;
+        _state = RequestState.loaded;
         notifyListeners();
       },
     );
   }
 
   Future<void> fetchAiringTodayTvShows() async {
-    _state = RequestState.Loading;
+    _state = RequestState.loading;
     notifyListeners();
 
     final result = await getAiringTodayTvShows.execute();
 
     result.fold((failure) {
       _message = failure.message;
-      _state = RequestState.Error;
+      _state = RequestState.error;
       notifyListeners();
     }, (tvShowsData) {
       _data = tvShowsData;
-      _state = RequestState.Loaded;
+      _state = RequestState.loaded;
       notifyListeners();
     });
   }
