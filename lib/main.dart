@@ -16,10 +16,11 @@ import 'package:core/presentation/provider/top_rated_notifier.dart';
 import 'package:core/presentation/provider/tv_show_notifier.dart';
 import 'package:core/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/locator/injection.dart' as di;
+import 'package:search/presentation/bloc/search_bloc.dart';
 import 'package:search/presentation/pages/search_page.dart';
-import 'package:search/presentation/provider/search_notifier.dart';
 
 void main() {
   di.init();
@@ -39,8 +40,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<DetailNotifier>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<SearchNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<SearchBloc>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<NowPlayingNotifier>(),

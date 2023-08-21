@@ -34,6 +34,7 @@ import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 import 'package:search/domain/usecases/search_movies.dart';
 import 'package:search/domain/usecases/search_tv_shows.dart';
+import 'package:search/presentation/bloc/search_bloc.dart';
 import 'package:search/presentation/provider/search_notifier.dart';
 
 final locator = GetIt.instance;
@@ -92,6 +93,13 @@ void init() {
       getAiringTodayTvShows: locator(),
       getPopularTvShows: locator(),
       getTopRatedTvShows: locator(),
+    ),
+  );
+  // bloc
+  locator.registerFactory(
+    () => SearchBloc(
+      locator(),
+      locator(),
     ),
   );
 
