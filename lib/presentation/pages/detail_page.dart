@@ -289,7 +289,7 @@ class DetailContent extends StatelessWidget {
                 Navigator.pushReplacementNamed(
                   context,
                   DetailPage.routeName,
-                  arguments: recommendation.id,
+                  arguments: [recommendation.id, type],
                 );
               },
               child: ClipRRect(
