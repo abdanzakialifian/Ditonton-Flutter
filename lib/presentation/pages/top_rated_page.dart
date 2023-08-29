@@ -30,14 +30,16 @@ class TopRatedPageState extends State<TopRatedPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.type == movies ? 'Top Rated Movies' : 'Top Rated Tv Shows',
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            widget.type == movies ? 'Top Rated Movies' : 'Top Rated Tv Shows',
+          ),
         ),
+        body: Padding(
+            padding: const EdgeInsets.all(8.0), child: _setUpList(widget.type)),
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(8.0), child: _setUpList(widget.type)),
     );
   }
 

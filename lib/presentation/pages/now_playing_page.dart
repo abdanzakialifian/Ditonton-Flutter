@@ -30,17 +30,19 @@ class NowPlayingPageState extends State<NowPlayingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.type == movies
-              ? "Now Playing Movies"
-              : "Airing Today Tv Shows",
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            widget.type == movies
+                ? "Now Playing Movies"
+                : "Airing Today Tv Shows",
+          ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: _setUpList(widget.type),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: _setUpList(widget.type),
+        ),
       ),
     );
   }

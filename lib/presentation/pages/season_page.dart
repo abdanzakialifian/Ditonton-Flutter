@@ -11,19 +11,21 @@ class SeasonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Season Tv Show"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: ListView.separated(
-          separatorBuilder: (context, index) => const SizedBox(height: 6),
-          itemCount: seasons.length,
-          itemBuilder: (context, index) {
-            final season = seasons[index];
-            return SeasonCardItem(season: season);
-          },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Season Tv Show"),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8),
+          child: ListView.separated(
+            separatorBuilder: (context, index) => const SizedBox(height: 6),
+            itemCount: seasons.length,
+            itemBuilder: (context, index) {
+              final season = seasons[index];
+              return SeasonCardItem(season: season);
+            },
+          ),
         ),
       ),
     );

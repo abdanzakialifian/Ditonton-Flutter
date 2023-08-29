@@ -24,39 +24,41 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Search'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              onSubmitted: (query) {
-                if (widget.type == movies) {
-                  Provider.of<SearchNotifier>(context, listen: false)
-                      .fetchMovieSearch(query);
-                } else {
-                  Provider.of<SearchNotifier>(context, listen: false)
-                      .fetchTvShowSearch(query);
-                }
-              },
-              decoration: const InputDecoration(
-                hintText: 'Search title',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Search'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                onSubmitted: (query) {
+                  if (widget.type == movies) {
+                    Provider.of<SearchNotifier>(context, listen: false)
+                        .fetchMovieSearch(query);
+                  } else {
+                    Provider.of<SearchNotifier>(context, listen: false)
+                        .fetchTvShowSearch(query);
+                  }
+                },
+                decoration: const InputDecoration(
+                  hintText: 'Search title',
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(),
+                ),
+                textInputAction: TextInputAction.search,
               ),
-              textInputAction: TextInputAction.search,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Search Result',
-              style: kHeading6,
-            ),
-            _setUpList(widget.type)
-          ],
+              const SizedBox(height: 16),
+              Text(
+                'Search Result',
+                style: kHeading6,
+              ),
+              _setUpList(widget.type)
+            ],
+          ),
         ),
       ),
     );

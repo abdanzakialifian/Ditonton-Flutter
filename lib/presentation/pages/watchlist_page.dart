@@ -37,13 +37,15 @@ class WatchlistPageState extends State<WatchlistPage> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Watchlist'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: _setUpWatchlist(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Watchlist'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: _setUpWatchlist(),
+        ),
       ),
     );
   }
