@@ -59,6 +59,7 @@ class WatchlistPageState extends State<WatchlistPage> with RouteAware {
           );
         } else if (data.watchlistState == RequestState.loaded) {
           return ListView.builder(
+            itemCount: data.watchlist.length,
             itemBuilder: (context, index) {
               final watchlist = data.watchlist[index];
               return CategoryCardItem(
@@ -66,11 +67,9 @@ class WatchlistPageState extends State<WatchlistPage> with RouteAware {
                 type: watchlist.category ?? "",
               );
             },
-            itemCount: data.watchlist.length,
           );
         } else {
           return Center(
-            key: const Key('error_message'),
             child: Text(data.message),
           );
         }
