@@ -63,12 +63,24 @@ class CategoryCardItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: CachedNetworkImage(
+                  fit: BoxFit.cover,
                   imageUrl: '$baseImageUrl${category.posterPath}',
                   width: 80,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
+                  height: 120,
+                  placeholder: (context, url) => const SizedBox(
+                    width: 80,
+                    height: 120,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => const SizedBox(
+                    width: 80,
+                    height: 120,
+                    child: Center(
+                      child: Icon(Icons.error),
+                    ),
+                  ),
                 ),
               ),
             ),
