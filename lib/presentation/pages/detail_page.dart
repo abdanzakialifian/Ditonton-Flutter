@@ -66,7 +66,11 @@ class DetailPageState extends State<DetailPage> {
               widget.type,
             );
           } else {
-            return Text(provider.message);
+            return Center(
+              child: Text(
+                provider.message,
+              ),
+            );
           }
         },
       ),
@@ -94,14 +98,23 @@ class DetailContent extends StatelessWidget {
           CachedNetworkImage(
             imageUrl: 'https://image.tmdb.org/t/p/w500${detail.posterPath}',
             width: screenWidth,
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(),
+            placeholder: (context, url) => SizedBox(
+              width: screenWidth,
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+            errorWidget: (context, url, error) => SizedBox(
+              width: screenWidth,
+              child: const Center(
+                child: Icon(Icons.error),
+              ),
+            ),
           ),
           Container(
             margin: const EdgeInsets.only(top: 48 + 8),
             child: DraggableScrollableSheet(
+              minChildSize: 0.25,
               builder: (context, scrollController) {
                 return Container(
                   decoration: const BoxDecoration(
@@ -109,11 +122,7 @@ class DetailContent extends StatelessWidget {
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(16)),
                   ),
-                  padding: const EdgeInsets.only(
-                    left: 16,
-                    top: 16,
-                    right: 16,
-                  ),
+                  padding: const EdgeInsets.only(top: 16),
                   child: Stack(
                     children: [
                       Container(
@@ -123,49 +132,60 @@ class DetailContent extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                detail.title ?? "",
-                                style: kHeading5,
-                              ),
-                              ElevatedButton(
-                                onPressed: () async => _addWatchlist(context),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
+                              Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    isAddedWatchlist
-                                        ? const Icon(Icons.check)
-                                        : const Icon(Icons.add),
-                                    const Text('Watchlist'),
+                                    Text(
+                                      detail.title ?? "",
+                                      style: kHeading5,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () async =>
+                                          _addWatchlist(context),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          isAddedWatchlist
+                                              ? const Icon(Icons.check)
+                                              : const Icon(Icons.add),
+                                          const Text('Watchlist'),
+                                        ],
+                                      ),
+                                    ),
+                                    Text(
+                                      _showGenres(detail.genres ?? []),
+                                    ),
+                                    Text(
+                                      _showDuration(detail.runtime ?? 0),
+                                    ),
+                                    Row(
+                                      children: [
+                                        RatingBarIndicator(
+                                          rating: (detail.voteAverage ?? 0) / 2,
+                                          itemCount: 5,
+                                          itemBuilder: (context, index) =>
+                                              const Icon(
+                                            Icons.star,
+                                            color: kMikadoYellow,
+                                          ),
+                                          itemSize: 24,
+                                        ),
+                                        Text('${detail.voteAverage}')
+                                      ],
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      'Overview',
+                                      style: kHeading6,
+                                    ),
+                                    Text(
+                                      detail.overview ?? "",
+                                    ),
                                   ],
                                 ),
-                              ),
-                              Text(
-                                _showGenres(detail.genres ?? []),
-                              ),
-                              Text(
-                                _showDuration(detail.runtime ?? 0),
-                              ),
-                              Row(
-                                children: [
-                                  RatingBarIndicator(
-                                    rating: (detail.voteAverage ?? 0) / 2,
-                                    itemCount: 5,
-                                    itemBuilder: (context, index) => const Icon(
-                                      Icons.star,
-                                      color: kMikadoYellow,
-                                    ),
-                                    itemSize: 24,
-                                  ),
-                                  Text('${detail.voteAverage}')
-                                ],
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                'Overview',
-                                style: kHeading6,
-                              ),
-                              Text(
-                                detail.overview ?? "",
                               ),
                               _setUpRecommenadation(context),
                               type == movies
@@ -188,9 +208,6 @@ class DetailContent extends StatelessWidget {
                   ),
                 );
               },
-              // initialChildSize: 0.5,
-              minChildSize: 0.25,
-              // maxChildSize: 1.0,
             ),
           ),
           Padding(
@@ -205,7 +222,7 @@ class DetailContent extends StatelessWidget {
                 },
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -231,47 +248,76 @@ class DetailContent extends StatelessWidget {
           .showSnackBar(SnackBar(content: Text(message)));
     } else {
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              content: Text(message),
-            );
-          });
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(message),
+          );
+        },
+      );
     }
   }
 
   Widget _setUpRecommenadation(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Provider.of<DetailNotifier>(context).recommendations.isNotEmpty
-            ? Column(
-                children: [
-                  const SizedBox(height: 16),
-                  Text(
-                    'Recommendations',
-                    style: kHeading6,
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              )
-            : const SizedBox.shrink(),
-        Consumer<DetailNotifier>(
-          builder: (context, data, child) {
-            if (data.recommendationState == RequestState.loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.recommendationState == RequestState.error) {
-              return Text(data.message);
-            } else if (data.recommendationState == RequestState.loaded) {
-              return _setUpListRecommendations();
-            } else {
-              return Container();
-            }
-          },
-        )
-      ],
+    return Consumer<DetailNotifier>(
+      builder: (context, data, child) {
+        if (data.recommendationState == RequestState.loading) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                    top: 16, bottom: 10, left: 16, right: 16),
+                child: Text(
+                  'Recommendations',
+                  style: kHeading6,
+                ),
+              ),
+              _setUpLoadingRecommendations()
+            ],
+          );
+        } else if (data.recommendationState == RequestState.error) {
+          return Center(
+            child: Text(data.message),
+          );
+        } else if (data.recommendationState == RequestState.loaded) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                    top: 16, bottom: 10, left: 16, right: 16),
+                child: Text(
+                  'Recommendations',
+                  style: kHeading6,
+                ),
+              ),
+              _setUpListRecommendations()
+            ],
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
+  }
+
+  Widget _setUpLoadingRecommendations() {
+    return SizedBox(
+      height: 150,
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return const SizedBox(
+            width: 100,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -279,7 +325,9 @@ class DetailContent extends StatelessWidget {
     return SizedBox(
       height: 150,
       child: ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         scrollDirection: Axis.horizontal,
+        itemCount: recommendations.length,
         itemBuilder: (context, index) {
           final recommendation = recommendations[index];
           return Padding(
@@ -297,18 +345,27 @@ class DetailContent extends StatelessWidget {
                   Radius.circular(8),
                 ),
                 child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  width: 100,
                   imageUrl:
                       'https://image.tmdb.org/t/p/w500${recommendation.posterPath}',
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
+                  placeholder: (context, url) => const SizedBox(
+                    width: 100,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => const SizedBox(
+                    width: 100,
+                    child: Center(
+                      child: Icon(Icons.error),
+                    ),
+                  ),
                 ),
               ),
             ),
           );
         },
-        itemCount: recommendations.length,
       ),
     );
   }
@@ -318,40 +375,41 @@ class DetailContent extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                detail.status == statusEnded ? "Last Season" : "Current Season",
-                style: kHeading6,
-              ),
-              (seasons.length > 1)
-                  ? InkWell(
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        SeasonPage.routeName,
-                        arguments: seasons,
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Text('See More'),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 18,
-                            )
-                          ],
+          Container(
+            margin: const EdgeInsets.only(top: 16, bottom: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  detail.status == statusEnded
+                      ? "Last Season"
+                      : "Current Season",
+                  style: kHeading6,
+                ),
+                (seasons.length > 1)
+                    ? InkWell(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          SeasonPage.routeName,
+                          arguments: seasons,
                         ),
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-            ],
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text('See More'),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 18,
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ],
+            ),
           ),
-          const SizedBox(height: 5),
           SeasonCardItem(
             season: detail.seasons?.last,
           ),

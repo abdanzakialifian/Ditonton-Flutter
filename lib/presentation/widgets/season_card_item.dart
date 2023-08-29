@@ -142,9 +142,21 @@ class SeasonCardItem extends StatelessWidget {
           width: 110,
           height: 160,
           placeholder: (context, url) => const Center(
-            child: CircularProgressIndicator(),
+            child: SizedBox(
+              width: 110,
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
           ),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          errorWidget: (context, url, error) => const SizedBox(
+            width: 110,
+            height: 160,
+            child: Center(
+              child: Icon(Icons.error),
+            ),
+          ),
         ),
       );
     }
