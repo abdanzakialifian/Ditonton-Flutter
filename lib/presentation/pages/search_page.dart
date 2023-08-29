@@ -68,8 +68,10 @@ class _SearchPageState extends State<SearchPage> {
     return Consumer<SearchNotifier>(
       builder: (context, data, child) {
         if (data.state == RequestState.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const Expanded(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         } else if (data.state == RequestState.loaded) {
           final result = data.searchResult;
@@ -88,7 +90,7 @@ class _SearchPageState extends State<SearchPage> {
           );
         } else {
           return Expanded(
-            child: Container(),
+            child: Text(data.message),
           );
         }
       },

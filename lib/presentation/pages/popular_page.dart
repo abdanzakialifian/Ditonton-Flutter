@@ -38,7 +38,9 @@ class PopularPageState extends State<PopularPage> {
           ),
         ),
         body: Padding(
-            padding: const EdgeInsets.all(8.0), child: _setUpList(widget.type)),
+          padding: const EdgeInsets.all(8.0),
+          child: _setUpList(widget.type),
+        ),
       ),
     );
   }
