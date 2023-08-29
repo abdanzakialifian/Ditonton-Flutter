@@ -63,7 +63,6 @@ class PopularPageState extends State<PopularPage> {
           );
         } else {
           return Center(
-            key: const Key('error_message'),
             child: Text(data.message),
           );
         }
