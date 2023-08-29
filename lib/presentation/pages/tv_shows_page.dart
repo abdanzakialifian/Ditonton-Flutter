@@ -75,13 +75,13 @@ class _TvShowsPageState extends State<TvShowsPage> {
       builder: (context, data, child) {
         final state = data.airingTodayTvShowsState;
         if (state == RequestState.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return _tvShowsLoading();
         } else if (state == RequestState.loaded) {
           return _tvShowsList(data.airingTodayTvShows);
         } else {
-          return const Text('Failed');
+          return Center(
+            child: Text(data.message),
+          );
         }
       },
     );
@@ -92,13 +92,13 @@ class _TvShowsPageState extends State<TvShowsPage> {
       builder: (context, data, child) {
         final state = data.popularTvShowsState;
         if (state == RequestState.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return _tvShowsLoading();
         } else if (state == RequestState.loaded) {
           return _tvShowsList(data.popularTvShows);
         } else {
-          return const Text('Failed');
+          return Center(
+            child: Text(data.message),
+          );
         }
       },
     );
@@ -109,13 +109,13 @@ class _TvShowsPageState extends State<TvShowsPage> {
       builder: (context, data, child) {
         final state = data.topRatedTvShowsState;
         if (state == RequestState.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return _tvShowsLoading();
         } else if (state == RequestState.loaded) {
           return _tvShowsList(data.topRatedTvShows);
         } else {
-          return const Text('Failed');
+          return Center(
+            child: Text(data.message),
+          );
         }
       },
     );
@@ -142,14 +142,35 @@ class _TvShowsPageState extends State<TvShowsPage> {
     );
   }
 
+  Widget _tvShowsLoading() {
+    return SizedBox(
+      height: 200,
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return const SizedBox(
+            width: 140,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   Widget _tvShowsList(List<Category> tvShows) {
     return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        itemCount: tvShows.length,
         itemBuilder: (context, index) {
           final tvShow = tvShows[index];
           return Container(
+            width: 140,
             padding: const EdgeInsets.all(8),
             child: InkWell(
               onTap: () {
@@ -162,17 +183,25 @@ class _TvShowsPageState extends State<TvShowsPage> {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
+                  fit: BoxFit.cover,
                   imageUrl: '$baseImageUrl${tvShow.posterPath}',
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
+                  placeholder: (context, url) => const SizedBox(
+                    width: 140,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => const SizedBox(
+                    width: 140,
+                    child: Center(
+                      child: Icon(Icons.error),
+                    ),
+                  ),
                 ),
               ),
             ),
           );
         },
-        itemCount: tvShows.length,
       ),
     );
   }
