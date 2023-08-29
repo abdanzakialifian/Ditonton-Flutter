@@ -54,6 +54,7 @@ class PopularPageState extends State<PopularPage> {
           );
         } else if (data.state == RequestState.loaded) {
           return ListView.builder(
+            itemCount: data.data.length,
             itemBuilder: (context, index) {
               final result = data.data[index];
               return CategoryCardItem(
@@ -61,7 +62,6 @@ class PopularPageState extends State<PopularPage> {
                 type: widget.type ?? "",
               );
             },
-            itemCount: data.data.length,
           );
         } else {
           return Center(

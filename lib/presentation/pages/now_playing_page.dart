@@ -56,6 +56,7 @@ class NowPlayingPageState extends State<NowPlayingPage> {
           );
         } else if (data.state == RequestState.loaded) {
           return ListView.builder(
+            itemCount: data.data.length,
             itemBuilder: (context, index) {
               final result = data.data[index];
               return CategoryCardItem(
@@ -63,7 +64,6 @@ class NowPlayingPageState extends State<NowPlayingPage> {
                 type: widget.type ?? "",
               );
             },
-            itemCount: data.data.length,
           );
         } else {
           return Center(

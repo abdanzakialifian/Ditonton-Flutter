@@ -52,6 +52,7 @@ class TopRatedPageState extends State<TopRatedPage> {
           );
         } else if (data.state == RequestState.loaded) {
           return ListView.builder(
+            itemCount: data.data.length,
             itemBuilder: (context, index) {
               final result = data.data[index];
               return CategoryCardItem(
@@ -59,11 +60,9 @@ class TopRatedPageState extends State<TopRatedPage> {
                 type: type ?? "",
               );
             },
-            itemCount: data.data.length,
           );
         } else {
           return Center(
-            key: const Key('error_message'),
             child: Text(data.message),
           );
         }
