@@ -9,7 +9,8 @@ import 'package:ditonton/presentation/pages/popular_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/season_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_page.dart';
+import 'package:ditonton/presentation/pages/watchlist_movie_page.dart';
+import 'package:ditonton/presentation/pages/watchlist_tv_show_page.dart';
 import 'package:ditonton/presentation/provider/detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_notifier.dart';
 import 'package:ditonton/presentation/provider/search_notifier.dart';
@@ -118,8 +119,12 @@ class MyApp extends StatelessWidget {
                   type: type,
                 ),
               );
-            case WatchlistPage.routeName:
-              return MaterialPageRoute(builder: (_) => const WatchlistPage());
+            case WatchlistMoviePage.routeName:
+              return MaterialPageRoute(
+                  builder: (_) => const WatchlistMoviePage());
+            case WatchlistTvShowPage.routeName:
+              return MaterialPageRoute(
+                  builder: (_) => const WatchlistTvShowPage());
             case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => const AboutPage());
             default:

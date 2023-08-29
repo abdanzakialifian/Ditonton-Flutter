@@ -1,3 +1,4 @@
+import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/domain/entities/category.dart';
@@ -6,16 +7,17 @@ import 'package:ditonton/presentation/widgets/category_card_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class WatchlistPage extends StatefulWidget {
-  static const routeName = '/watchlist';
+class WatchlistTvShowPage extends StatefulWidget {
+  static const routeName = '/watchlist-tv-show';
 
-  const WatchlistPage({Key? key}) : super(key: key);
+  const WatchlistTvShowPage({Key? key}) : super(key: key);
 
   @override
-  WatchlistPageState createState() => WatchlistPageState();
+  WatchlistTvShowPageState createState() => WatchlistTvShowPageState();
 }
 
-class WatchlistPageState extends State<WatchlistPage> with RouteAware {
+class WatchlistTvShowPageState extends State<WatchlistTvShowPage>
+    with RouteAware {
   @override
   void initState() {
     super.initState();
@@ -40,7 +42,7 @@ class WatchlistPageState extends State<WatchlistPage> with RouteAware {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Watchlist'),
+          title: const Text('Watchlist Tv Show'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -58,19 +60,30 @@ class WatchlistPageState extends State<WatchlistPage> with RouteAware {
             child: CircularProgressIndicator(),
           );
         } else if (data.watchlistState == RequestState.loaded) {
+          final mapWatchlist = data.watchlist
+              .where((element) => element.category == tvShows)
+              .toList();
           return ListView.builder(
-            itemCount: data.watchlist.length,
+            itemCount: mapWatchlist.length,
             itemBuilder: (context, index) {
-              final watchlist = data.watchlist[index];
+              final watchlist = mapWatchlist[index];
               return CategoryCardItem(
                 category: Category.fromWatchlist(watchlist),
                 type: watchlist.category ?? "",
               );
             },
           );
-        } else {
+        } else if (data.watchlistState == RequestState.error) {
           return Center(
             child: Text(data.message),
+          );
+        } else {
+          return Center(
+            child: Image.asset(
+              "assets/data_empty_image.png",
+              height: 300,
+              width: 300,
+            ),
           );
         }
       },

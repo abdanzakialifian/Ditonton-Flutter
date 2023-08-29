@@ -49,9 +49,15 @@ class WatchlistNotifier extends ChangeNotifier {
         notifyListeners();
       },
       (watchlistData) {
-        _watchlistState = RequestState.loaded;
-        _watchlist = watchlistData;
-        notifyListeners();
+        if (watchlistData.isNotEmpty) {
+          _watchlistState = RequestState.loaded;
+          _watchlist = watchlistData;
+          notifyListeners();
+        } else {
+          _watchlistState = RequestState.empty;
+          _watchlist = watchlistData;
+          notifyListeners();
+        }
       },
     );
   }

@@ -97,7 +97,11 @@ class _SearchPageState extends State<SearchPage> {
                     },
                   )
                 : Center(
-                    child: Image.asset("assets/search_empty_image.png"),
+                    child: Image.asset(
+                      "assets/search_empty_image.png",
+                      height: 300,
+                      width: 300,
+                    ),
                   ),
           );
         } else {

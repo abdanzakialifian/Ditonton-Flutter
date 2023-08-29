@@ -3,7 +3,8 @@ import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/movies_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/tv_shows_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_page.dart';
+import 'package:ditonton/presentation/pages/watchlist_movie_page.dart';
+import 'package:ditonton/presentation/pages/watchlist_tv_show_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -54,9 +55,16 @@ class HomePageState extends State<HomePage> {
               ),
               ListTile(
                 leading: const Icon(Icons.save_alt),
-                title: const Text('Watchlist'),
+                title: const Text('Watchlist Movie'),
                 onTap: () {
-                  Navigator.pushNamed(context, WatchlistPage.routeName);
+                  Navigator.pushNamed(context, WatchlistMoviePage.routeName);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.save_alt),
+                title: const Text('Watchlist Tv Show'),
+                onTap: () {
+                  Navigator.pushNamed(context, WatchlistTvShowPage.routeName);
                 },
               ),
               ListTile(
