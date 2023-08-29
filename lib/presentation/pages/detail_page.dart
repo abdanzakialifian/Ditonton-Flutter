@@ -286,11 +286,8 @@ class DetailContent extends StatelessWidget {
             padding: const EdgeInsets.all(4.0),
             child: InkWell(
               onTap: () {
-                Navigator.pushReplacementNamed(
-                  context,
-                  DetailPage.routeName,
-                  arguments: [recommendation.id, type],
-                );
+                Navigator.pushReplacementNamed(context, DetailPage.routeName,
+                    arguments: recommendation.id);
               },
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(
