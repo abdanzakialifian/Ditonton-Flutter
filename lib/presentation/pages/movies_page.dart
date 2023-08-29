@@ -75,13 +75,13 @@ class _MoviesPageState extends State<MoviesPage> {
       builder: (context, data, child) {
         final state = data.nowPlayingState;
         if (state == RequestState.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return _moviesLoading();
         } else if (state == RequestState.loaded) {
           return _moviesList(data.nowPlayingMovies);
         } else {
-          return const Text('Failed');
+          return Center(
+            child: Text(data.message),
+          );
         }
       },
     );
@@ -92,13 +92,13 @@ class _MoviesPageState extends State<MoviesPage> {
       builder: (context, data, child) {
         final state = data.popularMoviesState;
         if (state == RequestState.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return _moviesLoading();
         } else if (state == RequestState.loaded) {
           return _moviesList(data.popularMovies);
         } else {
-          return const Text('Failed');
+          return Center(
+            child: Text(data.message),
+          );
         }
       },
     );
@@ -109,13 +109,13 @@ class _MoviesPageState extends State<MoviesPage> {
       builder: (context, data, child) {
         final state = data.topRatedMoviesState;
         if (state == RequestState.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return _moviesLoading();
         } else if (state == RequestState.loaded) {
           return _moviesList(data.topRatedMovies);
         } else {
-          return const Text('Failed');
+          return Center(
+            child: Text(data.message),
+          );
         }
       },
     );
@@ -142,14 +142,35 @@ class _MoviesPageState extends State<MoviesPage> {
     );
   }
 
+  Widget _moviesLoading() {
+    return SizedBox(
+      height: 200,
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return const SizedBox(
+            width: 140,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   Widget _moviesList(List<Category> movies) {
     return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        itemCount: movies.length,
         itemBuilder: (context, index) {
           final movie = movies[index];
           return Container(
+            width: 140,
             padding: const EdgeInsets.all(8),
             child: InkWell(
               onTap: () {
@@ -162,17 +183,25 @@ class _MoviesPageState extends State<MoviesPage> {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
+                  fit: BoxFit.cover,
                   imageUrl: '$baseImageUrl${movie.posterPath}',
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
+                  placeholder: (context, url) => const SizedBox(
+                    width: 140,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => const SizedBox(
+                    width: 140,
+                    child: Center(
+                      child: Icon(Icons.error),
+                    ),
+                  ),
                 ),
               ),
             ),
           );
         },
-        itemCount: movies.length,
       ),
     );
   }

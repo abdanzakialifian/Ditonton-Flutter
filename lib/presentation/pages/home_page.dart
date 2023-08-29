@@ -81,7 +81,7 @@ class HomePageState extends State<HomePage> {
                 );
               },
               icon: const Icon(Icons.search),
-            )
+            ),
           ],
         ),
         body: _type == movies
