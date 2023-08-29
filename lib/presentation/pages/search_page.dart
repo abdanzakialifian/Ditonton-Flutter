@@ -24,8 +24,11 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    SearchNotifier searchNotifier =
+        Provider.of<SearchNotifier>(context, listen: true);
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('Search'),
         ),
@@ -36,12 +39,11 @@ class _SearchPageState extends State<SearchPage> {
             children: [
               TextField(
                 onSubmitted: (query) {
+                  searchNotifier.setQuerySearch(query);
                   if (widget.type == movies) {
-                    Provider.of<SearchNotifier>(context, listen: false)
-                        .fetchMovieSearch(query);
+                    searchNotifier.fetchMovieSearch(query);
                   } else {
-                    Provider.of<SearchNotifier>(context, listen: false)
-                        .fetchTvShowSearch(query);
+                    searchNotifier.fetchTvShowSearch(query);
                   }
                 },
                 decoration: const InputDecoration(
@@ -56,7 +58,13 @@ class _SearchPageState extends State<SearchPage> {
                 'Search Result',
                 style: kHeading6,
               ),
-              _setUpList(widget.type)
+              searchNotifier.querySearch.isEmpty
+                  ? Expanded(
+                      child: Center(
+                        child: Image.asset("assets/search_empty_image.png"),
+                      ),
+                    )
+                  : _setUpList(widget.type)
             ],
           ),
         ),
@@ -76,17 +84,21 @@ class _SearchPageState extends State<SearchPage> {
         } else if (data.state == RequestState.loaded) {
           final result = data.searchResult;
           return Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemBuilder: (context, index) {
-                final searchResult = data.searchResult[index];
-                return CategoryCardItem(
-                  category: searchResult,
-                  type: type ?? "",
-                );
-              },
-              itemCount: result.length,
-            ),
+            child: data.searchResult.isNotEmpty
+                ? ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: result.length,
+                    itemBuilder: (context, index) {
+                      final searchResult = data.searchResult[index];
+                      return CategoryCardItem(
+                        category: searchResult,
+                        type: type ?? "",
+                      );
+                    },
+                  )
+                : Center(
+                    child: Image.asset("assets/search_empty_image.png"),
+                  ),
           );
         } else {
           return Expanded(

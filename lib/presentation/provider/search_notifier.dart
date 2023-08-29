@@ -22,6 +22,14 @@ class SearchNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
+  String _querySearch = '';
+  String get querySearch => _querySearch;
+
+  void setQuerySearch(String querySearch) {
+    _querySearch = querySearch;
+    notifyListeners();
+  }
+
   Future<void> fetchMovieSearch(String query) async {
     _state = RequestState.loading;
     notifyListeners();
