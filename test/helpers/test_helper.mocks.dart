@@ -364,13 +364,21 @@ class MockWatchlistRepository extends _i1.Mock
         )),
       ) as _i7.Future<_i2.Either<_i8.Failure, String>>);
   @override
-  _i7.Future<bool> isAddedToWatchlist(int? id) => (super.noSuchMethod(
+  _i7.Future<_i2.Either<_i8.Failure, bool>> isAddedToWatchlist(int? id) =>
+      (super.noSuchMethod(
         Invocation.method(
           #isAddedToWatchlist,
           [id],
         ),
-        returnValue: _i7.Future<bool>.value(false),
-      ) as _i7.Future<bool>);
+        returnValue: _i7.Future<_i2.Either<_i8.Failure, bool>>.value(
+            _FakeEither_0<_i8.Failure, bool>(
+          this,
+          Invocation.method(
+            #isAddedToWatchlist,
+            [id],
+          ),
+        )),
+      ) as _i7.Future<_i2.Either<_i8.Failure, bool>>);
   @override
   _i7.Future<_i2.Either<_i8.Failure, List<_i13.Watchlist>>> getWatchlist() =>
       (super.noSuchMethod(

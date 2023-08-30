@@ -94,7 +94,14 @@ class WatchlistNotifier extends ChangeNotifier {
 
   Future<void> loadWatchlistStatus(int id) async {
     final result = await getWatchListStatus.execute(id);
-    _isAddedtoWatchlist = result;
+    result.fold(
+      (failure) {
+        _watchlistMessage = failure.message;
+      },
+      (isAdded) {
+        _isAddedtoWatchlist = isAdded;
+      },
+    );
     notifyListeners();
   }
 }

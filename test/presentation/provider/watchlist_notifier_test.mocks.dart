@@ -72,13 +72,21 @@ class MockGetWatchListStatus extends _i1.Mock
   }
 
   @override
-  _i4.Future<bool> execute(int? id) => (super.noSuchMethod(
+  _i4.Future<_i2.Either<_i5.Failure, bool>> execute(int? id) =>
+      (super.noSuchMethod(
         Invocation.method(
           #execute,
           [id],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
+            _FakeEither_0<_i5.Failure, bool>(
+          this,
+          Invocation.method(
+            #execute,
+            [id],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, bool>>);
 }
 
 /// A class which mocks [RemoveWatchlist].

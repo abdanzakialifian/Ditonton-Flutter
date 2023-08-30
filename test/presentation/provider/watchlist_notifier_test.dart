@@ -63,7 +63,8 @@ void main() {
 
     test('should get the watchlist status', () async {
       // arrange
-      when(mockGetWatchListStatus.execute(1)).thenAnswer((_) async => true);
+      when(mockGetWatchListStatus.execute(1))
+          .thenAnswer((_) async => const Right(true));
       // act
       await watchlistNotifier.loadWatchlistStatus(1);
       // assert
@@ -75,7 +76,7 @@ void main() {
       when(mockSaveWatchlist.execute(dummyWatchlist))
           .thenAnswer((_) async => const Right('Success'));
       when(mockGetWatchListStatus.execute(dummyWatchlist.id))
-          .thenAnswer((_) async => true);
+          .thenAnswer((_) async => const Right(true));
       // act
       await watchlistNotifier.addWatchlist(dummyWatchlist);
       // assert
@@ -87,7 +88,7 @@ void main() {
       when(mockRemoveWatchlist.execute(dummyWatchlist))
           .thenAnswer((_) async => const Right('Removed'));
       when(mockGetWatchListStatus.execute(dummyWatchlist.id))
-          .thenAnswer((_) async => false);
+          .thenAnswer((_) async => const Right(false));
       // act
       await watchlistNotifier.removeFromWatchlist(dummyWatchlist);
       // assert
@@ -98,7 +99,8 @@ void main() {
       // arrange
       when(mockRemoveWatchlist.execute(dummyWatchlist)).thenAnswer(
           (_) async => const Left(DatabaseFailure("Can't remove data")));
-      when(mockGetWatchListStatus.execute(1)).thenAnswer((_) async => false);
+      when(mockGetWatchListStatus.execute(1))
+          .thenAnswer((_) async => const Right(false));
       // act
       await watchlistNotifier.removeFromWatchlist(dummyWatchlist);
       // assert
@@ -110,7 +112,7 @@ void main() {
       when(mockSaveWatchlist.execute(dummyWatchlist))
           .thenAnswer((_) async => const Right('Added to Watchlist'));
       when(mockGetWatchListStatus.execute(dummyWatchlist.id))
-          .thenAnswer((_) async => true);
+          .thenAnswer((_) async => const Right(true));
       // act
       await watchlistNotifier.addWatchlist(dummyWatchlist);
       // assert
@@ -124,7 +126,7 @@ void main() {
       when(mockSaveWatchlist.execute(dummyWatchlist))
           .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
       when(mockGetWatchListStatus.execute(dummyWatchlist.id))
-          .thenAnswer((_) async => false);
+          .thenAnswer((_) async => const Right(false));
       // act
       await watchlistNotifier.addWatchlist(dummyWatchlist);
       // assert

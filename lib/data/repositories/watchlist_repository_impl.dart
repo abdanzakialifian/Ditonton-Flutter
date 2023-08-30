@@ -36,9 +36,13 @@ class WatchlistRepositoryImpl extends WatchlistRepository {
   }
 
   @override
-  Future<bool> isAddedToWatchlist(int id) async {
-    final result = await _localDataSource.getWatchlistById(id);
-    return result != null;
+  Future<Either<Failure, bool>> isAddedToWatchlist(int id) async {
+    try {
+      final result = await _localDataSource.getWatchlistById(id);
+      return Right(result != null);
+    } on DatabaseException catch (e) {
+      return Left(DatabaseFailure(e.message));
+    }
   }
 
   @override
