@@ -63,16 +63,26 @@ class WatchlistMoviePageState extends State<WatchlistMoviePage>
           final mapWatchlist = data.watchlist
               .where((element) => element.category == movies)
               .toList();
-          return ListView.builder(
-            itemCount: mapWatchlist.length,
-            itemBuilder: (context, index) {
-              final watchlist = mapWatchlist[index];
-              return CategoryCardItem(
-                category: Category.fromWatchlist(watchlist),
-                type: watchlist.category ?? "",
-              );
-            },
-          );
+          if (mapWatchlist.isNotEmpty) {
+            return ListView.builder(
+              itemCount: mapWatchlist.length,
+              itemBuilder: (context, index) {
+                final watchlist = mapWatchlist[index];
+                return CategoryCardItem(
+                  category: Category.fromWatchlist(watchlist),
+                  type: watchlist.category ?? "",
+                );
+              },
+            );
+          } else {
+            return Center(
+              child: Image.asset(
+                "assets/data_empty_image.png",
+                height: 300,
+                width: 300,
+              ),
+            );
+          }
         } else if (data.watchlistState == RequestState.error) {
           return Center(
             child: Text(data.message),
