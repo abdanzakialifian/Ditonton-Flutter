@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:ditonton/data/models/genre/genre_response.dart';
 import 'package:ditonton/data/models/movie/movie_response.dart';
-import 'package:ditonton/data/models/moviedetail/movie_detail_response.dart';
-import 'package:ditonton/data/models/tvshow/tv_show_response.dart';
-import 'package:ditonton/data/models/tvshowdetail/tv_show_detail_response.dart';
+import 'package:ditonton/data/models/movie_detail/movie_detail_response.dart';
+import 'package:ditonton/data/models/tv_show/tv_show_response.dart';
+import 'package:ditonton/data/models/tv_show_detail/tv_show_detail_response.dart';
 import 'package:ditonton/data/models/watchlist_table.dart';
 import 'package:ditonton/domain/entities/category.dart';
 import 'package:ditonton/domain/entities/genre.dart';

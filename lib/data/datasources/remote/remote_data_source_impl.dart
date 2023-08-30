@@ -4,10 +4,10 @@ import 'package:ditonton/data/datasources/remote/remote_data_source.dart';
 import 'package:ditonton/data/models/movie/movie_response.dart';
 import 'package:ditonton/data/models/movie/movie_result_response.dart';
 import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/data/models/moviedetail/movie_detail_response.dart';
-import 'package:ditonton/data/models/tvshow/tv_show_response.dart';
-import 'package:ditonton/data/models/tvshow/tv_show_result_response.dart';
-import 'package:ditonton/data/models/tvshowdetail/tv_show_detail_response.dart';
+import 'package:ditonton/data/models/movie_detail/movie_detail_response.dart';
+import 'package:ditonton/data/models/tv_show/tv_show_response.dart';
+import 'package:ditonton/data/models/tv_show/tv_show_result_response.dart';
+import 'package:ditonton/data/models/tv_show_detail/tv_show_detail_response.dart';
 import 'package:http/http.dart' as http;
 
 class RemoteDataSourceImpl implements RemoteDataSource {

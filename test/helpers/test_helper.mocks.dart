@@ -15,11 +15,11 @@ import 'package:ditonton/data/datasources/local/local_data_source.dart' as _i17;
 import 'package:ditonton/data/datasources/remote/remote_data_source.dart'
     as _i14;
 import 'package:ditonton/data/models/movie/movie_result_response.dart' as _i15;
-import 'package:ditonton/data/models/moviedetail/movie_detail_response.dart'
+import 'package:ditonton/data/models/movie_detail/movie_detail_response.dart'
     as _i3;
-import 'package:ditonton/data/models/tvshow/tv_show_result_response.dart'
+import 'package:ditonton/data/models/tv_show/tv_show_result_response.dart'
     as _i16;
-import 'package:ditonton/data/models/tvshowdetail/tv_show_detail_response.dart'
+import 'package:ditonton/data/models/tv_show_detail/tv_show_detail_response.dart'
     as _i4;
 import 'package:ditonton/data/models/watchlist_table.dart' as _i18;
 import 'package:ditonton/domain/entities/category.dart' as _i9;

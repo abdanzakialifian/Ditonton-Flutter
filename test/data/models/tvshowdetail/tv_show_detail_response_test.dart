@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:ditonton/data/models/tvshowdetail/tv_show_detail_response.dart';
+import 'package:ditonton/data/models/tv_show_detail/tv_show_detail_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 import '../../../dummy_data/dummy_objects.dart';
 
