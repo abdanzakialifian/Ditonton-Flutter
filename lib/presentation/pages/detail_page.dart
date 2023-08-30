@@ -187,7 +187,7 @@ class DetailContent extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              _setUpRecommenadation(context),
+                              _setUpRecommendation(context),
                               type == movies
                                   ? const SizedBox.shrink()
                                   : _setUpSeason(context, detail.seasons),
@@ -258,7 +258,7 @@ class DetailContent extends StatelessWidget {
     }
   }
 
-  Widget _setUpRecommenadation(BuildContext context) {
+  Widget _setUpRecommendation(BuildContext context) {
     return Consumer<DetailNotifier>(
       builder: (context, data, child) {
         if (data.recommendationState == RequestState.loading) {
