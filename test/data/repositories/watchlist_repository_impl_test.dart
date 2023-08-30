@@ -84,7 +84,7 @@ void main() {
           await watchlistRepositoryImpl.isAddedToWatchlist(dummyWatchlistId);
       // assert
       verify(mockLocalDataSource.getWatchlistById(dummyWatchlistId));
-      expect(result, true);
+      expect(result, isRightThat(true));
     });
 
     test('should return false watch status whether data is not found',
@@ -98,7 +98,7 @@ void main() {
           await watchlistRepositoryImpl.isAddedToWatchlist(dummyWatchlistId);
       // assert
       verify(mockLocalDataSource.getWatchlistById(dummyWatchlistId));
-      expect(result, false);
+      expect(result, isRightThat(false));
     });
   });
 
