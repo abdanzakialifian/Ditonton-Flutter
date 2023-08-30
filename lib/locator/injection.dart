@@ -125,8 +125,7 @@ void init() {
   );
 
   // data sources
-  locator.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImpl(locator()));
+  locator.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImpl());
   locator.registerLazySingleton<LocalDataSource>(
       () => LocalDataSourceImpl(locator()));
 
