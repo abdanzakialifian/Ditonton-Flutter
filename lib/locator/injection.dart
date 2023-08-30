@@ -1,6 +1,7 @@
 import 'package:ditonton/data/datasources/local/db/database_helper.dart';
 import 'package:ditonton/data/datasources/local/local_data_source.dart';
 import 'package:ditonton/data/datasources/local/local_data_source_impl.dart';
+import 'package:ditonton/data/datasources/remote/network_http_client.dart';
 import 'package:ditonton/data/datasources/remote/remote_data_source.dart';
 import 'package:ditonton/data/datasources/remote/remote_data_source_impl.dart';
 import 'package:ditonton/data/repositories/movie_repository_impl.dart';
@@ -33,7 +34,6 @@ import 'package:ditonton/presentation/provider/popular_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_show_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
@@ -125,7 +125,8 @@ void init() {
   );
 
   // data sources
-  locator.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImpl());
+  locator.registerLazySingleton<RemoteDataSource>(
+      () => RemoteDataSourceImpl(locator()));
   locator.registerLazySingleton<LocalDataSource>(
       () => LocalDataSourceImpl(locator()));
 
@@ -133,5 +134,7 @@ void init() {
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingleton(() {
+    return NetworkHttpClient().httpClient();
+  });
 }

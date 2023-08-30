@@ -1,5 +1,6 @@
 import 'package:ditonton/data/datasources/remote/remote_data_source_impl.dart';
 import 'package:ditonton/common/exception.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
@@ -8,12 +9,13 @@ import '../../../helpers/test_helper.mocks.dart';
 import '../../../json_reader.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   late RemoteDataSourceImpl remoteDataSourceImpl;
   late MockHttpClient mockHttpClient;
 
   setUp(() {
     mockHttpClient = MockHttpClient();
-    remoteDataSourceImpl = RemoteDataSourceImpl();
+    remoteDataSourceImpl = RemoteDataSourceImpl(mockHttpClient);
   });
 
   group('Get Now Playing Movies', () {
