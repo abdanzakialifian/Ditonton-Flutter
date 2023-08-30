@@ -74,7 +74,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget _setUpList(String? type) {
     return Consumer<SearchNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         if (data.state == RequestState.loading) {
           return const Expanded(
             child: Center(

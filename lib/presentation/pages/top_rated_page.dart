@@ -45,7 +45,7 @@ class TopRatedPageState extends State<TopRatedPage> {
 
   Widget _setUpList(String? type) {
     return Consumer<TopRatedNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         if (data.state == RequestState.loading) {
           return const Center(
             child: CircularProgressIndicator(),

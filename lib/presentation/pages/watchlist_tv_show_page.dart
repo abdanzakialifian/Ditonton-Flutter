@@ -54,7 +54,7 @@ class WatchlistTvShowPageState extends State<WatchlistTvShowPage>
 
   Widget _setUpWatchlist() {
     return Consumer<WatchlistNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         if (data.watchlistState == RequestState.loading) {
           return const Center(
             child: CircularProgressIndicator(),

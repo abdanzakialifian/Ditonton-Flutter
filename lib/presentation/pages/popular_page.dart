@@ -47,7 +47,7 @@ class PopularPageState extends State<PopularPage> {
 
   Widget _setUpList(String? type) {
     return Consumer<PopularNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         if (data.state == RequestState.loading) {
           return const Center(
             child: CircularProgressIndicator(),

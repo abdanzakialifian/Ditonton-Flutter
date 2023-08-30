@@ -53,7 +53,7 @@ class DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer<DetailNotifier>(
-        builder: (context, provider, child) {
+        builder: (_, provider, __) {
           if (provider.detailState == RequestState.loading) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -260,7 +260,7 @@ class DetailContent extends StatelessWidget {
 
   Widget _setUpRecommendation(BuildContext context) {
     return Consumer<DetailNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         if (data.recommendationState == RequestState.loading) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -421,16 +421,7 @@ class DetailContent extends StatelessWidget {
   }
 
   String _showGenres(List<Genre> genres) {
-    String result = '';
-    for (var genre in genres) {
-      result += '${genre.name ?? ""}, ';
-    }
-
-    if (result.isEmpty) {
-      return result;
-    }
-
-    return result.substring(0, result.length - 2);
+    return genres.map((e) => e.name).toList().join(', ');
   }
 
   String _showDuration(int runtime) {

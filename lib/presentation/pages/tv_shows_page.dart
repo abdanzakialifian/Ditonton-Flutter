@@ -72,7 +72,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
 
   Widget _getAiringTodayTvShows() {
     return Consumer<TvShowNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         final state = data.airingTodayTvShowsState;
         if (state == RequestState.loading) {
           return _tvShowsLoading();
@@ -89,7 +89,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
 
   Widget _getPopularTvShows() {
     return Consumer<TvShowNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         final state = data.popularTvShowsState;
         if (state == RequestState.loading) {
           return _tvShowsLoading();
@@ -106,7 +106,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
 
   Widget _getTopRatedTvShows() {
     return Consumer<TvShowNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         final state = data.topRatedTvShowsState;
         if (state == RequestState.loading) {
           return _tvShowsLoading();

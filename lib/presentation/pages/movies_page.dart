@@ -72,7 +72,7 @@ class _MoviesPageState extends State<MoviesPage> {
 
   Widget _getNowPlayingMovies() {
     return Consumer<MovieNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         final state = data.nowPlayingState;
         if (state == RequestState.loading) {
           return _moviesLoading();
@@ -89,7 +89,7 @@ class _MoviesPageState extends State<MoviesPage> {
 
   Widget _getPopularMovies() {
     return Consumer<MovieNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         final state = data.popularMoviesState;
         if (state == RequestState.loading) {
           return _moviesLoading();
@@ -106,7 +106,7 @@ class _MoviesPageState extends State<MoviesPage> {
 
   Widget _getTopRatedMovies() {
     return Consumer<MovieNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         final state = data.topRatedMoviesState;
         if (state == RequestState.loading) {
           return _moviesLoading();

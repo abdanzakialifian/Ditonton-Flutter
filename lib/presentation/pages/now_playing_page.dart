@@ -49,7 +49,7 @@ class NowPlayingPageState extends State<NowPlayingPage> {
 
   Widget _setUpList(String? type) {
     return Consumer<NowPlayingNotifier>(
-      builder: (context, data, child) {
+      builder: (_, data, __) {
         if (data.state == RequestState.loading) {
           return const Center(
             child: CircularProgressIndicator(),
