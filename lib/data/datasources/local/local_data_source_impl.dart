@@ -4,14 +4,14 @@ import 'package:ditonton/data/datasources/local/local_data_source.dart';
 import 'package:ditonton/data/models/watchlist_table.dart';
 
 class LocalDataSourceImpl implements LocalDataSource {
-  final DatabaseHelper databaseHelper;
+  final DatabaseHelper _databaseHelper;
 
-  LocalDataSourceImpl({required this.databaseHelper});
+  LocalDataSourceImpl(this._databaseHelper);
 
   @override
   Future<String> insertWatchlist(WatchlistTable watchlistTable) async {
     try {
-      await databaseHelper.insertWatchlist(watchlistTable);
+      await _databaseHelper.insertWatchlist(watchlistTable);
       return 'Added to Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -21,7 +21,7 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<String> removeWatchlist(WatchlistTable watchlistTable) async {
     try {
-      await databaseHelper.removeWatchlist(watchlistTable);
+      await _databaseHelper.removeWatchlist(watchlistTable);
       return 'Removed from Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -30,7 +30,7 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<WatchlistTable?> getWatchlistById(int id) async {
-    final result = await databaseHelper.getWatchlistById(id);
+    final result = await _databaseHelper.getWatchlistById(id);
     if (result != null) {
       return WatchlistTable.fromMap(result);
     } else {
@@ -40,7 +40,7 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<List<WatchlistTable>> getWatchlists() async {
-    final result = await databaseHelper.getWatchlist();
+    final result = await _databaseHelper.getWatchlist();
     return result.map((data) => WatchlistTable.fromMap(data)).toList();
   }
 }
