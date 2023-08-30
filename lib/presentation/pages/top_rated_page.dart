@@ -63,6 +63,7 @@ class TopRatedPageState extends State<TopRatedPage> {
           );
         } else {
           return Center(
+            key: const Key("error_message"),
             child: Text(data.message),
           );
         }
