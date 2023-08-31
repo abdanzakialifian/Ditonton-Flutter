@@ -17,6 +17,7 @@ dependencies:
     sdk: flutter
   equatable: ^2.0.5
   dartz: ^0.10.0-nullsafety.2
+  dartz_test: ^0.1.1
 
 dev_dependencies:
   json_serializable: ^6.7.1
