@@ -1,30 +1,29 @@
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/top_rated_notifier.dart';
-import 'package:ditonton/presentation/widgets/category_card_item.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:presentation/provider/popular_notifier.dart';
+import 'package:presentation/widgets/category_card_item.dart';
 import 'package:provider/provider.dart';
 
-class TopRatedPage extends StatefulWidget {
-  static const routeName = '/top-rated';
+class PopularPage extends StatefulWidget {
+  static const routeName = '/popular';
   final String? type;
 
-  const TopRatedPage({Key? key, required this.type}) : super(key: key);
+  const PopularPage({Key? key, required this.type}) : super(key: key);
 
   @override
-  TopRatedPageState createState() => TopRatedPageState();
+  PopularPageState createState() => PopularPageState();
 }
 
-class TopRatedPageState extends State<TopRatedPage> {
+class PopularPageState extends State<PopularPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(
       () => widget.type == movies
-          ? Provider.of<TopRatedNotifier>(context, listen: false)
-              .fetchTopRatedMovies()
-          : Provider.of<TopRatedNotifier>(context, listen: false)
-              .fetchTopRatedTvShows(),
+          ? Provider.of<PopularNotifier>(context, listen: false)
+              .fetchPopularMovies()
+          : Provider.of<PopularNotifier>(context, listen: false)
+              .fetchPopularTvShows(),
     );
   }
 
@@ -34,17 +33,19 @@ class TopRatedPageState extends State<TopRatedPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.type == movies ? 'Top Rated Movies' : 'Top Rated Tv Shows',
+            widget.type == movies ? 'Popular Movies' : 'Popular Tv Shows',
           ),
         ),
         body: Padding(
-            padding: const EdgeInsets.all(8.0), child: _setUpList(widget.type)),
+          padding: const EdgeInsets.all(8.0),
+          child: _setUpList(widget.type),
+        ),
       ),
     );
   }
 
   Widget _setUpList(String? type) {
-    return Consumer<TopRatedNotifier>(
+    return Consumer<PopularNotifier>(
       builder: (_, data, __) {
         if (data.state == RequestState.loading) {
           return const Center(
@@ -57,7 +58,7 @@ class TopRatedPageState extends State<TopRatedPage> {
               final result = data.data[index];
               return CategoryCardItem(
                 category: result,
-                type: type ?? "",
+                type: widget.type ?? "",
               );
             },
           );

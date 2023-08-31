@@ -1,11 +1,11 @@
-import 'package:ditonton/domain/entities/detail.dart';
-import 'package:ditonton/domain/usecases/get_movie_detail.dart';
-import 'package:ditonton/domain/usecases/get_movie_recommendations.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/usecases/get_tv_show_detail.dart';
-import 'package:ditonton/domain/usecases/get_tv_show_recommendations.dart';
+import 'package:core/state_enum.dart';
+import 'package:domain/entities/detail.dart';
+import 'package:domain/usecases/get_movie_detail.dart';
+import 'package:domain/usecases/get_movie_recommendations.dart';
+import 'package:domain/usecases/get_tv_show_detail.dart';
+import 'package:domain/usecases/get_tv_show_recommendations.dart';
 import 'package:flutter/foundation.dart';
-import 'package:ditonton/domain/entities/category.dart' as category;
+import 'package:domain/entities/category.dart' as category;
 
 class DetailNotifier extends ChangeNotifier {
   final GetMovieDetail getMovieDetail;

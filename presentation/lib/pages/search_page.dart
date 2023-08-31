@@ -1,8 +1,7 @@
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/search_notifier.dart';
-import 'package:ditonton/presentation/widgets/category_card_item.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:presentation/provider/search_notifier.dart';
+import 'package:presentation/widgets/category_card_item.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {

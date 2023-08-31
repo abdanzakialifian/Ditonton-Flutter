@@ -1,30 +1,29 @@
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/popular_notifier.dart';
-import 'package:ditonton/presentation/widgets/category_card_item.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:presentation/provider/now_playing_notifier.dart';
+import 'package:presentation/widgets/category_card_item.dart';
 import 'package:provider/provider.dart';
 
-class PopularPage extends StatefulWidget {
-  static const routeName = '/popular';
+class NowPlayingPage extends StatefulWidget {
+  static const routeName = "/now-playing";
   final String? type;
 
-  const PopularPage({Key? key, required this.type}) : super(key: key);
+  const NowPlayingPage({Key? key, required this.type}) : super(key: key);
 
   @override
-  PopularPageState createState() => PopularPageState();
+  NowPlayingPageState createState() => NowPlayingPageState();
 }
 
-class PopularPageState extends State<PopularPage> {
+class NowPlayingPageState extends State<NowPlayingPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(
       () => widget.type == movies
-          ? Provider.of<PopularNotifier>(context, listen: false)
-              .fetchPopularMovies()
-          : Provider.of<PopularNotifier>(context, listen: false)
-              .fetchPopularTvShows(),
+          ? Provider.of<NowPlayingNotifier>(context, listen: false)
+              .fetchNowPlayingMovies()
+          : Provider.of<NowPlayingNotifier>(context, listen: false)
+              .fetchAiringTodayTvShows(),
     );
   }
 
@@ -34,7 +33,9 @@ class PopularPageState extends State<PopularPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.type == movies ? 'Popular Movies' : 'Popular Tv Shows',
+            widget.type == movies
+                ? "Now Playing Movies"
+                : "Airing Today Tv Shows",
           ),
         ),
         body: Padding(
@@ -46,7 +47,7 @@ class PopularPageState extends State<PopularPage> {
   }
 
   Widget _setUpList(String? type) {
-    return Consumer<PopularNotifier>(
+    return Consumer<NowPlayingNotifier>(
       builder: (_, data, __) {
         if (data.state == RequestState.loading) {
           return const Center(
@@ -65,7 +66,6 @@ class PopularPageState extends State<PopularPage> {
           );
         } else {
           return Center(
-            key: const Key("error_message"),
             child: Text(data.message),
           );
         }

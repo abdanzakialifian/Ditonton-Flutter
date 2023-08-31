@@ -1,11 +1,11 @@
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
-import 'package:ditonton/presentation/pages/movies_page.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
-import 'package:ditonton/presentation/pages/tv_shows_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movie_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_tv_show_page.dart';
+import 'package:core/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:presentation/pages/about_page.dart';
+import 'package:presentation/pages/movies_page.dart';
+import 'package:presentation/pages/search_page.dart';
+import 'package:presentation/pages/tv_shows_page.dart';
+import 'package:presentation/pages/watchlist_movie_page.dart';
+import 'package:presentation/pages/watchlist_tv_show_page.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';

@@ -1,17 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/category.dart';
-import 'package:ditonton/domain/entities/detail.dart';
-import 'package:ditonton/domain/entities/season.dart';
-import 'package:ditonton/domain/entities/watchlist.dart';
-import 'package:ditonton/presentation/pages/season_page.dart';
-import 'package:ditonton/presentation/provider/detail_notifier.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
-import 'package:ditonton/presentation/widgets/season_card_item.dart';
+import 'package:core/core.dart';
+import 'package:domain/entities/category.dart';
+import 'package:domain/entities/detail.dart';
+import 'package:domain/entities/genre.dart';
+import 'package:domain/entities/season.dart';
+import 'package:domain/entities/watchlist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:presentation/pages/season_page.dart';
+import 'package:presentation/provider/detail_notifier.dart';
+import 'package:presentation/provider/watchlist_notifier.dart';
+import 'package:presentation/widgets/season_card_item.dart';
 import 'package:provider/provider.dart';
 
 class DetailPage extends StatefulWidget {

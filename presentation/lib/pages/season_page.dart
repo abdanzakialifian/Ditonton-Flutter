@@ -1,6 +1,6 @@
-import 'package:ditonton/domain/entities/season.dart';
-import 'package:ditonton/presentation/widgets/season_card_item.dart';
+import 'package:domain/entities/season.dart';
 import 'package:flutter/material.dart';
+import 'package:presentation/widgets/season_card_item.dart';
 
 class SeasonPage extends StatelessWidget {
   static const routeName = '/season';

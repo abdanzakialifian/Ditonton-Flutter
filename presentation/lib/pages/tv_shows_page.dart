@@ -1,32 +1,31 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/category.dart';
-import 'package:ditonton/presentation/pages/detail_page.dart';
-import 'package:ditonton/presentation/pages/now_playing_page.dart';
-import 'package:ditonton/presentation/pages/popular_page.dart';
-import 'package:ditonton/presentation/pages/top_rated_page.dart';
-import 'package:ditonton/presentation/provider/movie_notifier.dart';
+import 'package:core/core.dart';
+import 'package:domain/entities/category.dart';
 import 'package:flutter/material.dart';
+import 'package:presentation/pages/detail_page.dart';
+import 'package:presentation/pages/now_playing_page.dart';
+import 'package:presentation/pages/popular_page.dart';
+import 'package:presentation/pages/top_rated_page.dart';
+import 'package:presentation/provider/tv_show_notifier.dart';
 import 'package:provider/provider.dart';
 
-class MoviesPage extends StatefulWidget {
+class TvShowsPage extends StatefulWidget {
   final String? type;
 
-  const MoviesPage({Key? key, required this.type}) : super(key: key);
+  const TvShowsPage({Key? key, required this.type}) : super(key: key);
 
   @override
-  State<MoviesPage> createState() => _MoviesPageState();
+  State<TvShowsPage> createState() => _TvShowsPageState();
 }
 
-class _MoviesPageState extends State<MoviesPage> {
+class _TvShowsPageState extends State<TvShowsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<MovieNotifier>(context, listen: false)
-      ..fetchNowPlayingMovies()
-      ..fetchPopularMovies()
-      ..fetchTopRatedMovies());
+    Future.microtask(() => Provider.of<TvShowNotifier>(context, listen: false)
+      ..fetchAiringTodayTvShows()
+      ..fetchPopularTvShows()
+      ..fetchTopRatedTvShows());
   }
 
   @override
@@ -38,14 +37,14 @@ class _MoviesPageState extends State<MoviesPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildSubHeading(
-              title: 'Now Playing',
+              title: 'Airing Today',
               onTap: () => Navigator.pushNamed(
                 context,
                 NowPlayingPage.routeName,
                 arguments: widget.type,
               ),
             ),
-            _getNowPlayingMovies(),
+            _getAiringTodayTvShows(),
             _buildSubHeading(
               title: 'Popular',
               onTap: () => Navigator.pushNamed(
@@ -54,7 +53,7 @@ class _MoviesPageState extends State<MoviesPage> {
                 arguments: widget.type,
               ),
             ),
-            _getPopularMovies(),
+            _getPopularTvShows(),
             _buildSubHeading(
               title: 'Top Rated',
               onTap: () => Navigator.pushNamed(
@@ -63,21 +62,21 @@ class _MoviesPageState extends State<MoviesPage> {
                 arguments: widget.type,
               ),
             ),
-            _getTopRatedMovies(),
+            _getTopRatedTvShows(),
           ],
         ),
       ),
     );
   }
 
-  Widget _getNowPlayingMovies() {
-    return Consumer<MovieNotifier>(
+  Widget _getAiringTodayTvShows() {
+    return Consumer<TvShowNotifier>(
       builder: (_, data, __) {
-        final state = data.nowPlayingState;
+        final state = data.airingTodayTvShowsState;
         if (state == RequestState.loading) {
-          return _moviesLoading();
+          return _tvShowsLoading();
         } else if (state == RequestState.loaded) {
-          return _moviesList(data.nowPlayingMovies);
+          return _tvShowsList(data.airingTodayTvShows);
         } else {
           return Center(
             child: Text(data.message),
@@ -87,14 +86,14 @@ class _MoviesPageState extends State<MoviesPage> {
     );
   }
 
-  Widget _getPopularMovies() {
-    return Consumer<MovieNotifier>(
+  Widget _getPopularTvShows() {
+    return Consumer<TvShowNotifier>(
       builder: (_, data, __) {
-        final state = data.popularMoviesState;
+        final state = data.popularTvShowsState;
         if (state == RequestState.loading) {
-          return _moviesLoading();
+          return _tvShowsLoading();
         } else if (state == RequestState.loaded) {
-          return _moviesList(data.popularMovies);
+          return _tvShowsList(data.popularTvShows);
         } else {
           return Center(
             child: Text(data.message),
@@ -104,14 +103,14 @@ class _MoviesPageState extends State<MoviesPage> {
     );
   }
 
-  Widget _getTopRatedMovies() {
-    return Consumer<MovieNotifier>(
+  Widget _getTopRatedTvShows() {
+    return Consumer<TvShowNotifier>(
       builder: (_, data, __) {
-        final state = data.topRatedMoviesState;
+        final state = data.topRatedTvShowsState;
         if (state == RequestState.loading) {
-          return _moviesLoading();
+          return _tvShowsLoading();
         } else if (state == RequestState.loaded) {
-          return _moviesList(data.topRatedMovies);
+          return _tvShowsList(data.topRatedTvShows);
         } else {
           return Center(
             child: Text(data.message),
@@ -142,7 +141,7 @@ class _MoviesPageState extends State<MoviesPage> {
     );
   }
 
-  Widget _moviesLoading() {
+  Widget _tvShowsLoading() {
     return SizedBox(
       height: 200,
       child: ListView.builder(
@@ -161,14 +160,14 @@ class _MoviesPageState extends State<MoviesPage> {
     );
   }
 
-  Widget _moviesList(List<Category> movies) {
+  Widget _tvShowsList(List<Category> tvShows) {
     return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: movies.length,
+        itemCount: tvShows.length,
         itemBuilder: (context, index) {
-          final movie = movies[index];
+          final tvShow = tvShows[index];
           return Container(
             width: 140,
             padding: const EdgeInsets.all(8),
@@ -177,14 +176,14 @@ class _MoviesPageState extends State<MoviesPage> {
                 Navigator.pushNamed(
                   context,
                   DetailPage.routeName,
-                  arguments: [movie.id, widget.type],
+                  arguments: [tvShow.id, widget.type],
                 );
               },
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
-                  imageUrl: '$baseImageUrl${movie.posterPath}',
+                  imageUrl: '$baseImageUrl${tvShow.posterPath}',
                   placeholder: (context, url) => const SizedBox(
                     width: 140,
                     child: Center(

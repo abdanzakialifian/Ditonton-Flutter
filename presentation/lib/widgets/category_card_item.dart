@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/domain/entities/category.dart';
-import 'package:ditonton/presentation/pages/detail_page.dart';
+import 'package:core/core.dart';
+import 'package:domain/entities/category.dart';
 import 'package:flutter/material.dart';
+import 'package:presentation/pages/detail_page.dart';
 
 class CategoryCardItem extends StatelessWidget {
   final Category category;
