@@ -27,11 +27,11 @@ import 'package:domain/usecases/save_watchlist.dart';
 import 'package:domain/usecases/search_movies.dart';
 import 'package:domain/usecases/search_tv_shows.dart';
 import 'package:get_it/get_it.dart';
+import 'package:presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:presentation/provider/detail_notifier.dart';
 import 'package:presentation/provider/movie_notifier.dart';
 import 'package:presentation/provider/now_playing_notifier.dart';
 import 'package:presentation/provider/popular_notifier.dart';
-import 'package:presentation/provider/search_notifier.dart';
 import 'package:presentation/provider/top_rated_notifier.dart';
 import 'package:presentation/provider/tv_show_notifier.dart';
 import 'package:presentation/provider/watchlist_notifier.dart';
@@ -53,12 +53,6 @@ void init() {
       getMovieRecommendations: locator(),
       getTvShowDetail: locator(),
       getTvShowRecommendations: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => SearchNotifier(
-      searchMovies: locator(),
-      searchTvShows: locator(),
     ),
   );
   locator.registerFactory(
@@ -93,6 +87,11 @@ void init() {
       getPopularTvShows: locator(),
       getTopRatedTvShows: locator(),
     ),
+  );
+
+  // bloc
+  locator.registerFactory(
+    () => SearchBloc(locator(), locator()),
   );
 
   // use case

@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:presentation/provider/search_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:presentation/widgets/category_card_item.dart';
-import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
   static const routeName = '/search';
@@ -18,13 +18,11 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<SearchNotifier>(context, listen: false).clearSearchResult();
+    context.read<SearchBloc>().add(ClearResultList());
   }
 
   @override
   Widget build(BuildContext context) {
-    SearchNotifier searchNotifier =
-        Provider.of<SearchNotifier>(context, listen: true);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -37,12 +35,15 @@ class _SearchPageState extends State<SearchPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
-                onSubmitted: (query) {
-                  searchNotifier.setQuerySearch(query);
+                onChanged: (value) {
                   if (widget.type == movies) {
-                    searchNotifier.fetchMovieSearch(query);
+                    context
+                        .read<SearchBloc>()
+                        .add(OnQueryChangedFetchMovies(value));
                   } else {
-                    searchNotifier.fetchTvShowSearch(query);
+                    context
+                        .read<SearchBloc>()
+                        .add(OnQueryChangedFetchTvShows(value));
                   }
                 },
                 decoration: const InputDecoration(
@@ -57,13 +58,7 @@ class _SearchPageState extends State<SearchPage> {
                 'Search Result',
                 style: kHeading6,
               ),
-              searchNotifier.querySearch.isEmpty
-                  ? Expanded(
-                      child: Center(
-                        child: Image.asset("assets/search_empty_image.png"),
-                      ),
-                    )
-                  : _setUpList(widget.type)
+              _setUpList(widget.type)
             ],
           ),
         ),
@@ -72,23 +67,23 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _setUpList(String? type) {
-    return Consumer<SearchNotifier>(
-      builder: (_, data, __) {
-        if (data.state == RequestState.loading) {
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (_, state) {
+        if (state is SearchLoading) {
           return const Expanded(
             child: Center(
               child: CircularProgressIndicator(),
             ),
           );
-        } else if (data.state == RequestState.loaded) {
-          final result = data.searchResult;
+        } else if (state is SearchData) {
+          final result = state.result;
           return Expanded(
-            child: data.searchResult.isNotEmpty
+            child: result.isNotEmpty
                 ? ListView.builder(
                     padding: const EdgeInsets.all(8),
                     itemCount: result.length,
                     itemBuilder: (context, index) {
-                      final searchResult = data.searchResult[index];
+                      final searchResult = result[index];
                       return CategoryCardItem(
                         category: searchResult,
                         type: type ?? "",
@@ -103,9 +98,15 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
           );
+        } else if (state is SearchError) {
+          return Expanded(
+            child: Text(state.message),
+          );
         } else {
           return Expanded(
-            child: Text(data.message),
+            child: Center(
+              child: Image.asset("assets/search_empty_image.png"),
+            ),
           );
         }
       },

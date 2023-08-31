@@ -3,6 +3,8 @@ import 'package:ditonton/firebase_options.dart';
 import 'package:domain/entities/season.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:presentation/pages/about_page.dart';
 import 'package:presentation/pages/detail_page.dart';
 import 'package:presentation/pages/home_page.dart';
@@ -17,7 +19,6 @@ import 'package:presentation/provider/detail_notifier.dart';
 import 'package:presentation/provider/movie_notifier.dart';
 import 'package:presentation/provider/now_playing_notifier.dart';
 import 'package:presentation/provider/popular_notifier.dart';
-import 'package:presentation/provider/search_notifier.dart';
 import 'package:presentation/provider/top_rated_notifier.dart';
 import 'package:presentation/provider/tv_show_notifier.dart';
 import 'package:presentation/provider/watchlist_notifier.dart';
@@ -44,8 +45,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<DetailNotifier>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<SearchNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<SearchBloc>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<NowPlayingNotifier>(),
