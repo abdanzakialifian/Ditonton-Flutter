@@ -1,7 +1,8 @@
 import 'dart:io';
 
 String readJson(String name) {
-  var dir = Directory.current.path;
+  var dir =
+      "/Users/abdanzakialifian/Projects/Flutter Project/Ditonton Calogue Movie TvShow/domain";
   if (dir.endsWith('/test')) {
     dir = dir.replaceAll('/test', '');
   }
