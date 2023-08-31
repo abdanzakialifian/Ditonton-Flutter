@@ -1,5 +1,5 @@
-import 'package:ditonton/data/models/genre/genre_response.dart';
-import 'package:ditonton/domain/entities/detail.dart';
+import 'package:data/models/genre/genre_response.dart';
+import 'package:domain/entities/detail.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'movie_detail_response.g.dart';

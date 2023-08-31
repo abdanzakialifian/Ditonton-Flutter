@@ -1,4 +1,4 @@
-import 'package:ditonton/data/models/watchlist_table.dart';
+import 'package:data/models/watchlist_table.dart';
 
 abstract class LocalDataSource {
   Future<String> insertWatchlist(WatchlistTable watchlistTable);

@@ -1,4 +1,4 @@
-import 'package:ditonton/domain/entities/watchlist.dart';
+import 'package:domain/entities/watchlist.dart';
 import 'package:equatable/equatable.dart';
 
 class WatchlistTable extends Equatable {

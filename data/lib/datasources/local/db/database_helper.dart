@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:ditonton/data/models/watchlist_table.dart';
+import 'package:data/models/watchlist_table.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {

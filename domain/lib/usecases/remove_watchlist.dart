@@ -1,7 +1,7 @@
+import 'package:core/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/domain/entities/watchlist.dart';
-import 'package:ditonton/domain/repositories/watchlist_repository.dart';
+import 'package:domain/entities/watchlist.dart';
+import 'package:domain/repositories/watchlist_repository.dart';
 
 class RemoveWatchlist {
   final WatchlistRepository _watchlistRepository;

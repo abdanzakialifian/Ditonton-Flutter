@@ -1,7 +1,7 @@
-import 'package:ditonton/data/models/movie/movie_result_response.dart';
-import 'package:ditonton/data/models/movie_detail/movie_detail_response.dart';
-import 'package:ditonton/data/models/tv_show/tv_show_result_response.dart';
-import 'package:ditonton/data/models/tv_show_detail/tv_show_detail_response.dart';
+import 'package:data/models/movie/movie_result_response.dart';
+import 'package:data/models/movie_detail/movie_detail_response.dart';
+import 'package:data/models/tv_show/tv_show_result_response.dart';
+import 'package:data/models/tv_show_detail/tv_show_detail_response.dart';
 
 abstract class RemoteDataSource {
   Future<List<MovieResultResponse>> getNowPlayingMovies();

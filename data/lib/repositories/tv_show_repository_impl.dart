@@ -1,11 +1,11 @@
 import 'dart:io';
+import 'package:core/exception.dart';
+import 'package:core/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/data/datasources/remote/remote_data_source.dart';
-import 'package:ditonton/domain/entities/category.dart';
-import 'package:ditonton/domain/entities/detail.dart';
-import 'package:ditonton/domain/repositories/tv_show_repository.dart';
+import 'package:data/datasources/remote/remote_data_source.dart';
+import 'package:domain/entities/category.dart';
+import 'package:domain/entities/detail.dart';
+import 'package:domain/repositories/tv_show_repository.dart';
 
 class TvShowRepositoryImpl extends TvShowRepository {
   final RemoteDataSource _remoteDataSource;

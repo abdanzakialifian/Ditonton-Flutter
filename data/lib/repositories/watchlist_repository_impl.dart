@@ -1,10 +1,10 @@
+import 'package:core/exception.dart';
+import 'package:core/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/data/datasources/local/local_data_source.dart';
-import 'package:ditonton/data/models/watchlist_table.dart';
-import 'package:ditonton/domain/entities/watchlist.dart';
-import 'package:ditonton/domain/repositories/watchlist_repository.dart';
+import 'package:data/datasources/local/local_data_source.dart';
+import 'package:data/models/watchlist_table.dart';
+import 'package:domain/entities/watchlist.dart';
+import 'package:domain/repositories/watchlist_repository.dart';
 
 class WatchlistRepositoryImpl extends WatchlistRepository {
   final LocalDataSource _localDataSource;

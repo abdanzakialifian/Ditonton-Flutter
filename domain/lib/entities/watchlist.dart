@@ -1,5 +1,5 @@
-import 'package:ditonton/data/models/watchlist_table.dart';
-import 'package:ditonton/domain/entities/detail.dart';
+import 'package:data/models/watchlist_table.dart';
+import 'package:domain/entities/detail.dart';
 import 'package:equatable/equatable.dart';
 
 class Watchlist extends Equatable {

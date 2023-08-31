@@ -1,4 +1,4 @@
-import 'package:ditonton/domain/entities/category.dart';
+import 'package:domain/entities/category.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 

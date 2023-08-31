@@ -1,5 +1,5 @@
-import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/season.dart';
+import 'package:domain/entities/genre.dart';
+import 'package:domain/entities/season.dart';
 import 'package:equatable/equatable.dart';
 
 class Detail extends Equatable {

@@ -1,7 +1,7 @@
-import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/data/datasources/local/db/database_helper.dart';
-import 'package:ditonton/data/datasources/local/local_data_source.dart';
-import 'package:ditonton/data/models/watchlist_table.dart';
+import 'package:core/exception.dart';
+import 'package:data/datasources/local/db/database_helper.dart';
+import 'package:data/datasources/local/local_data_source.dart';
+import 'package:data/models/watchlist_table.dart';
 
 class LocalDataSourceImpl implements LocalDataSource {
   final DatabaseHelper _databaseHelper;
