@@ -1,6 +1,6 @@
 part of 'search_bloc.dart';
 
-abstract class SearchState extends Equatable {
+sealed class SearchState extends Equatable {
   @override
   List<Object?> get props => [];
 }

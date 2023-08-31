@@ -6,9 +6,10 @@ import 'package:domain/entities/genre.dart';
 import 'package:domain/entities/season.dart';
 import 'package:domain/entities/watchlist.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:presentation/bloc/detail_bloc/detail_bloc.dart';
 import 'package:presentation/pages/season_page.dart';
-import 'package:presentation/provider/detail_notifier.dart';
 import 'package:presentation/provider/watchlist_notifier.dart';
 import 'package:presentation/widgets/season_card_item.dart';
 import 'package:provider/provider.dart';
@@ -35,13 +36,11 @@ class DetailPageState extends State<DetailPage> {
     super.initState();
     Future.microtask(() {
       if (widget.type == movies) {
-        Provider.of<DetailNotifier>(context, listen: false)
-            .fetchMovieDetail(widget.id);
+        context.read<DetailBloc>().add(FetchMovieDetail(widget.id));
         Provider.of<WatchlistNotifier>(context, listen: false)
             .loadWatchlistStatus(widget.id);
       } else {
-        Provider.of<DetailNotifier>(context, listen: false)
-            .fetchTvShowDetail(widget.id);
+        context.read<DetailBloc>().add(FetchTvShowDetail(widget.id));
         Provider.of<WatchlistNotifier>(context, listen: false)
             .loadWatchlistStatus(widget.id);
       }
@@ -51,25 +50,27 @@ class DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<DetailNotifier>(
-        builder: (_, provider, __) {
-          if (provider.detailState == RequestState.loading) {
+      body: BlocBuilder<DetailBloc, DetailState>(
+        builder: (_, state) {
+          if (state is DetailLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.detailState == RequestState.loaded) {
+          } else if (state is DetailData) {
             return DetailContent(
-              provider.detail,
-              provider.recommendations,
+              state.detail,
               Provider.of<WatchlistNotifier>(context).isAddedToWatchlist,
               widget.type,
+              state.recommendationState,
             );
-          } else {
+          } else if (state is DetailError) {
             return Center(
               child: Text(
-                provider.message,
+                state.message,
               ),
             );
+          } else {
+            return const SizedBox.shrink();
           }
         },
       ),
@@ -79,12 +80,12 @@ class DetailPageState extends State<DetailPage> {
 
 class DetailContent extends StatelessWidget {
   final Detail detail;
-  final List<Category> recommendations;
   final bool isAddedWatchlist;
   final String type;
+  final DetailState recommendationState;
 
   const DetailContent(
-      this.detail, this.recommendations, this.isAddedWatchlist, this.type,
+      this.detail, this.isAddedWatchlist, this.type, this.recommendationState,
       {Key? key})
       : super(key: key);
 
@@ -186,7 +187,7 @@ class DetailContent extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              _setUpRecommendation(context),
+                              _setUpRecommendation(recommendationState),
                               type == movies
                                   ? const SizedBox.shrink()
                                   : _setUpSeason(context, detail.seasons),
@@ -257,48 +258,44 @@ class DetailContent extends StatelessWidget {
     }
   }
 
-  Widget _setUpRecommendation(BuildContext context) {
-    return Consumer<DetailNotifier>(
-      builder: (_, data, __) {
-        if (data.recommendationState == RequestState.loading) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(
-                    top: 16, bottom: 10, left: 16, right: 16),
-                child: Text(
-                  'Recommendations',
-                  style: kHeading6,
-                ),
-              ),
-              _setUpLoadingRecommendations()
-            ],
-          );
-        } else if (data.recommendationState == RequestState.error) {
-          return Center(
-            child: Text(data.message),
-          );
-        } else if (data.recommendationState == RequestState.loaded) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(
-                    top: 16, bottom: 10, left: 16, right: 16),
-                child: Text(
-                  'Recommendations',
-                  style: kHeading6,
-                ),
-              ),
-              _setUpListRecommendations()
-            ],
-          );
-        } else {
-          return const SizedBox.shrink();
-        }
-      },
-    );
+  Widget _setUpRecommendation(DetailState recommendationState) {
+    if (recommendationState is RecommendationLoading) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin:
+                const EdgeInsets.only(top: 16, bottom: 10, left: 16, right: 16),
+            child: Text(
+              'Recommendations',
+              style: kHeading6,
+            ),
+          ),
+          _setUpLoadingRecommendations()
+        ],
+      );
+    } else if (recommendationState is RecommendationData) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin:
+                const EdgeInsets.only(top: 16, bottom: 10, left: 16, right: 16),
+            child: Text(
+              'Recommendations',
+              style: kHeading6,
+            ),
+          ),
+          _setUpListRecommendations(recommendationState.recommendations)
+        ],
+      );
+    } else if (recommendationState is RecommendationError) {
+      return Center(
+        child: Text(recommendationState.message),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 
   Widget _setUpLoadingRecommendations() {
@@ -320,7 +317,7 @@ class DetailContent extends StatelessWidget {
     );
   }
 
-  Widget _setUpListRecommendations() {
+  Widget _setUpListRecommendations(List<Category> recommendations) {
     return SizedBox(
       height: 150,
       child: ListView.builder(
@@ -371,12 +368,17 @@ class DetailContent extends StatelessWidget {
 
   Widget _setUpSeason(BuildContext context, List<Season>? seasons) {
     if (seasons != null && seasons.isNotEmpty) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 16, bottom: 5),
-            child: Row(
+      return Container(
+        margin: const EdgeInsets.only(
+          top: 16,
+          bottom: 5,
+          left: 16,
+          right: 16,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -408,11 +410,11 @@ class DetailContent extends StatelessWidget {
                     : const SizedBox.shrink(),
               ],
             ),
-          ),
-          SeasonCardItem(
-            season: detail.seasons?.last,
-          ),
-        ],
+            SeasonCardItem(
+              season: detail.seasons?.last,
+            ),
+          ],
+        ),
       );
     } else {
       return const SizedBox.shrink();

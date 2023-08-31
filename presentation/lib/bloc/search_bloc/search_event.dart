@@ -1,6 +1,6 @@
 part of 'search_bloc.dart';
 
-abstract class SearchEvent extends Equatable {
+sealed class SearchEvent extends Equatable {
   @override
   List<Object?> get props => [];
 }
@@ -23,7 +23,4 @@ class OnQueryChangedFetchTvShows extends SearchEvent {
   List<Object?> get props => [query];
 }
 
-class ClearResultList extends SearchEvent {
-  @override
-  List<Object?> get props => [];
-}
+class ClearResultList extends SearchEvent {}

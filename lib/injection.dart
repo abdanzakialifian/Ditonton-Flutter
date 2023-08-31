@@ -28,7 +28,7 @@ import 'package:domain/usecases/search_movies.dart';
 import 'package:domain/usecases/search_tv_shows.dart';
 import 'package:get_it/get_it.dart';
 import 'package:presentation/bloc/search_bloc/search_bloc.dart';
-import 'package:presentation/provider/detail_notifier.dart';
+import 'package:presentation/bloc/detail_bloc/detail_bloc.dart';
 import 'package:presentation/provider/movie_notifier.dart';
 import 'package:presentation/provider/now_playing_notifier.dart';
 import 'package:presentation/provider/popular_notifier.dart';
@@ -45,14 +45,6 @@ void init() {
       getNowPlayingMovies: locator(),
       getPopularMovies: locator(),
       getTopRatedMovies: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => DetailNotifier(
-      getMovieDetail: locator(),
-      getMovieRecommendations: locator(),
-      getTvShowDetail: locator(),
-      getTvShowRecommendations: locator(),
     ),
   );
   locator.registerFactory(
@@ -92,6 +84,15 @@ void init() {
   // bloc
   locator.registerFactory(
     () => SearchBloc(locator(), locator()),
+  );
+
+  locator.registerFactory(
+    () => DetailBloc(
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+    ),
   );
 
   // use case
