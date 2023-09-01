@@ -50,23 +50,24 @@ class DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<DetailBloc, DetailState>(
+      body: BlocBuilder<DetailBloc, DetailContainerState>(
         builder: (_, state) {
-          if (state is DetailLoading) {
+          if (state.detailState is DetailLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is DetailData) {
+          } else if (state.detailState is DetailData) {
+            final data = state.detailState as DetailData;
             return DetailContent(
-              state.detail,
+              data.detail,
               Provider.of<WatchlistNotifier>(context).isAddedToWatchlist,
               widget.type,
-              state.recommendationState,
             );
-          } else if (state is DetailError) {
+          } else if (state.detailState is DetailError) {
+            final data = state.detailState as DetailError;
             return Center(
               child: Text(
-                state.message,
+                data.message,
               ),
             );
           } else {
@@ -82,11 +83,8 @@ class DetailContent extends StatelessWidget {
   final Detail detail;
   final bool isAddedWatchlist;
   final String type;
-  final DetailState recommendationState;
 
-  const DetailContent(
-      this.detail, this.isAddedWatchlist, this.type, this.recommendationState,
-      {Key? key})
+  const DetailContent(this.detail, this.isAddedWatchlist, this.type, {Key? key})
       : super(key: key);
 
   @override
@@ -187,7 +185,7 @@ class DetailContent extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              _setUpRecommendation(recommendationState),
+                              _setUpRecommendation(),
                               type == movies
                                   ? const SizedBox.shrink()
                                   : _setUpSeason(context, detail.seasons),
@@ -258,44 +256,50 @@ class DetailContent extends StatelessWidget {
     }
   }
 
-  Widget _setUpRecommendation(DetailState recommendationState) {
-    if (recommendationState is RecommendationLoading) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin:
-                const EdgeInsets.only(top: 16, bottom: 10, left: 16, right: 16),
-            child: Text(
-              'Recommendations',
-              style: kHeading6,
-            ),
-          ),
-          _setUpLoadingRecommendations()
-        ],
-      );
-    } else if (recommendationState is RecommendationData) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin:
-                const EdgeInsets.only(top: 16, bottom: 10, left: 16, right: 16),
-            child: Text(
-              'Recommendations',
-              style: kHeading6,
-            ),
-          ),
-          _setUpListRecommendations(recommendationState.recommendations)
-        ],
-      );
-    } else if (recommendationState is RecommendationError) {
-      return Center(
-        child: Text(recommendationState.message),
-      );
-    } else {
-      return const SizedBox.shrink();
-    }
+  Widget _setUpRecommendation() {
+    return BlocBuilder<DetailBloc, DetailContainerState>(
+      builder: (_, state) {
+        if (state.recommendationState is RecommendationLoading) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                    top: 16, bottom: 10, left: 16, right: 16),
+                child: Text(
+                  'Recommendations',
+                  style: kHeading6,
+                ),
+              ),
+              _setUpLoadingRecommendations()
+            ],
+          );
+        } else if (state.recommendationState is RecommendationData) {
+          final data = state.recommendationState as RecommendationData;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                    top: 16, bottom: 10, left: 16, right: 16),
+                child: Text(
+                  'Recommendations',
+                  style: kHeading6,
+                ),
+              ),
+              _setUpListRecommendations(data.recommendations)
+            ],
+          );
+        } else if (state.recommendationState is RecommendationError) {
+          final data = state.recommendationState as RecommendationError;
+          return Center(
+            child: Text(data.message),
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
   }
 
   Widget _setUpLoadingRecommendations() {

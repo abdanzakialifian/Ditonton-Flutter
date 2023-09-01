@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'detail_event.dart';
 part 'detail_state.dart';
 
-class DetailBloc extends Bloc<DetailEvent, DetailState> {
+class DetailBloc extends Bloc<DetailEvent, DetailContainerState> {
   final GetMovieDetail _getMovieDetail;
   final GetMovieRecommendations _getMovieRecommendations;
   final GetTvShowDetail _getTvShowDetail;
@@ -20,35 +20,62 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     this._getMovieRecommendations,
     this._getTvShowDetail,
     this._getTvShowRecommendations,
-  ) : super(DetailEmpty()) {
+  ) : super(DetailContainerState.initialState()) {
     on<FetchMovieDetail>(
       (event, emit) async {
-        emit(DetailLoading());
+        emit(
+          state.copyWith(
+            detailState: DetailLoading(),
+          ),
+        );
 
         final detailResult = await _getMovieDetail.execute(event.movieId);
         final recommendationResult =
             await _getMovieRecommendations.execute(event.movieId);
-        DetailState recommendationState;
 
         detailResult.fold(
           (failure) {
-            emit(DetailError(failure.message));
+            emit(
+              state.copyWith(
+                detailState: DetailError(failure.message),
+              ),
+            );
           },
           (movie) {
-            recommendationState = RecommendationLoading();
+            emit(
+              state.copyWith(
+                recommendationState: RecommendationLoading(),
+              ),
+            );
             recommendationResult.fold(
               (failure) {
-                recommendationState = RecommendationError(failure.message);
+                emit(
+                  state.copyWith(
+                    recommendationState: RecommendationError(failure.message),
+                  ),
+                );
               },
               (movies) {
                 if (movies.isNotEmpty) {
-                  recommendationState = RecommendationData(movies);
+                  emit(
+                    state.copyWith(
+                      recommendationState: RecommendationData(movies),
+                    ),
+                  );
                 } else {
-                  recommendationState = RecommendationEmpty();
+                  emit(
+                    state.copyWith(
+                      recommendationState: RecommendationEmpty(),
+                    ),
+                  );
                 }
               },
             );
-            emit(DetailData(movie, recommendationState));
+            emit(
+              state.copyWith(
+                detailState: DetailData(movie),
+              ),
+            );
           },
         );
       },
@@ -56,32 +83,59 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
 
     on<FetchTvShowDetail>(
       (event, emit) async {
-        emit(DetailLoading());
+        emit(
+          state.copyWith(
+            detailState: DetailLoading(),
+          ),
+        );
 
         final detailResult = await _getTvShowDetail.execute(event.tvShowId);
         final recommendationResult =
             await _getTvShowRecommendations.execute(event.tvShowId);
-        DetailState recommendationState;
 
         detailResult.fold(
           (failure) {
-            emit(DetailError(failure.message));
+            emit(
+              state.copyWith(
+                detailState: DetailError(failure.message),
+              ),
+            );
           },
           (tvShow) {
-            recommendationState = RecommendationLoading();
+            emit(
+              state.copyWith(
+                recommendationState: RecommendationLoading(),
+              ),
+            );
             recommendationResult.fold(
               (failure) {
-                recommendationState = RecommendationError(failure.message);
+                emit(
+                  state.copyWith(
+                    recommendationState: RecommendationError(failure.message),
+                  ),
+                );
               },
               (tvShows) {
                 if (tvShows.isNotEmpty) {
-                  recommendationState = RecommendationData(tvShows);
+                  emit(
+                    state.copyWith(
+                      recommendationState: RecommendationData(tvShows),
+                    ),
+                  );
                 } else {
-                  recommendationState = RecommendationEmpty();
+                  emit(
+                    state.copyWith(
+                      recommendationState: RecommendationEmpty(),
+                    ),
+                  );
                 }
               },
             );
-            emit(DetailData(tvShow, recommendationState));
+            emit(
+              state.copyWith(
+                detailState: DetailData(tvShow),
+              ),
+            );
           },
         );
       },

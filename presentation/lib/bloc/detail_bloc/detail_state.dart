@@ -1,6 +1,32 @@
 part of 'detail_bloc.dart';
 
+class DetailContainerState {
+  final DetailState detailState;
+  final RecommendationState recommendationState;
+
+  const DetailContainerState(
+      {required this.detailState, required this.recommendationState});
+
+  DetailContainerState copyWith(
+          {DetailState? detailState,
+          RecommendationState? recommendationState}) =>
+      DetailContainerState(
+        detailState: detailState ?? this.detailState,
+        recommendationState: recommendationState ?? this.recommendationState,
+      );
+
+  factory DetailContainerState.initialState() => DetailContainerState(
+        detailState: DetailEmpty(),
+        recommendationState: RecommendationEmpty(),
+      );
+}
+
 sealed class DetailState extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
+sealed class RecommendationState extends Equatable {
   @override
   List<Object?> get props => [];
 }
@@ -20,19 +46,18 @@ class DetailError extends DetailState {
 
 class DetailData extends DetailState {
   final Detail detail;
-  final DetailState recommendationState;
 
-  DetailData(this.detail, this.recommendationState);
+  DetailData(this.detail);
 
   @override
   List<Object?> get props => [detail];
 }
 
-class RecommendationLoading extends DetailState {}
+class RecommendationLoading extends RecommendationState {}
 
-class RecommendationEmpty extends DetailState {}
+class RecommendationEmpty extends RecommendationState {}
 
-class RecommendationError extends DetailState {
+class RecommendationError extends RecommendationState {
   final String message;
 
   RecommendationError(this.message);
@@ -41,7 +66,7 @@ class RecommendationError extends DetailState {
   List<Object?> get props => [message];
 }
 
-class RecommendationData extends DetailState {
+class RecommendationData extends RecommendationState {
   final List<Category> recommendations;
 
   RecommendationData(this.recommendations);
