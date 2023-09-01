@@ -27,9 +27,9 @@ import 'package:domain/usecases/save_watchlist.dart';
 import 'package:domain/usecases/search_movies.dart';
 import 'package:domain/usecases/search_tv_shows.dart';
 import 'package:get_it/get_it.dart';
+import 'package:presentation/bloc/movie_bloc/movie_bloc.dart';
 import 'package:presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:presentation/bloc/detail_bloc/detail_bloc.dart';
-import 'package:presentation/provider/movie_notifier.dart';
 import 'package:presentation/provider/now_playing_notifier.dart';
 import 'package:presentation/provider/popular_notifier.dart';
 import 'package:presentation/provider/top_rated_notifier.dart';
@@ -40,13 +40,6 @@ final locator = GetIt.instance;
 
 void init() {
   // provider
-  locator.registerFactory(
-    () => MovieNotifier(
-      getNowPlayingMovies: locator(),
-      getPopularMovies: locator(),
-      getTopRatedMovies: locator(),
-    ),
-  );
   locator.registerFactory(
     () => WatchlistNotifier(
       getWatchlist: locator(),
@@ -83,16 +76,24 @@ void init() {
 
   // bloc
   locator.registerFactory(
-    () => SearchBloc(locator(), locator()),
-  );
-
-  locator.registerFactory(
     () => DetailBloc(
       locator(),
       locator(),
       locator(),
       locator(),
     ),
+  );
+
+  locator.registerFactory(
+    () => MovieBloc(
+      locator(),
+      locator(),
+      locator(),
+    ),
+  );
+
+  locator.registerFactory(
+    () => SearchBloc(locator(), locator()),
   );
 
   // use case

@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:domain/entities/category.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:presentation/bloc/movie_bloc/movie_bloc.dart';
 import 'package:presentation/pages/detail_page.dart';
 import 'package:presentation/pages/now_playing_page.dart';
 import 'package:presentation/pages/popular_page.dart';
 import 'package:presentation/pages/top_rated_page.dart';
-import 'package:presentation/provider/movie_notifier.dart';
-import 'package:provider/provider.dart';
 
 class MoviesPage extends StatefulWidget {
   final String? type;
@@ -22,10 +22,10 @@ class _MoviesPageState extends State<MoviesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<MovieNotifier>(context, listen: false)
-      ..fetchNowPlayingMovies()
-      ..fetchPopularMovies()
-      ..fetchTopRatedMovies());
+    context.read<MovieBloc>()
+      ..add(FetchNowPlayingMovies())
+      ..add(FetchPopularMovies())
+      ..add(FetchTopRatedMovies());
   }
 
   @override
@@ -70,51 +70,60 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _getNowPlayingMovies() {
-    return Consumer<MovieNotifier>(
-      builder: (_, data, __) {
-        final state = data.nowPlayingState;
-        if (state == RequestState.loading) {
+    return BlocBuilder<MovieBloc, MovieState>(
+      builder: (_, state) {
+        if (state.nowPlayingMoviesState is NowPlayingMoviesLoading) {
           return _moviesLoading();
-        } else if (state == RequestState.loaded) {
-          return _moviesList(data.nowPlayingMovies);
-        } else {
+        } else if (state.nowPlayingMoviesState is NowPlayingMoviesData) {
+          final data = state.nowPlayingMoviesState as NowPlayingMoviesData;
+          return _moviesList(data.result);
+        } else if (state.nowPlayingMoviesState is NowPlayingMoviesError) {
+          final data = state.nowPlayingMoviesState as NowPlayingMoviesError;
           return Center(
             child: Text(data.message),
           );
+        } else {
+          return const SizedBox.shrink();
         }
       },
     );
   }
 
   Widget _getPopularMovies() {
-    return Consumer<MovieNotifier>(
-      builder: (_, data, __) {
-        final state = data.popularMoviesState;
-        if (state == RequestState.loading) {
+    return BlocBuilder<MovieBloc, MovieState>(
+      builder: (_, state) {
+        if (state.popularMoviesState is PopularMoviesLoading) {
           return _moviesLoading();
-        } else if (state == RequestState.loaded) {
-          return _moviesList(data.popularMovies);
-        } else {
+        } else if (state.popularMoviesState is PopularMoviesData) {
+          final data = state.popularMoviesState as PopularMoviesData;
+          return _moviesList(data.result);
+        } else if (state.popularMoviesState is PopularMoviesError) {
+          final data = state.popularMoviesState as NowPlayingMoviesError;
           return Center(
             child: Text(data.message),
           );
+        } else {
+          return const SizedBox.shrink();
         }
       },
     );
   }
 
   Widget _getTopRatedMovies() {
-    return Consumer<MovieNotifier>(
-      builder: (_, data, __) {
-        final state = data.topRatedMoviesState;
-        if (state == RequestState.loading) {
+    return BlocBuilder<MovieBloc, MovieState>(
+      builder: (_, state) {
+        if (state.topRatedMoviesState is TopRatedMoviesLoading) {
           return _moviesLoading();
-        } else if (state == RequestState.loaded) {
-          return _moviesList(data.topRatedMovies);
-        } else {
+        } else if (state.topRatedMoviesState is TopRatedMoviesData) {
+          final data = state.topRatedMoviesState as TopRatedMoviesData;
+          return _moviesList(data.result);
+        } else if (state.topRatedMoviesState is TopRatedMoviesError) {
+          final data = state.topRatedMoviesState as TopRatedMoviesError;
           return Center(
             child: Text(data.message),
           );
+        } else {
+          return const SizedBox.shrink();
         }
       },
     );
