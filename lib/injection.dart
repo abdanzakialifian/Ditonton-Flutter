@@ -28,9 +28,9 @@ import 'package:domain/usecases/search_movies.dart';
 import 'package:domain/usecases/search_tv_shows.dart';
 import 'package:get_it/get_it.dart';
 import 'package:presentation/bloc/movie_bloc/movie_bloc.dart';
+import 'package:presentation/bloc/now_playing_bloc/now_playing_bloc.dart';
 import 'package:presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:presentation/bloc/detail_bloc/detail_bloc.dart';
-import 'package:presentation/provider/now_playing_notifier.dart';
 import 'package:presentation/provider/popular_notifier.dart';
 import 'package:presentation/provider/top_rated_notifier.dart';
 import 'package:presentation/provider/tv_show_notifier.dart';
@@ -46,12 +46,6 @@ void init() {
       getWatchListStatus: locator(),
       removeWatchlist: locator(),
       saveWatchlist: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => NowPlayingNotifier(
-      locator(),
-      locator(),
     ),
   );
   locator.registerFactory(
@@ -87,6 +81,13 @@ void init() {
   locator.registerFactory(
     () => MovieBloc(
       locator(),
+      locator(),
+      locator(),
+    ),
+  );
+
+  locator.registerFactory(
+    () => NowPlayingBloc(
       locator(),
       locator(),
     ),

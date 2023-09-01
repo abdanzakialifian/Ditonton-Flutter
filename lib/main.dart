@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:presentation/bloc/detail_bloc/detail_bloc.dart';
 import 'package:presentation/bloc/movie_bloc/movie_bloc.dart';
+import 'package:presentation/bloc/now_playing_bloc/now_playing_bloc.dart';
 import 'package:presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:presentation/pages/about_page.dart';
 import 'package:presentation/pages/detail_page.dart';
@@ -17,7 +18,6 @@ import 'package:presentation/pages/season_page.dart';
 import 'package:presentation/pages/top_rated_page.dart';
 import 'package:presentation/pages/watchlist_movie_page.dart';
 import 'package:presentation/pages/watchlist_tv_show_page.dart';
-import 'package:presentation/provider/now_playing_notifier.dart';
 import 'package:presentation/provider/popular_notifier.dart';
 import 'package:presentation/provider/top_rated_notifier.dart';
 import 'package:presentation/provider/tv_show_notifier.dart';
@@ -46,10 +46,10 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<MovieBloc>(),
         ),
         BlocProvider(
-          create: (_) => di.locator<SearchBloc>(),
+          create: (context) => di.locator<NowPlayingBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<NowPlayingNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<SearchBloc>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<PopularNotifier>(),

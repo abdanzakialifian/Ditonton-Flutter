@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:presentation/provider/now_playing_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:presentation/bloc/now_playing_bloc/now_playing_bloc.dart';
 import 'package:presentation/widgets/category_card_item.dart';
-import 'package:provider/provider.dart';
 
 class NowPlayingPage extends StatefulWidget {
   static const routeName = "/now-playing";
@@ -20,10 +20,8 @@ class NowPlayingPageState extends State<NowPlayingPage> {
     super.initState();
     Future.microtask(
       () => widget.type == movies
-          ? Provider.of<NowPlayingNotifier>(context, listen: false)
-              .fetchNowPlayingMovies()
-          : Provider.of<NowPlayingNotifier>(context, listen: false)
-              .fetchAiringTodayTvShows(),
+          ? context.read<NowPlayingBloc>().add(FetchNowPlayingMovies())
+          : context.read<NowPlayingBloc>().add(FetchAiringTodayTvShows()),
     );
   }
 
@@ -47,27 +45,29 @@ class NowPlayingPageState extends State<NowPlayingPage> {
   }
 
   Widget _setUpList(String? type) {
-    return Consumer<NowPlayingNotifier>(
-      builder: (_, data, __) {
-        if (data.state == RequestState.loading) {
+    return BlocBuilder<NowPlayingBloc, NowPlayingState>(
+      builder: (_, state) {
+        if (state is NowPlayingLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (data.state == RequestState.loaded) {
+        } else if (state is NowPlayingData) {
           return ListView.builder(
-            itemCount: data.data.length,
+            itemCount: state.result.length,
             itemBuilder: (context, index) {
-              final result = data.data[index];
+              final result = state.result[index];
               return CategoryCardItem(
                 category: result,
                 type: widget.type ?? "",
               );
             },
           );
-        } else {
+        } else if (state is NowPlayingError) {
           return Center(
-            child: Text(data.message),
+            child: Text(state.message),
           );
+        } else {
+          return const SizedBox.shrink();
         }
       },
     );
