@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:presentation/provider/popular_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:presentation/bloc/popular_bloc/popular_bloc.dart';
 import 'package:presentation/widgets/category_card_item.dart';
-import 'package:provider/provider.dart';
 
 class PopularPage extends StatefulWidget {
   static const routeName = '/popular';
@@ -20,10 +20,8 @@ class PopularPageState extends State<PopularPage> {
     super.initState();
     Future.microtask(
       () => widget.type == movies
-          ? Provider.of<PopularNotifier>(context, listen: false)
-              .fetchPopularMovies()
-          : Provider.of<PopularNotifier>(context, listen: false)
-              .fetchPopularTvShows(),
+          ? context.read<PopularBloc>().add(FetchPopularMovies())
+          : context.read<PopularBloc>().add(FetchPopularTvShows()),
     );
   }
 
@@ -45,28 +43,30 @@ class PopularPageState extends State<PopularPage> {
   }
 
   Widget _setUpList(String? type) {
-    return Consumer<PopularNotifier>(
-      builder: (_, data, __) {
-        if (data.state == RequestState.loading) {
+    return BlocBuilder<PopularBloc, PopularState>(
+      builder: (_, state) {
+        if (state is PopularLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (data.state == RequestState.loaded) {
+        } else if (state is PopularData) {
           return ListView.builder(
-            itemCount: data.data.length,
+            itemCount: state.result.length,
             itemBuilder: (context, index) {
-              final result = data.data[index];
+              final result = state.result[index];
               return CategoryCardItem(
                 category: result,
                 type: widget.type ?? "",
               );
             },
           );
-        } else {
+        } else if (state is PopularError) {
           return Center(
             key: const Key("error_message"),
-            child: Text(data.message),
+            child: Text(state.message),
           );
+        } else {
+          return const SizedBox.shrink();
         }
       },
     );
