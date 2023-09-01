@@ -10,6 +10,7 @@ import 'package:presentation/bloc/now_playing_bloc/now_playing_bloc.dart';
 import 'package:presentation/bloc/popular_bloc/popular_bloc.dart';
 import 'package:presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:presentation/bloc/top_rated_bloc/top_rated_bloc.dart';
+import 'package:presentation/bloc/tv_show_bloc/tv_show_bloc.dart';
 import 'package:presentation/pages/about_page.dart';
 import 'package:presentation/pages/detail_page.dart';
 import 'package:presentation/pages/home_page.dart';
@@ -20,7 +21,6 @@ import 'package:presentation/pages/season_page.dart';
 import 'package:presentation/pages/top_rated_page.dart';
 import 'package:presentation/pages/watchlist_movie_page.dart';
 import 'package:presentation/pages/watchlist_tv_show_page.dart';
-import 'package:presentation/provider/tv_show_notifier.dart';
 import 'package:presentation/provider/watchlist_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
@@ -57,11 +57,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.locator<TopRatedBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistNotifier>(),
+        BlocProvider(
+          create: (context) => di.locator<TvShowBloc>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TvShowNotifier>(),
+          create: (_) => di.locator<WatchlistNotifier>(),
         ),
       ],
       child: MaterialApp(

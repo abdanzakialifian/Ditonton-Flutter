@@ -33,7 +33,7 @@ import 'package:presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:presentation/bloc/detail_bloc/detail_bloc.dart';
 import 'package:presentation/bloc/popular_bloc/popular_bloc.dart';
 import 'package:presentation/bloc/top_rated_bloc/top_rated_bloc.dart';
-import 'package:presentation/provider/tv_show_notifier.dart';
+import 'package:presentation/bloc/tv_show_bloc/tv_show_bloc.dart';
 import 'package:presentation/provider/watchlist_notifier.dart';
 
 final locator = GetIt.instance;
@@ -46,13 +46,6 @@ void init() {
       getWatchListStatus: locator(),
       removeWatchlist: locator(),
       saveWatchlist: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvShowNotifier(
-      getAiringTodayTvShows: locator(),
-      getPopularTvShows: locator(),
-      getTopRatedTvShows: locator(),
     ),
   );
 
@@ -94,6 +87,14 @@ void init() {
 
   locator.registerFactory(
     () => TopRatedBloc(locator(), locator()),
+  );
+
+  locator.registerFactory(
+    () => TvShowBloc(
+      locator(),
+      locator(),
+      locator(),
+    ),
   );
 
   // use case

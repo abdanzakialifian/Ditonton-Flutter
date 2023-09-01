@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:domain/entities/category.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:presentation/bloc/tv_show_bloc/tv_show_bloc.dart';
 import 'package:presentation/pages/detail_page.dart';
 import 'package:presentation/pages/now_playing_page.dart';
 import 'package:presentation/pages/popular_page.dart';
 import 'package:presentation/pages/top_rated_page.dart';
-import 'package:presentation/provider/tv_show_notifier.dart';
-import 'package:provider/provider.dart';
 
 class TvShowsPage extends StatefulWidget {
   final String? type;
@@ -22,10 +22,10 @@ class _TvShowsPageState extends State<TvShowsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<TvShowNotifier>(context, listen: false)
-      ..fetchAiringTodayTvShows()
-      ..fetchPopularTvShows()
-      ..fetchTopRatedTvShows());
+    context.read<TvShowBloc>()
+      ..add(FetchAiringTodayTvShows())
+      ..add(FetchPopularTvShows())
+      ..add(FetchTopRatedTvShows());
   }
 
   @override
@@ -70,51 +70,60 @@ class _TvShowsPageState extends State<TvShowsPage> {
   }
 
   Widget _getAiringTodayTvShows() {
-    return Consumer<TvShowNotifier>(
-      builder: (_, data, __) {
-        final state = data.airingTodayTvShowsState;
-        if (state == RequestState.loading) {
+    return BlocBuilder<TvShowBloc, TvShowState>(
+      builder: (_, state) {
+        if (state.airingTodayTvShowsState is AiringTodayTvShowsLoading) {
           return _tvShowsLoading();
-        } else if (state == RequestState.loaded) {
-          return _tvShowsList(data.airingTodayTvShows);
-        } else {
+        } else if (state.airingTodayTvShowsState is AiringTodayTvShowsData) {
+          final data = state.airingTodayTvShowsState as AiringTodayTvShowsData;
+          return _tvShowsList(data.result);
+        } else if (state.airingTodayTvShowsState is AiringTodayTvShowsError) {
+          final data = state.airingTodayTvShowsState as AiringTodayTvShowsError;
           return Center(
             child: Text(data.message),
           );
+        } else {
+          return const SizedBox.shrink();
         }
       },
     );
   }
 
   Widget _getPopularTvShows() {
-    return Consumer<TvShowNotifier>(
-      builder: (_, data, __) {
-        final state = data.popularTvShowsState;
-        if (state == RequestState.loading) {
+    return BlocBuilder<TvShowBloc, TvShowState>(
+      builder: (_, state) {
+        if (state.popularTvShowsState is PopularTvShowsLoading) {
           return _tvShowsLoading();
-        } else if (state == RequestState.loaded) {
-          return _tvShowsList(data.popularTvShows);
-        } else {
+        } else if (state.popularTvShowsState is PopularTvShowsData) {
+          final data = state.popularTvShowsState as PopularTvShowsData;
+          return _tvShowsList(data.result);
+        } else if (state.popularTvShowsState is PopularTvShowsError) {
+          final data = state.popularTvShowsState as PopularTvShowsError;
           return Center(
             child: Text(data.message),
           );
+        } else {
+          return const SizedBox.shrink();
         }
       },
     );
   }
 
   Widget _getTopRatedTvShows() {
-    return Consumer<TvShowNotifier>(
-      builder: (_, data, __) {
-        final state = data.topRatedTvShowsState;
-        if (state == RequestState.loading) {
+    return BlocBuilder<TvShowBloc, TvShowState>(
+      builder: (_, state) {
+        if (state.topRatedTvShowsState is TopRatedTvShowsLoading) {
           return _tvShowsLoading();
-        } else if (state == RequestState.loaded) {
-          return _tvShowsList(data.topRatedTvShows);
-        } else {
+        } else if (state.topRatedTvShowsState is TopRatedTvShowsData) {
+          final data = state.topRatedTvShowsState as TopRatedTvShowsData;
+          return _tvShowsList(data.result);
+        } else if (state.topRatedTvShowsState is TopRatedTvShowsError) {
+          final data = state.topRatedTvShowsState as TopRatedTvShowsError;
           return Center(
             child: Text(data.message),
           );
+        } else {
+          return const SizedBox.shrink();
         }
       },
     );
