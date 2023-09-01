@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:presentation/provider/top_rated_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:presentation/bloc/top_rated_bloc/top_rated_bloc.dart';
 import 'package:presentation/widgets/category_card_item.dart';
-import 'package:provider/provider.dart';
 
 class TopRatedPage extends StatefulWidget {
   static const routeName = '/top-rated';
@@ -20,10 +20,8 @@ class TopRatedPageState extends State<TopRatedPage> {
     super.initState();
     Future.microtask(
       () => widget.type == movies
-          ? Provider.of<TopRatedNotifier>(context, listen: false)
-              .fetchTopRatedMovies()
-          : Provider.of<TopRatedNotifier>(context, listen: false)
-              .fetchTopRatedTvShows(),
+          ? context.read<TopRatedBloc>().add(FetchTopRatedMovies())
+          : context.read<TopRatedBloc>().add(FetchTopRatedTvShows()),
     );
   }
 
@@ -43,28 +41,30 @@ class TopRatedPageState extends State<TopRatedPage> {
   }
 
   Widget _setUpList(String? type) {
-    return Consumer<TopRatedNotifier>(
-      builder: (_, data, __) {
-        if (data.state == RequestState.loading) {
+    return BlocBuilder<TopRatedBloc, TopRatedState>(
+      builder: (_, state) {
+        if (state is TopRatedLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (data.state == RequestState.loaded) {
+        } else if (state is TopRatedData) {
           return ListView.builder(
-            itemCount: data.data.length,
+            itemCount: state.result.length,
             itemBuilder: (context, index) {
-              final result = data.data[index];
+              final result = state.result[index];
               return CategoryCardItem(
                 category: result,
                 type: type ?? "",
               );
             },
           );
-        } else {
+        } else if (state is TopRatedError) {
           return Center(
             key: const Key("error_message"),
-            child: Text(data.message),
+            child: Text(state.message),
           );
+        } else {
+          return const SizedBox.shrink();
         }
       },
     );

@@ -32,7 +32,7 @@ import 'package:presentation/bloc/now_playing_bloc/now_playing_bloc.dart';
 import 'package:presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:presentation/bloc/detail_bloc/detail_bloc.dart';
 import 'package:presentation/bloc/popular_bloc/popular_bloc.dart';
-import 'package:presentation/provider/top_rated_notifier.dart';
+import 'package:presentation/bloc/top_rated_bloc/top_rated_bloc.dart';
 import 'package:presentation/provider/tv_show_notifier.dart';
 import 'package:presentation/provider/watchlist_notifier.dart';
 
@@ -46,12 +46,6 @@ void init() {
       getWatchListStatus: locator(),
       removeWatchlist: locator(),
       saveWatchlist: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TopRatedNotifier(
-      locator(),
-      locator(),
     ),
   );
   locator.registerFactory(
@@ -96,6 +90,10 @@ void init() {
 
   locator.registerFactory(
     () => SearchBloc(locator(), locator()),
+  );
+
+  locator.registerFactory(
+    () => TopRatedBloc(locator(), locator()),
   );
 
   // use case

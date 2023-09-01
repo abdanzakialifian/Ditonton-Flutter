@@ -9,6 +9,7 @@ import 'package:presentation/bloc/movie_bloc/movie_bloc.dart';
 import 'package:presentation/bloc/now_playing_bloc/now_playing_bloc.dart';
 import 'package:presentation/bloc/popular_bloc/popular_bloc.dart';
 import 'package:presentation/bloc/search_bloc/search_bloc.dart';
+import 'package:presentation/bloc/top_rated_bloc/top_rated_bloc.dart';
 import 'package:presentation/pages/about_page.dart';
 import 'package:presentation/pages/detail_page.dart';
 import 'package:presentation/pages/home_page.dart';
@@ -19,7 +20,6 @@ import 'package:presentation/pages/season_page.dart';
 import 'package:presentation/pages/top_rated_page.dart';
 import 'package:presentation/pages/watchlist_movie_page.dart';
 import 'package:presentation/pages/watchlist_tv_show_page.dart';
-import 'package:presentation/provider/top_rated_notifier.dart';
 import 'package:presentation/provider/tv_show_notifier.dart';
 import 'package:presentation/provider/watchlist_notifier.dart';
 import 'package:provider/provider.dart';
@@ -46,16 +46,16 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<MovieBloc>(),
         ),
         BlocProvider(
-          create: (context) => di.locator<NowPlayingBloc>(),
+          create: (_) => di.locator<NowPlayingBloc>(),
         ),
         BlocProvider(
-          create: (context) => di.locator<PopularBloc>(),
+          create: (_) => di.locator<PopularBloc>(),
         ),
         BlocProvider(
           create: (_) => di.locator<SearchBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<TopRatedBloc>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistNotifier>(),
