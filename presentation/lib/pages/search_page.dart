@@ -82,7 +82,7 @@ class _SearchPageState extends State<SearchPage> {
                 ? ListView.builder(
                     padding: const EdgeInsets.all(8),
                     itemCount: result.length,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (_, index) {
                       final searchResult = result[index];
                       return CategoryCardItem(
                         category: searchResult,

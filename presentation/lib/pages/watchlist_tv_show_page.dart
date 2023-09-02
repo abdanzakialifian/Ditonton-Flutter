@@ -63,7 +63,7 @@ class WatchlistTvShowPageState extends State<WatchlistTvShowPage>
           if (mapWatchlist.isNotEmpty) {
             return ListView.builder(
               itemCount: mapWatchlist.length,
-              itemBuilder: (context, index) {
+              itemBuilder: (_, index) {
                 final watchlist = mapWatchlist[index];
                 return CategoryCardItem(
                   category: Category.fromWatchlist(watchlist),

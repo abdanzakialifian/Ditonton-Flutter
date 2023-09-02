@@ -141,7 +141,7 @@ class SeasonCardItem extends StatelessWidget {
           imageUrl: "$baseImageUrl${season?.posterPath}",
           width: 110,
           height: 160,
-          placeholder: (context, url) => const Center(
+          placeholder: (_, __) => const Center(
             child: SizedBox(
               width: 110,
               height: 160,
@@ -150,7 +150,7 @@ class SeasonCardItem extends StatelessWidget {
               ),
             ),
           ),
-          errorWidget: (context, url, error) => const SizedBox(
+          errorWidget: (_, __, ___) => const SizedBox(
             width: 110,
             height: 160,
             child: Center(

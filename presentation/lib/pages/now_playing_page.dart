@@ -18,11 +18,9 @@ class NowPlayingPageState extends State<NowPlayingPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => widget.type == movies
-          ? context.read<NowPlayingBloc>().add(FetchNowPlayingMovies())
-          : context.read<NowPlayingBloc>().add(FetchAiringTodayTvShows()),
-    );
+    widget.type == movies
+        ? context.read<NowPlayingBloc>().add(FetchNowPlayingMovies())
+        : context.read<NowPlayingBloc>().add(FetchAiringTodayTvShows());
   }
 
   @override
@@ -54,7 +52,7 @@ class NowPlayingPageState extends State<NowPlayingPage> {
         } else if (state is NowPlayingData) {
           return ListView.builder(
             itemCount: state.result.length,
-            itemBuilder: (context, index) {
+            itemBuilder: (_, index) {
               final result = state.result[index];
               return CategoryCardItem(
                 category: result,

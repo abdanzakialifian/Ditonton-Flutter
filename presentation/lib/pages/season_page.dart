@@ -19,9 +19,9 @@ class SeasonPage extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(8),
           child: ListView.separated(
-            separatorBuilder: (context, index) => const SizedBox(height: 6),
+            separatorBuilder: (_, __) => const SizedBox(height: 6),
             itemCount: seasons.length,
-            itemBuilder: (context, index) {
+            itemBuilder: (_, index) {
               final season = seasons[index];
               return SeasonCardItem(season: season);
             },

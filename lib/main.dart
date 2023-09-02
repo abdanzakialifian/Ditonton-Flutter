@@ -77,7 +77,9 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case HomePage.routeName:
-              return MaterialPageRoute(builder: (_) => const HomePage());
+              return MaterialPageRoute(
+                builder: (_) => const HomePage(),
+              );
             case NowPlayingPage.routeName:
               final type = settings.arguments as String;
               return MaterialPageRoute(
@@ -112,7 +114,7 @@ class MyApp extends StatelessWidget {
             case SeasonPage.routeName:
               final data = settings.arguments as List<Season>;
               return MaterialPageRoute(
-                builder: (context) => SeasonPage(seasons: data),
+                builder: (_) => SeasonPage(seasons: data),
                 settings: settings,
               );
             case SearchPage.routeName:

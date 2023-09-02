@@ -33,14 +33,12 @@ class DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      if (widget.type == movies) {
-        context.read<DetailBloc>().add(FetchMovieDetail(widget.id));
-      } else {
-        context.read<DetailBloc>().add(FetchTvShowDetail(widget.id));
-      }
-      context.read<WatchlistBloc>().add(CheckWatchlistStatus(widget.id));
-    });
+    if (widget.type == movies) {
+      context.read<DetailBloc>().add(FetchMovieDetail(widget.id));
+    } else {
+      context.read<DetailBloc>().add(FetchTvShowDetail(widget.id));
+    }
+    context.read<WatchlistBloc>().add(CheckWatchlistStatus(widget.id));
   }
 
   @override
@@ -198,8 +196,7 @@ class DetailContent extends StatelessWidget {
                                         RatingBarIndicator(
                                           rating: (detail.voteAverage ?? 0) / 2,
                                           itemCount: 5,
-                                          itemBuilder: (context, index) =>
-                                              const Icon(
+                                          itemBuilder: (_, __) => const Icon(
                                             Icons.star,
                                             color: kMikadoYellow,
                                           ),
@@ -329,7 +326,7 @@ class DetailContent extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: 10,
-        itemBuilder: (context, index) {
+        itemBuilder: (_, __) {
           return const SizedBox(
             width: 100,
             child: Center(

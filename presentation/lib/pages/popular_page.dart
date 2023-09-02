@@ -18,11 +18,9 @@ class PopularPageState extends State<PopularPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => widget.type == movies
-          ? context.read<PopularBloc>().add(FetchPopularMovies())
-          : context.read<PopularBloc>().add(FetchPopularTvShows()),
-    );
+    widget.type == movies
+        ? context.read<PopularBloc>().add(FetchPopularMovies())
+        : context.read<PopularBloc>().add(FetchPopularTvShows());
   }
 
   @override
@@ -52,7 +50,7 @@ class PopularPageState extends State<PopularPage> {
         } else if (state is PopularData) {
           return ListView.builder(
             itemCount: state.result.length,
-            itemBuilder: (context, index) {
+            itemBuilder: (_, index) {
               final result = state.result[index];
               return CategoryCardItem(
                 category: result,

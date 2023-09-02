@@ -67,14 +67,14 @@ class CategoryCardItem extends StatelessWidget {
                   imageUrl: '$baseImageUrl${category.posterPath}',
                   width: 80,
                   height: 120,
-                  placeholder: (context, url) => const SizedBox(
+                  placeholder: (_, __) => const SizedBox(
                     width: 80,
                     height: 120,
                     child: Center(
                       child: CircularProgressIndicator(),
                     ),
                   ),
-                  errorWidget: (context, url, error) => const SizedBox(
+                  errorWidget: (_, __, ___) => const SizedBox(
                     width: 80,
                     height: 120,
                     child: Center(

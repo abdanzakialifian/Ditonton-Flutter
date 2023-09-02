@@ -157,7 +157,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
         physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: 10,
-        itemBuilder: (context, index) {
+        itemBuilder: (_, __) {
           return const SizedBox(
             width: 140,
             child: Center(
@@ -193,13 +193,13 @@ class _TvShowsPageState extends State<TvShowsPage> {
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
                   imageUrl: '$baseImageUrl${tvShow.posterPath}',
-                  placeholder: (context, url) => const SizedBox(
+                  placeholder: (_, __) => const SizedBox(
                     width: 140,
                     child: Center(
                       child: CircularProgressIndicator(),
                     ),
                   ),
-                  errorWidget: (context, url, error) => const SizedBox(
+                  errorWidget: (_, __, ___) => const SizedBox(
                     width: 140,
                     child: Center(
                       child: Icon(Icons.error),

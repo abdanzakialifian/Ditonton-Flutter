@@ -18,11 +18,9 @@ class TopRatedPageState extends State<TopRatedPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => widget.type == movies
-          ? context.read<TopRatedBloc>().add(FetchTopRatedMovies())
-          : context.read<TopRatedBloc>().add(FetchTopRatedTvShows()),
-    );
+    widget.type == movies
+        ? context.read<TopRatedBloc>().add(FetchTopRatedMovies())
+        : context.read<TopRatedBloc>().add(FetchTopRatedTvShows());
   }
 
   @override
@@ -50,7 +48,7 @@ class TopRatedPageState extends State<TopRatedPage> {
         } else if (state is TopRatedData) {
           return ListView.builder(
             itemCount: state.result.length,
-            itemBuilder: (context, index) {
+            itemBuilder: (_, index) {
               final result = state.result[index];
               return CategoryCardItem(
                 category: result,
