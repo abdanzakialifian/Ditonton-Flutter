@@ -70,7 +70,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
   }
 
   Widget _getAiringTodayTvShows() {
-    return BlocBuilder<TvShowBloc, TvShowState>(
+    return BlocBuilder<TvShowBloc, TvShowContainerState>(
       builder: (_, state) {
         if (state.airingTodayTvShowsState is AiringTodayTvShowsLoading) {
           return _tvShowsLoading();
@@ -90,7 +90,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
   }
 
   Widget _getPopularTvShows() {
-    return BlocBuilder<TvShowBloc, TvShowState>(
+    return BlocBuilder<TvShowBloc, TvShowContainerState>(
       builder: (_, state) {
         if (state.popularTvShowsState is PopularTvShowsLoading) {
           return _tvShowsLoading();
@@ -110,7 +110,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
   }
 
   Widget _getTopRatedTvShows() {
-    return BlocBuilder<TvShowBloc, TvShowState>(
+    return BlocBuilder<TvShowBloc, TvShowContainerState>(
       builder: (_, state) {
         if (state.topRatedTvShowsState is TopRatedTvShowsLoading) {
           return _tvShowsLoading();

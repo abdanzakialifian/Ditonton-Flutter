@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'tv_show_event.dart';
 part 'tv_show_state.dart';
 
-class TvShowBloc extends Bloc<TvShowEvent, TvShowState> {
+class TvShowBloc extends Bloc<TvShowEvent, TvShowContainerState> {
   final GetAiringTodayTvShows _getAiringTodayTvShows;
   final GetPopularTvShows _getPopularTvShows;
   final GetTopRatedTvShows _getTopRatedTvShows;
@@ -16,7 +16,7 @@ class TvShowBloc extends Bloc<TvShowEvent, TvShowState> {
     this._getAiringTodayTvShows,
     this._getPopularTvShows,
     this._getTopRatedTvShows,
-  ) : super(TvShowState.initialState()) {
+  ) : super(TvShowContainerState.initialState()) {
     on<FetchAiringTodayTvShows>(
       (event, emit) async {
         emit(

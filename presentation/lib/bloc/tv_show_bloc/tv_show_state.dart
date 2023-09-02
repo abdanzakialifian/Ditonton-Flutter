@@ -1,33 +1,40 @@
 part of 'tv_show_bloc.dart';
 
-class TvShowState {
+class TvShowContainerState extends Equatable {
   final AiringTodayTvShowsState airingTodayTvShowsState;
   final PopularTvShowsState popularTvShowsState;
   final TopRatedTvShowsState topRatedTvShowsState;
 
-  const TvShowState({
+  const TvShowContainerState({
     required this.airingTodayTvShowsState,
     required this.popularTvShowsState,
     required this.topRatedTvShowsState,
   });
 
-  TvShowState copyWith({
+  TvShowContainerState copyWith({
     AiringTodayTvShowsState? airingTodayTvShowsState,
     PopularTvShowsState? popularTvShowsState,
     TopRatedTvShowsState? topRatedTvShowsState,
   }) =>
-      TvShowState(
+      TvShowContainerState(
         airingTodayTvShowsState:
             airingTodayTvShowsState ?? this.airingTodayTvShowsState,
         popularTvShowsState: popularTvShowsState ?? this.popularTvShowsState,
         topRatedTvShowsState: topRatedTvShowsState ?? this.topRatedTvShowsState,
       );
 
-  factory TvShowState.initialState() => TvShowState(
+  factory TvShowContainerState.initialState() => TvShowContainerState(
         airingTodayTvShowsState: AiringTodayTvShowsEmpty(),
         popularTvShowsState: PopularTvShowsEmpty(),
         topRatedTvShowsState: TopRatedTvShowsEmpty(),
       );
+
+  @override
+  List<Object?> get props => [
+        airingTodayTvShowsState,
+        popularTvShowsState,
+        topRatedTvShowsState,
+      ];
 }
 
 sealed class AiringTodayTvShowsState extends Equatable {
