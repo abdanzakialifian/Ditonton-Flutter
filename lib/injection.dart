@@ -22,7 +22,6 @@ import 'package:domain/usecases/get_tv_show_detail.dart';
 import 'package:domain/usecases/get_tv_show_recommendations.dart';
 import 'package:domain/usecases/get_watchlist.dart';
 import 'package:domain/usecases/get_watchlist_status.dart';
-import 'package:domain/usecases/remove_watchlist.dart';
 import 'package:domain/usecases/save_watchlist.dart';
 import 'package:domain/usecases/search_movies.dart';
 import 'package:domain/usecases/search_tv_shows.dart';
@@ -34,21 +33,12 @@ import 'package:presentation/bloc/detail_bloc/detail_bloc.dart';
 import 'package:presentation/bloc/popular_bloc/popular_bloc.dart';
 import 'package:presentation/bloc/top_rated_bloc/top_rated_bloc.dart';
 import 'package:presentation/bloc/tv_show_bloc/tv_show_bloc.dart';
-import 'package:presentation/provider/watchlist_notifier.dart';
+import 'package:presentation/bloc/watchlist_bloc/watchlist_bloc.dart';
+import 'package:domain/usecases/remove_watchlist.dart' as watchlist;
 
 final locator = GetIt.instance;
 
 void init() {
-  // provider
-  locator.registerFactory(
-    () => WatchlistNotifier(
-      getWatchlist: locator(),
-      getWatchListStatus: locator(),
-      removeWatchlist: locator(),
-      saveWatchlist: locator(),
-    ),
-  );
-
   // bloc
   locator.registerFactory(
     () => DetailBloc(
@@ -97,6 +87,15 @@ void init() {
     ),
   );
 
+  locator.registerFactory(
+    () => WatchlistBloc(
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+    ),
+  );
+
   // use case
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));
   locator.registerLazySingleton(() => GetPopularMovies(locator()));
@@ -106,7 +105,7 @@ void init() {
   locator.registerLazySingleton(() => SearchMovies(locator()));
   locator.registerLazySingleton(() => GetWatchListStatus(locator()));
   locator.registerLazySingleton(() => SaveWatchlist(locator()));
-  locator.registerLazySingleton(() => RemoveWatchlist(locator()));
+  locator.registerLazySingleton(() => watchlist.RemoveWatchlist(locator()));
   locator.registerLazySingleton(() => GetWatchlist(locator()));
   locator.registerLazySingleton(() => GetAiringTodayTvShows(locator()));
   locator.registerLazySingleton(() => GetPopularTvShows(locator()));

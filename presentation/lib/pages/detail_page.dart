@@ -9,10 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:presentation/bloc/detail_bloc/detail_bloc.dart';
+import 'package:presentation/bloc/watchlist_bloc/watchlist_bloc.dart';
 import 'package:presentation/pages/season_page.dart';
-import 'package:presentation/provider/watchlist_notifier.dart';
 import 'package:presentation/widgets/season_card_item.dart';
-import 'package:provider/provider.dart';
 
 class DetailPage extends StatefulWidget {
   static const routeName = '/category-detail';
@@ -37,13 +36,10 @@ class DetailPageState extends State<DetailPage> {
     Future.microtask(() {
       if (widget.type == movies) {
         context.read<DetailBloc>().add(FetchMovieDetail(widget.id));
-        Provider.of<WatchlistNotifier>(context, listen: false)
-            .loadWatchlistStatus(widget.id);
       } else {
         context.read<DetailBloc>().add(FetchTvShowDetail(widget.id));
-        Provider.of<WatchlistNotifier>(context, listen: false)
-            .loadWatchlistStatus(widget.id);
       }
+      context.read<WatchlistBloc>().add(CheckWatchlistStatus(widget.id));
     });
   }
 
@@ -60,7 +56,6 @@ class DetailPageState extends State<DetailPage> {
             final data = state.detailState as DetailData;
             return DetailContent(
               data.detail,
-              Provider.of<WatchlistNotifier>(context).isAddedToWatchlist,
               widget.type,
             );
           } else if (state.detailState is DetailError) {
@@ -81,28 +76,29 @@ class DetailPageState extends State<DetailPage> {
 
 class DetailContent extends StatelessWidget {
   final Detail detail;
-  final bool isAddedWatchlist;
   final String type;
 
-  const DetailContent(this.detail, this.isAddedWatchlist, this.type, {Key? key})
-      : super(key: key);
+  const DetailContent(this.detail, this.type, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    // avoid duplication appear
+    int emitted = 0;
+
     return SafeArea(
       child: Stack(
         children: [
           CachedNetworkImage(
             imageUrl: 'https://image.tmdb.org/t/p/w500${detail.posterPath}',
             width: screenWidth,
-            placeholder: (context, url) => SizedBox(
+            placeholder: (_, __) => SizedBox(
               width: screenWidth,
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
             ),
-            errorWidget: (context, url, error) => SizedBox(
+            errorWidget: (_, __, ___) => SizedBox(
               width: screenWidth,
               child: const Center(
                 child: Icon(Icons.error),
@@ -113,7 +109,7 @@ class DetailContent extends StatelessWidget {
             margin: const EdgeInsets.only(top: 48 + 8),
             child: DraggableScrollableSheet(
               minChildSize: 0.25,
-              builder: (context, scrollController) {
+              builder: (_, scrollController) {
                 return Container(
                   decoration: const BoxDecoration(
                     color: kRichBlack,
@@ -140,18 +136,56 @@ class DetailContent extends StatelessWidget {
                                       detail.title ?? "",
                                       style: kHeading5,
                                     ),
-                                    ElevatedButton(
-                                      onPressed: () async =>
-                                          _addWatchlist(context),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          isAddedWatchlist
-                                              ? const Icon(Icons.check)
-                                              : const Icon(Icons.add),
-                                          const Text('Watchlist'),
-                                        ],
-                                      ),
+                                    BlocConsumer<WatchlistBloc, WatchlistState>(
+                                      listenWhen: (_, __) => emitted == 1,
+                                      listener: (_, state) {
+                                        final message =
+                                            state.watchlistMessage.message;
+
+                                        if (message ==
+                                                watchlistAddSuccessMessage ||
+                                            message ==
+                                                watchlistRemoveSuccessMessage) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(message),
+                                              duration: const Duration(
+                                                milliseconds: 500,
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                content: Text(message),
+                                              );
+                                            },
+                                          );
+                                        }
+                                        emitted++;
+                                      },
+                                      builder: (_, state) {
+                                        final isAdded =
+                                            state.watchlistStatus.isAdded;
+                                        return ElevatedButton(
+                                          onPressed: () async {
+                                            _addWatchlist(context, isAdded);
+                                            emitted = 1;
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              isAdded
+                                                  ? const Icon(Icons.check)
+                                                  : const Icon(Icons.add),
+                                              const Text('Watchlist'),
+                                            ],
+                                          ),
+                                        );
+                                      },
                                     ),
                                     Text(
                                       _showGenres(detail.genres ?? []),
@@ -226,33 +260,19 @@ class DetailContent extends StatelessWidget {
     );
   }
 
-  Future<void> _addWatchlist(BuildContext context) async {
-    if (!isAddedWatchlist) {
-      await Provider.of<WatchlistNotifier>(context, listen: false)
-          .addWatchlist(Watchlist.fromDetailToWatchlist(detail, type));
-    } else {
-      await Provider.of<WatchlistNotifier>(context, listen: false)
-          .removeFromWatchlist(Watchlist.fromDetailToWatchlist(detail, type));
-    }
-
-    if (!context.mounted) return;
-
-    final message =
-        Provider.of<WatchlistNotifier>(context, listen: false).watchlistMessage;
-
-    if (message == WatchlistNotifier.watchlistAddSuccessMessage ||
-        message == WatchlistNotifier.watchlistRemoveSuccessMessage) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(message)));
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text(message),
+  void _addWatchlist(BuildContext context, bool isAdded) {
+    if (!isAdded) {
+      context.read<WatchlistBloc>().add(
+            AddWatchlist(
+              Watchlist.fromDetailToWatchlist(detail, type),
+            ),
           );
-        },
-      );
+    } else {
+      context.read<WatchlistBloc>().add(
+            RemoveWatchlist(
+              Watchlist.fromDetailToWatchlist(detail, type),
+            ),
+          );
     }
   }
 

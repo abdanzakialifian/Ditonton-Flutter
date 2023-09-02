@@ -7,9 +7,6 @@ import 'package:domain/usecases/save_watchlist.dart';
 import 'package:flutter/foundation.dart';
 
 class WatchlistNotifier extends ChangeNotifier {
-  static const watchlistAddSuccessMessage = 'Added to Watchlist';
-  static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
-
   final GetWatchlist getWatchlist;
   final GetWatchListStatus getWatchListStatus;
   final RemoveWatchlist removeWatchlist;

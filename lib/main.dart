@@ -11,6 +11,7 @@ import 'package:presentation/bloc/popular_bloc/popular_bloc.dart';
 import 'package:presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:presentation/bloc/top_rated_bloc/top_rated_bloc.dart';
 import 'package:presentation/bloc/tv_show_bloc/tv_show_bloc.dart';
+import 'package:presentation/bloc/watchlist_bloc/watchlist_bloc.dart';
 import 'package:presentation/pages/about_page.dart';
 import 'package:presentation/pages/detail_page.dart';
 import 'package:presentation/pages/home_page.dart';
@@ -21,8 +22,6 @@ import 'package:presentation/pages/season_page.dart';
 import 'package:presentation/pages/top_rated_page.dart';
 import 'package:presentation/pages/watchlist_movie_page.dart';
 import 'package:presentation/pages/watchlist_tv_show_page.dart';
-import 'package:presentation/provider/watchlist_notifier.dart';
-import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
 
 void main() async {
@@ -37,7 +36,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (_) => di.locator<DetailBloc>(),
@@ -58,10 +57,10 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TopRatedBloc>(),
         ),
         BlocProvider(
-          create: (context) => di.locator<TvShowBloc>(),
+          create: (_) => di.locator<TvShowBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<WatchlistBloc>(),
         ),
       ],
       child: MaterialApp(

@@ -1,9 +1,9 @@
 import 'package:core/core.dart';
 import 'package:domain/entities/category.dart';
 import 'package:flutter/material.dart';
-import 'package:presentation/provider/watchlist_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:presentation/bloc/watchlist_bloc/watchlist_bloc.dart';
 import 'package:presentation/widgets/category_card_item.dart';
-import 'package:provider/provider.dart';
 
 class WatchlistMoviePage extends StatefulWidget {
   static const routeName = '/watchlist-movie';
@@ -19,9 +19,7 @@ class WatchlistMoviePageState extends State<WatchlistMoviePage>
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<WatchlistNotifier>(context, listen: false)
-            .fetchWatchlist());
+    context.read<WatchlistBloc>().add(FetchWatchlist());
   }
 
   @override
@@ -32,7 +30,7 @@ class WatchlistMoviePageState extends State<WatchlistMoviePage>
 
   @override
   void didPopNext() {
-    Provider.of<WatchlistNotifier>(context, listen: false).fetchWatchlist();
+    context.read<WatchlistBloc>().add(FetchWatchlist());
   }
 
   @override
@@ -51,14 +49,15 @@ class WatchlistMoviePageState extends State<WatchlistMoviePage>
   }
 
   Widget _setUpWatchlist() {
-    return Consumer<WatchlistNotifier>(
-      builder: (_, data, __) {
-        if (data.watchlistState == RequestState.loading) {
+    return BlocBuilder<WatchlistBloc, WatchlistState>(
+      builder: (_, state) {
+        if (state.childWatchlistState is WatchlistLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (data.watchlistState == RequestState.loaded) {
-          final mapWatchlist = data.watchlist
+        } else if (state.childWatchlistState is WatchlistData) {
+          final mapWatchlist = (state.childWatchlistState as WatchlistData)
+              .result
               .where((element) => element.category == movies)
               .toList();
           if (mapWatchlist.isNotEmpty) {
@@ -81,7 +80,8 @@ class WatchlistMoviePageState extends State<WatchlistMoviePage>
               ),
             );
           }
-        } else if (data.watchlistState == RequestState.error) {
+        } else if (state.childWatchlistState is WatchlistError) {
+          final data = state.childWatchlistState as WatchlistError;
           return Center(
             child: Text(data.message),
           );
