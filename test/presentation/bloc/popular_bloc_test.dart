@@ -52,7 +52,7 @@ void main() {
       );
 
       blocTest<PopularBloc, PopularState>(
-        'Should emit [Loading, HasData] when get popular movies is unsuccessful',
+        'Should emit [Loading, Error] when get popular movies is unsuccessful',
         build: () {
           when(mockGetPopularMovies.execute()).thenAnswer(
             (_) async => const Left(
@@ -92,7 +92,7 @@ void main() {
       );
 
       blocTest<PopularBloc, PopularState>(
-        'Should emit [Loading, HasData] when get popular tv shows is unsuccessful',
+        'Should emit [Loading, Error] when get popular tv shows is unsuccessful',
         build: () {
           when(mockGetPopularTvShows.execute()).thenAnswer(
             (_) async => const Left(

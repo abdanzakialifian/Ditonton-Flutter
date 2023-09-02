@@ -52,7 +52,7 @@ void main() {
       );
 
       blocTest<NowPlayingBloc, NowPlayingState>(
-        'Should emit [Loading, HasData] when now playing movies is gotten successfully',
+        'Should emit [Loading, Error] when get now playing movies is unsuccessful',
         build: () {
           when(mockGetNowPlayingMovies.execute()).thenAnswer(
             (_) async => const Left(
@@ -92,7 +92,7 @@ void main() {
       );
 
       blocTest<NowPlayingBloc, NowPlayingState>(
-        'Should emit [Loading, HasData] when airing today tv shows is gotten successfully',
+        'Should emit [Loading, Error] when get airing today tv shows is unsuccessful',
         build: () {
           when(mockGetAiringTodayTvShows.execute()).thenAnswer(
             (_) async => const Left(

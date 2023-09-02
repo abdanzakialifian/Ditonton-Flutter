@@ -133,4 +133,11 @@ void main() {
       },
     );
   });
+
+  blocTest(
+    'Should emit [Empty] when clear result list is called',
+    build: () => searchBloc,
+    act: (bloc) => bloc.add(ClearResultList()),
+    expect: () => [SearchEmpty()],
+  );
 }
