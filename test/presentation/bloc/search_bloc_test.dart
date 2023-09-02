@@ -24,7 +24,10 @@ void main() {
   });
 
   test("initial state shoud be empty", () {
-    expect(searchBloc.state, SearchEmpty());
+    expect(
+      searchBloc.state,
+      SearchEmpty(),
+    );
   });
 
   const dummyQueryMovie = 'Title';

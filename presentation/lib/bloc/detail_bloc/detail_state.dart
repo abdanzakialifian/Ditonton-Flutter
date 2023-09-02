@@ -1,6 +1,6 @@
 part of 'detail_bloc.dart';
 
-class DetailContainerState {
+class DetailContainerState extends Equatable {
   final DetailState detailState;
   final RecommendationState recommendationState;
 
@@ -19,6 +19,12 @@ class DetailContainerState {
         detailState: DetailEmpty(),
         recommendationState: RecommendationEmpty(),
       );
+
+  @override
+  List<Object?> get props => [
+        detailState,
+        recommendationState,
+      ];
 }
 
 sealed class DetailState extends Equatable {
