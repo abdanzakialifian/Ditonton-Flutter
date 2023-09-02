@@ -91,6 +91,8 @@ void main() {
           verify(mockGetNowPlayingMovies.execute());
         },
       );
+
+      tearDown(() => movieBloc.close());
     },
   );
 
@@ -144,6 +146,8 @@ void main() {
           verify(mockGetPopularMovies.execute());
         },
       );
+
+      tearDown(() => movieBloc.close());
     },
   );
 
@@ -197,6 +201,8 @@ void main() {
           verify(mockGetTopRatedMovies.execute());
         },
       );
+
+      tearDown(() => movieBloc.close());
     },
   );
 }

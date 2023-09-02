@@ -198,6 +198,8 @@ void main() {
           );
         },
       );
+
+      tearDown(() => detailBloc.close());
     },
   );
 
@@ -306,6 +308,8 @@ void main() {
           );
         },
       );
+
+      tearDown(() => detailBloc.close());
     },
   );
 }

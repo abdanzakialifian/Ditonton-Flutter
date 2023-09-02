@@ -67,6 +67,8 @@ void main() {
           verify(mockGetPopularMovies.execute());
         },
       );
+
+      tearDown(() => popularBloc.close());
     },
   );
 
@@ -107,6 +109,8 @@ void main() {
           verify(mockGetPopularTvShows.execute());
         },
       );
+
+      tearDown(() => popularBloc.close());
     },
   );
 }

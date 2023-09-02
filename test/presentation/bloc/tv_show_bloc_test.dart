@@ -87,6 +87,8 @@ void main() {
           verify(mockGetAiringTodayTvShows.execute());
         },
       );
+
+      tearDown(() => tvShowBloc.close());
     },
   );
 
@@ -140,6 +142,8 @@ void main() {
           verify(mockGetPopularTvShows.execute());
         },
       );
+
+      tearDown(() => tvShowBloc.close());
     },
   );
 
@@ -194,6 +198,8 @@ void main() {
           verify(mockGetTopRatedTvShows.execute());
         },
       );
+
+      tearDown(() => tvShowBloc.close());
     },
   );
 }

@@ -67,6 +67,8 @@ void main() {
           verify(mockGetNowPlayingMovies.execute());
         },
       );
+
+      tearDown(() => nowPlayingBloc.close());
     },
   );
 
@@ -107,6 +109,8 @@ void main() {
           verify(mockGetAiringTodayTvShows.execute());
         },
       );
+
+      tearDown(() => nowPlayingBloc.close());
     },
   );
 }

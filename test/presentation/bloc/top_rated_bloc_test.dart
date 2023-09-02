@@ -66,6 +66,8 @@ void main() {
           verify(mockGetTopRatedMovies.execute());
         },
       );
+
+      tearDown(() => topRatedBloc.close());
     },
   );
 
@@ -106,6 +108,8 @@ void main() {
           verify(mockGetTopRatedTvShows.execute());
         },
       );
+
+      tearDown(() => topRatedBloc.close());
     },
   );
 }

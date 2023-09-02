@@ -1,6 +1,6 @@
 part of 'watchlist_bloc.dart';
 
-class WatchlistContainerState {
+class WatchlistContainerState extends Equatable {
   final WatchlistState watchlistState;
   final WatchlistMessage watchlistMessage;
   final WatchlistStatus watchlistStatus;
@@ -27,6 +27,13 @@ class WatchlistContainerState {
         watchlistMessage: const WatchlistMessage(""),
         watchlistStatus: const WatchlistStatus(false),
       );
+
+  @override
+  List<Object?> get props => [
+        watchlistState,
+        watchlistMessage,
+        watchlistStatus,
+      ];
 }
 
 sealed class WatchlistState extends Equatable {

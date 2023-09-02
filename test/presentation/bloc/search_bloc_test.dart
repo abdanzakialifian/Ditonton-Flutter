@@ -34,105 +34,115 @@ void main() {
 
   const dummyQueryTvShow = "Here it all begins";
 
-  group('Search Movies', () {
-    blocTest<SearchBloc, SearchState>(
-      'Should emit [Loading, HasData] when data movies is gotten successfully',
-      build: () {
-        when(mockSearchMovies.execute(dummyQueryMovie)).thenAnswer(
-          (_) async => Right(dummyCategoryMovies ?? []),
-        );
-        return searchBloc;
-      },
-      act: (bloc) => bloc.add(
-        OnQueryChangedFetchMovies(dummyQueryMovie),
-      ),
-      wait: const Duration(milliseconds: 500),
-      expect: () => [
-        SearchLoading(),
-        SearchData(dummyCategoryMovies ?? []),
-      ],
-      verify: (bloc) {
-        verify(
-          mockSearchMovies.execute(dummyQueryMovie),
-        );
-      },
-    );
+  group(
+    'Search Movies',
+    () {
+      blocTest<SearchBloc, SearchState>(
+        'Should emit [Loading, HasData] when data movies is gotten successfully',
+        build: () {
+          when(mockSearchMovies.execute(dummyQueryMovie)).thenAnswer(
+            (_) async => Right(dummyCategoryMovies ?? []),
+          );
+          return searchBloc;
+        },
+        act: (bloc) => bloc.add(
+          OnQueryChangedFetchMovies(dummyQueryMovie),
+        ),
+        wait: const Duration(milliseconds: 500),
+        expect: () => [
+          SearchLoading(),
+          SearchData(dummyCategoryMovies ?? []),
+        ],
+        verify: (bloc) {
+          verify(
+            mockSearchMovies.execute(dummyQueryMovie),
+          );
+        },
+      );
 
-    blocTest<SearchBloc, SearchState>(
-      'Should emit [Loading, Error] when get search movies is unsuccessful',
-      build: () {
-        when(mockSearchMovies.execute(dummyQueryMovie)).thenAnswer(
-          (_) async => const Left(
-            ServerFailure('Server Failure'),
-          ),
-        );
-        return searchBloc;
-      },
-      act: (bloc) => bloc.add(
-        OnQueryChangedFetchMovies(dummyQueryMovie),
-      ),
-      wait: const Duration(milliseconds: 500),
-      expect: () => [
-        SearchLoading(),
-        SearchError('Server Failure'),
-      ],
-      verify: (bloc) {
-        verify(
-          mockSearchMovies.execute(dummyQueryMovie),
-        );
-      },
-    );
-  });
+      blocTest<SearchBloc, SearchState>(
+        'Should emit [Loading, Error] when get search movies is unsuccessful',
+        build: () {
+          when(mockSearchMovies.execute(dummyQueryMovie)).thenAnswer(
+            (_) async => const Left(
+              ServerFailure('Server Failure'),
+            ),
+          );
+          return searchBloc;
+        },
+        act: (bloc) => bloc.add(
+          OnQueryChangedFetchMovies(dummyQueryMovie),
+        ),
+        wait: const Duration(milliseconds: 500),
+        expect: () => [
+          SearchLoading(),
+          SearchError('Server Failure'),
+        ],
+        verify: (bloc) {
+          verify(
+            mockSearchMovies.execute(dummyQueryMovie),
+          );
+        },
+      );
 
-  group('Search Tv Shows', () {
-    blocTest<SearchBloc, SearchState>(
-      'Should emit [Loading, HasData] when data tv shows is gotten successfully',
-      build: () {
-        when(mockSearchTvShows.execute(dummyQueryTvShow)).thenAnswer(
-          (_) async => Right(dummyCategoryTvShows ?? []),
-        );
-        return searchBloc;
-      },
-      act: (bloc) => bloc.add(
-        OnQueryChangedFetchTvShows(dummyQueryTvShow),
-      ),
-      wait: const Duration(milliseconds: 500),
-      expect: () => [
-        SearchLoading(),
-        SearchData(dummyCategoryTvShows ?? []),
-      ],
-      verify: (bloc) {
-        verify(
-          mockSearchTvShows.execute(dummyQueryTvShow),
-        );
-      },
-    );
+      tearDown(() => searchBloc.close());
+    },
+  );
 
-    blocTest<SearchBloc, SearchState>(
-      'Should emit [Loading, Error] when get search tv shows is unsuccessful',
-      build: () {
-        when(mockSearchTvShows.execute(dummyQueryTvShow)).thenAnswer(
-          (_) async => const Left(
-            ServerFailure('Server Failure'),
-          ),
-        );
-        return searchBloc;
-      },
-      act: (bloc) => bloc.add(
-        OnQueryChangedFetchTvShows(dummyQueryTvShow),
-      ),
-      wait: const Duration(milliseconds: 500),
-      expect: () => [
-        SearchLoading(),
-        SearchError('Server Failure'),
-      ],
-      verify: (bloc) {
-        verify(
-          mockSearchTvShows.execute(dummyQueryTvShow),
-        );
-      },
-    );
-  });
+  group(
+    'Search Tv Shows',
+    () {
+      blocTest<SearchBloc, SearchState>(
+        'Should emit [Loading, HasData] when data tv shows is gotten successfully',
+        build: () {
+          when(mockSearchTvShows.execute(dummyQueryTvShow)).thenAnswer(
+            (_) async => Right(dummyCategoryTvShows ?? []),
+          );
+          return searchBloc;
+        },
+        act: (bloc) => bloc.add(
+          OnQueryChangedFetchTvShows(dummyQueryTvShow),
+        ),
+        wait: const Duration(milliseconds: 500),
+        expect: () => [
+          SearchLoading(),
+          SearchData(dummyCategoryTvShows ?? []),
+        ],
+        verify: (bloc) {
+          verify(
+            mockSearchTvShows.execute(dummyQueryTvShow),
+          );
+        },
+      );
+
+      blocTest<SearchBloc, SearchState>(
+        'Should emit [Loading, Error] when get search tv shows is unsuccessful',
+        build: () {
+          when(mockSearchTvShows.execute(dummyQueryTvShow)).thenAnswer(
+            (_) async => const Left(
+              ServerFailure('Server Failure'),
+            ),
+          );
+          return searchBloc;
+        },
+        act: (bloc) => bloc.add(
+          OnQueryChangedFetchTvShows(dummyQueryTvShow),
+        ),
+        wait: const Duration(milliseconds: 500),
+        expect: () => [
+          SearchLoading(),
+          SearchError('Server Failure'),
+        ],
+        verify: (bloc) {
+          verify(
+            mockSearchTvShows.execute(dummyQueryTvShow),
+          );
+        },
+      );
+
+      tearDown(() => searchBloc.close());
+    },
+  );
 
   blocTest(
     'Should emit [Empty] when clear result list is called',
