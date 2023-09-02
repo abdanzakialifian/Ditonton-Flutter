@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'watchlist_event.dart';
 part 'watchlist_state.dart';
 
-class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
+class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistContainerState> {
   final GetWatchlist _getWatchlist;
   final GetWatchListStatus _getWatchListStatus;
   final watchlist.RemoveWatchlist _removeWatchlist;
@@ -19,12 +19,12 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
     this._getWatchListStatus,
     this._removeWatchlist,
     this._saveWatchlist,
-  ) : super(WatchlistState.initialState()) {
+  ) : super(WatchlistContainerState.initialState()) {
     on<FetchWatchlist>(
       (event, emit) async {
         emit(
           state.copyWith(
-            childWatchlistState: WatchlistLoading(),
+            watchlistState: WatchlistLoading(),
           ),
         );
 
@@ -34,7 +34,7 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
           (failure) {
             emit(
               state.copyWith(
-                childWatchlistState: WatchlistError(failure.message),
+                watchlistState: WatchlistError(failure.message),
               ),
             );
           },
@@ -42,13 +42,13 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
             if (watchlistData.isNotEmpty) {
               emit(
                 state.copyWith(
-                  childWatchlistState: WatchlistData(watchlistData),
+                  watchlistState: WatchlistData(watchlistData),
                 ),
               );
             } else {
               emit(
                 state.copyWith(
-                  childWatchlistState: WatchlistEmpty(),
+                  watchlistState: WatchlistEmpty(),
                 ),
               );
             }
@@ -65,7 +65,7 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
           (failure) {
             emit(
               state.copyWith(
-                childWatchlistState: WatchlistError(failure.message),
+                watchlistState: WatchlistError(failure.message),
               ),
             );
           },
@@ -90,7 +90,7 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
           (failure) {
             emit(
               state.copyWith(
-                childWatchlistState: WatchlistError(failure.message),
+                watchlistState: WatchlistError(failure.message),
               ),
             );
           },
@@ -114,7 +114,7 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
           (failure) {
             emit(
               state.copyWith(
-                childWatchlistState: WatchlistError(failure.message),
+                watchlistState: WatchlistError(failure.message),
               ),
             );
           },

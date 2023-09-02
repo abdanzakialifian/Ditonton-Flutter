@@ -134,7 +134,8 @@ class DetailContent extends StatelessWidget {
                                       detail.title ?? "",
                                       style: kHeading5,
                                     ),
-                                    BlocConsumer<WatchlistBloc, WatchlistState>(
+                                    BlocConsumer<WatchlistBloc,
+                                        WatchlistContainerState>(
                                       listenWhen: (_, __) => emitted == 1,
                                       listener: (_, state) {
                                         final message =

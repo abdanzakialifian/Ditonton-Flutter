@@ -1,44 +1,44 @@
 part of 'watchlist_bloc.dart';
 
-class WatchlistState {
-  final ChildWatchlistState childWatchlistState;
+class WatchlistContainerState {
+  final WatchlistState watchlistState;
   final WatchlistMessage watchlistMessage;
   final WatchlistStatus watchlistStatus;
 
-  WatchlistState({
-    required this.childWatchlistState,
+  WatchlistContainerState({
+    required this.watchlistState,
     required this.watchlistMessage,
     required this.watchlistStatus,
   });
 
-  WatchlistState copyWith({
-    ChildWatchlistState? childWatchlistState,
+  WatchlistContainerState copyWith({
+    WatchlistState? watchlistState,
     WatchlistMessage? watchlistMessage,
     WatchlistStatus? watchlistStatus,
   }) =>
-      WatchlistState(
-        childWatchlistState: childWatchlistState ?? this.childWatchlistState,
+      WatchlistContainerState(
+        watchlistState: watchlistState ?? this.watchlistState,
         watchlistMessage: watchlistMessage ?? this.watchlistMessage,
         watchlistStatus: watchlistStatus ?? this.watchlistStatus,
       );
 
-  factory WatchlistState.initialState() => WatchlistState(
-        childWatchlistState: WatchlistEmpty(),
+  factory WatchlistContainerState.initialState() => WatchlistContainerState(
+        watchlistState: WatchlistEmpty(),
         watchlistMessage: const WatchlistMessage(""),
         watchlistStatus: const WatchlistStatus(false),
       );
 }
 
-sealed class ChildWatchlistState extends Equatable {
+sealed class WatchlistState extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
-class WatchlistLoading extends ChildWatchlistState {}
+class WatchlistLoading extends WatchlistState {}
 
-class WatchlistEmpty extends ChildWatchlistState {}
+class WatchlistEmpty extends WatchlistState {}
 
-class WatchlistError extends ChildWatchlistState {
+class WatchlistError extends WatchlistState {
   final String message;
 
   WatchlistError(this.message);
@@ -47,7 +47,7 @@ class WatchlistError extends ChildWatchlistState {
   List<Object?> get props => [message];
 }
 
-class WatchlistData extends ChildWatchlistState {
+class WatchlistData extends WatchlistState {
   final List<Watchlist> result;
 
   WatchlistData(this.result);

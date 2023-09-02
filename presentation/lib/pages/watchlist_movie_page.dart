@@ -49,14 +49,14 @@ class WatchlistMoviePageState extends State<WatchlistMoviePage>
   }
 
   Widget _setUpWatchlist() {
-    return BlocBuilder<WatchlistBloc, WatchlistState>(
+    return BlocBuilder<WatchlistBloc, WatchlistContainerState>(
       builder: (_, state) {
-        if (state.childWatchlistState is WatchlistLoading) {
+        if (state.watchlistState is WatchlistLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state.childWatchlistState is WatchlistData) {
-          final mapWatchlist = (state.childWatchlistState as WatchlistData)
+        } else if (state.watchlistState is WatchlistData) {
+          final mapWatchlist = (state.watchlistState as WatchlistData)
               .result
               .where((element) => element.category == movies)
               .toList();
@@ -80,8 +80,8 @@ class WatchlistMoviePageState extends State<WatchlistMoviePage>
               ),
             );
           }
-        } else if (state.childWatchlistState is WatchlistError) {
-          final data = state.childWatchlistState as WatchlistError;
+        } else if (state.watchlistState is WatchlistError) {
+          final data = state.watchlistState as WatchlistError;
           return Center(
             child: Text(data.message),
           );
