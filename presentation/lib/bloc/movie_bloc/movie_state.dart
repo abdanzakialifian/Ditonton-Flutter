@@ -1,33 +1,40 @@
 part of 'movie_bloc.dart';
 
-class MovieState {
+class MovieContainerState extends Equatable {
   final NowPlayingMoviesState nowPlayingMoviesState;
   final PopularMoviesState popularMoviesState;
   final TopRatedMoviesState topRatedMoviesState;
 
-  const MovieState({
+  const MovieContainerState({
     required this.nowPlayingMoviesState,
     required this.popularMoviesState,
     required this.topRatedMoviesState,
   });
 
-  MovieState copyWith({
+  MovieContainerState copyWith({
     NowPlayingMoviesState? nowPlayingMoviesState,
     PopularMoviesState? popularMoviesState,
     TopRatedMoviesState? topRatedMoviesState,
   }) =>
-      MovieState(
+      MovieContainerState(
         nowPlayingMoviesState:
             nowPlayingMoviesState ?? this.nowPlayingMoviesState,
         popularMoviesState: popularMoviesState ?? this.popularMoviesState,
         topRatedMoviesState: topRatedMoviesState ?? this.topRatedMoviesState,
       );
 
-  factory MovieState.initialState() => MovieState(
+  factory MovieContainerState.initialState() => MovieContainerState(
         nowPlayingMoviesState: NowPlayingMoviesEmpty(),
         popularMoviesState: PopularMoviesEmpty(),
         topRatedMoviesState: TopRatedMoviesEmpty(),
       );
+
+  @override
+  List<Object?> get props => [
+        nowPlayingMoviesState,
+        popularMoviesState,
+        topRatedMoviesState,
+      ];
 }
 
 sealed class NowPlayingMoviesState extends Equatable {

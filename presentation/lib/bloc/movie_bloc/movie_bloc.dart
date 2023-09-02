@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'movie_event.dart';
 part 'movie_state.dart';
 
-class MovieBloc extends Bloc<MovieEvent, MovieState> {
+class MovieBloc extends Bloc<MovieEvent, MovieContainerState> {
   final GetNowPlayingMovies _getNowPlayingMovies;
   final GetPopularMovies _getPopularMovies;
   final GetTopRatedMovies _getTopRatedMovies;
@@ -16,7 +16,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     this._getNowPlayingMovies,
     this._getPopularMovies,
     this._getTopRatedMovies,
-  ) : super(MovieState.initialState()) {
+  ) : super(MovieContainerState.initialState()) {
     on<FetchNowPlayingMovies>(
       (event, emit) async {
         emit(

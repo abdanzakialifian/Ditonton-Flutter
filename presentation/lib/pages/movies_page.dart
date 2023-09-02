@@ -70,7 +70,7 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _getNowPlayingMovies() {
-    return BlocBuilder<MovieBloc, MovieState>(
+    return BlocBuilder<MovieBloc, MovieContainerState>(
       builder: (_, state) {
         if (state.nowPlayingMoviesState is NowPlayingMoviesLoading) {
           return _moviesLoading();
@@ -90,7 +90,7 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _getPopularMovies() {
-    return BlocBuilder<MovieBloc, MovieState>(
+    return BlocBuilder<MovieBloc, MovieContainerState>(
       builder: (_, state) {
         if (state.popularMoviesState is PopularMoviesLoading) {
           return _moviesLoading();
@@ -110,7 +110,7 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _getTopRatedMovies() {
-    return BlocBuilder<MovieBloc, MovieState>(
+    return BlocBuilder<MovieBloc, MovieContainerState>(
       builder: (_, state) {
         if (state.topRatedMoviesState is TopRatedMoviesLoading) {
           return _moviesLoading();
