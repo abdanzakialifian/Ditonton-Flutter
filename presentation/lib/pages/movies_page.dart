@@ -80,6 +80,7 @@ class _MoviesPageState extends State<MoviesPage> {
         } else if (state.nowPlayingMoviesState is NowPlayingMoviesError) {
           final data = state.nowPlayingMoviesState as NowPlayingMoviesError;
           return Center(
+            key: const Key('error_message'),
             child: Text(data.message),
           );
         } else {
@@ -98,8 +99,9 @@ class _MoviesPageState extends State<MoviesPage> {
           final data = state.popularMoviesState as PopularMoviesData;
           return _moviesList(data.result);
         } else if (state.popularMoviesState is PopularMoviesError) {
-          final data = state.popularMoviesState as NowPlayingMoviesError;
+          final data = state.popularMoviesState as PopularMoviesError;
           return Center(
+            key: const Key('error_message'),
             child: Text(data.message),
           );
         } else {
@@ -120,6 +122,7 @@ class _MoviesPageState extends State<MoviesPage> {
         } else if (state.topRatedMoviesState is TopRatedMoviesError) {
           final data = state.topRatedMoviesState as TopRatedMoviesError;
           return Center(
+            key: const Key('error_message'),
             child: Text(data.message),
           );
         } else {
@@ -137,7 +140,7 @@ class _MoviesPageState extends State<MoviesPage> {
           title,
           style: kHeading6,
         ),
-        InkWell(
+        GestureDetector(
           onTap: onTap,
           child: const Padding(
             padding: EdgeInsets.all(8.0),
@@ -180,7 +183,7 @@ class _MoviesPageState extends State<MoviesPage> {
           return Container(
             width: 140,
             padding: const EdgeInsets.all(8),
-            child: InkWell(
+            child: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(
                   context,
