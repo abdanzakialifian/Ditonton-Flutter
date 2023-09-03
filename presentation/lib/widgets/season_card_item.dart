@@ -37,6 +37,7 @@ class SeasonCardItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         decoration: BoxDecoration(
@@ -79,10 +80,13 @@ class SeasonCardItem extends StatelessWidget {
                           fontSize: 12,
                         ),
                       ),
-                      Text(
-                        "${season?.episodeCount} Episodes",
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
+                      Expanded(
+                        child: Text(
+                          "${season?.episodeCount} Episodes",
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
