@@ -9,7 +9,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:presentation/bloc/movie_bloc/movie_bloc.dart';
 import '../../dummy_data/dummy_objects.dart';
-import '../provider/movie_notifier_test.mocks.dart';
+import 'movie_bloc_test.mocks.dart';
 
 @GenerateMocks([
   GetNowPlayingMovies,
