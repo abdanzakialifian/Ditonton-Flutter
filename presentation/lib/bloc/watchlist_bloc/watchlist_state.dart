@@ -5,7 +5,7 @@ class WatchlistContainerState extends Equatable {
   final WatchlistMessage watchlistMessage;
   final WatchlistStatus watchlistStatus;
 
-  WatchlistContainerState({
+  const WatchlistContainerState({
     required this.watchlistState,
     required this.watchlistMessage,
     required this.watchlistStatus,

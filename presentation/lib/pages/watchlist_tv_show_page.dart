@@ -77,12 +77,14 @@ class WatchlistTvShowPageState extends State<WatchlistTvShowPage>
                 "assets/data_empty_image.png",
                 height: 300,
                 width: 300,
+                key: const Key('image_empty'),
               ),
             );
           }
         } else if (state.watchlistState is WatchlistError) {
           final data = state.watchlistState as WatchlistError;
           return Center(
+            key: const Key('error_message'),
             child: Text(data.message),
           );
         } else {
@@ -91,6 +93,7 @@ class WatchlistTvShowPageState extends State<WatchlistTvShowPage>
               "assets/data_empty_image.png",
               height: 300,
               width: 300,
+              key: const Key('image_empty'),
             ),
           );
         }
