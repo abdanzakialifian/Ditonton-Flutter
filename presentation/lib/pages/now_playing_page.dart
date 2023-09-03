@@ -62,6 +62,7 @@ class NowPlayingPageState extends State<NowPlayingPage> {
           );
         } else if (state is NowPlayingError) {
           return Center(
+            key: const Key('error_message'),
             child: Text(state.message),
           );
         } else {
