@@ -1,5 +1,4 @@
 # Ditonton Flutter
-[![Codemagic build status](https://api.codemagic.io/apps/64eedee21a9bb2d4c59a836f/64eedee21a9bb2d4c59a836e/status_badge.svg)](https://codemagic.io/apps/64eedee21a9bb2d4c59a836f/64eedee21a9bb2d4c59a836e/latest_build)
 
 # CI
 <img src="https://img.shields.io/badge/codemagic-%23F45E3F.svg?&style=for-the-badge&logo=codemagic&logoColor=white" />
@@ -18,6 +17,8 @@
 
 # Platform
 <img src="https://img.shields.io/badge/android-%233DDC84.svg?&style=for-the-badge&logo=android&logoColor=black" />
+
+[![Codemagic build status](https://api.codemagic.io/apps/64eedee21a9bb2d4c59a836f/64eedee21a9bb2d4c59a836e/status_badge.svg)](https://codemagic.io/apps/64eedee21a9bb2d4c59a836f/64eedee21a9bb2d4c59a836e/latest_build)
 
 
 
