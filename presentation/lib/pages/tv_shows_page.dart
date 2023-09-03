@@ -80,6 +80,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
         } else if (state.airingTodayTvShowsState is AiringTodayTvShowsError) {
           final data = state.airingTodayTvShowsState as AiringTodayTvShowsError;
           return Center(
+            key: const Key('error_message'),
             child: Text(data.message),
           );
         } else {
@@ -100,6 +101,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
         } else if (state.popularTvShowsState is PopularTvShowsError) {
           final data = state.popularTvShowsState as PopularTvShowsError;
           return Center(
+            key: const Key('error_message'),
             child: Text(data.message),
           );
         } else {
@@ -120,6 +122,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
         } else if (state.topRatedTvShowsState is TopRatedTvShowsError) {
           final data = state.topRatedTvShowsState as TopRatedTvShowsError;
           return Center(
+            key: const Key('error_message'),
             child: Text(data.message),
           );
         } else {
@@ -137,7 +140,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
           title,
           style: kHeading6,
         ),
-        InkWell(
+        GestureDetector(
           onTap: onTap,
           child: const Padding(
             padding: EdgeInsets.all(8.0),
@@ -180,7 +183,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
           return Container(
             width: 140,
             padding: const EdgeInsets.all(8),
-            child: InkWell(
+            child: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(
                   context,
