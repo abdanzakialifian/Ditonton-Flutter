@@ -5,10 +5,6 @@ import 'package:data/models/movie_detail/movie_detail_response.dart';
 import 'package:data/models/tv_show/tv_show_response.dart';
 import 'package:data/models/tv_show_detail/tv_show_detail_response.dart';
 import 'package:data/models/watchlist_table.dart';
-import 'package:domain/entities/category.dart';
-import 'package:domain/entities/detail.dart';
-import 'package:domain/entities/genre.dart';
-import 'package:domain/entities/watchlist.dart';
 import '../json_reader.dart';
 
 const dummyApiKey = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
@@ -56,27 +52,7 @@ final dummyTvShowResponse = TvShowResponse.fromJson(
   ),
 );
 
-const testMovieDetail = Detail(
-    genres: [Genre(id: 1, name: 'Action')],
-    id: 1,
-    overview: 'overview',
-    posterPath: 'posterPath',
-    runtime: 120,
-    title: 'title',
-    voteAverage: 1,
-    voteCount: 1,
-    status: "Ended",
-    seasons: []);
-
 const dummyWatchlistTable = WatchlistTable(
-  id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-  category: "Movies or Tv Shows",
-);
-
-const dummyWatchlist = Watchlist(
   id: 1,
   title: 'title',
   posterPath: 'posterPath',
@@ -98,26 +74,6 @@ final dummyGenreResponseMap = {
 };
 
 const dummyGenreResponse = GenreResponse(id: 1, name: "Adventure");
-
-const dummyCategory = Category(
-  id: 1,
-  overview: 'overview',
-  posterPath: 'posterPath',
-  title: 'title',
-);
-
-const dummyDetail = Detail(
-  genres: [],
-  id: 1,
-  overview: 'overview',
-  posterPath: 'posterPath',
-  runtime: 0,
-  title: 'title',
-  voteCount: 0,
-  voteAverage: 0,
-  seasons: [],
-  status: '',
-);
 
 final dummyMovieResponseMap = {
   "results": [
