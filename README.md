@@ -18,7 +18,7 @@
 ## Platform
 <img src="https://img.shields.io/badge/android-%233DDC84.svg?&style=for-the-badge&logo=android&logoColor=black" />
 
-[![Codemagic build status](https://api.codemagic.io/apps/64eedee21a9bb2d4c59a836f/64eedee21a9bb2d4c59a836e/status_badge.svg)](https://codemagic.io/apps/64eedee21a9bb2d4c59a836f/64eedee21a9bb2d4c59a836e/latest_build)
+[![Codemagic build status](https://api.codemagic.io/apps/64f58d76109f5f432498d3d1/64eedee21a9bb2d4c59a836e/status_badge.svg)](https://codemagic.io/apps/64f58d76109f5f432498d3d1/64eedee21a9bb2d4c59a836e/latest_build)
 
 
 
