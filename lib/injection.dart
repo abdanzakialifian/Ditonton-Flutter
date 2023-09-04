@@ -1,7 +1,6 @@
 import 'package:data/datasources/local/db/database_helper.dart';
 import 'package:data/datasources/local/local_data_source.dart';
 import 'package:data/datasources/local/local_data_source_impl.dart';
-import 'package:data/datasources/remote/network_http_client.dart';
 import 'package:data/datasources/remote/remote_data_source.dart';
 import 'package:data/datasources/remote/remote_data_source_impl.dart';
 import 'package:data/repositories/movie_repository_impl.dart';
@@ -126,16 +125,10 @@ void init() {
   );
 
   // data sources
-  locator.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImpl(locator()));
+  locator.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImpl());
   locator.registerLazySingleton<LocalDataSource>(
       () => LocalDataSourceImpl(locator()));
 
   // helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
-
-  // external
-  locator.registerLazySingleton(() {
-    return NetworkHttpClient().httpClient();
-  });
 }

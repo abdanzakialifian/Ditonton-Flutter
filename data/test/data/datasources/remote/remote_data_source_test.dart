@@ -15,7 +15,7 @@ void main() {
 
   setUp(() {
     mockHttpClient = MockHttpClient();
-    remoteDataSourceImpl = RemoteDataSourceImpl(mockHttpClient);
+    remoteDataSourceImpl = RemoteDataSourceImpl(httpClient: mockHttpClient);
   });
 
   group('Get Now Playing Movies', () {
