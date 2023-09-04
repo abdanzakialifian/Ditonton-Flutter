@@ -41,9 +41,14 @@ dependencies:
   http: ^1.1.0
   dartz: ^0.10.0-nullsafety.2
   flutter_bloc: ^8.1.3
+  sqflite_common_ffi: ^2.3.0+2
+  dartz_test: ^0.1.1
 
 dev_dependencies:
   bloc_test: ^9.1.4
+  mocktail: ^1.0.0
+  mockito: ^5.4.2
+  build_runner: ^2.4.6
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
